@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VehicleExport.App.Models.Data.Exports;
 
 namespace VehicleExport.App.Models.Data.Destinations
@@ -47,11 +44,37 @@ namespace VehicleExport.App.Models.Data.Destinations
         public string FtpPassword { get; set; }
 
         [MaxLength(50)]
-        public string FtpRemoteDir { get; set; }
+        public string? FtpRemoteDir { get; set; }
 
+        [Required]
+        public short ProtocolTypeId { get; set; }
 
+        [MaxLength(250)]
+        public string SSHKeyFilePath { get; set; }
 
+        [Required]
+        public short OutputFormatTypeId { get; set; }
 
+        public bool UseQuotedFields { get; set; }
+
+        public bool IncludeHeaders { get; set; }
+
+        [MaxLength(50)]
+        [Required]
+        public string OutputFileName { get; set; }
+
+        public bool ZipOutputFile { get; set; }
+
+        public bool OneFilePerDealer { get; set; }
+
+        public bool SendPhotosInZip { get; set; }
+
+        [Required]
+        public DateTime dtmCreated { get; set; }
+
+        public DateTime dtmLastChanged { get; set; }
+
+        // External References
         public List<Export> Exports { get; set; }
     }
 }

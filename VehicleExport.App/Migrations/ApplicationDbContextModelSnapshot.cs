@@ -154,28 +154,28 @@ namespace VehicleExport.App.Migrations
                         new
                         {
                             Id = new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"),
-                            ConcurrencyStamp = "8fc29173-60d5-47e8-b385-5787ed828c23",
+                            ConcurrencyStamp = "0287a87d-98fd-42bb-a510-e7aca341c7fc",
                             Name = "SuperAdmin",
                             NormalizedName = "SuperAdmin"
                         },
                         new
                         {
                             Id = new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"),
-                            ConcurrencyStamp = "156d40fd-95c1-4e4c-9c0e-e207e3c6a6fb",
+                            ConcurrencyStamp = "c53deee8-5151-48bf-b3b2-fe70021929c7",
                             Name = "ProjectManager",
                             NormalizedName = "ProjectManager"
                         },
                         new
                         {
                             Id = new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"),
-                            ConcurrencyStamp = "6820b806-f9cf-4773-ba89-260d8b88c24f",
+                            ConcurrencyStamp = "992a5780-eb79-42a4-bea5-a97af97d3c63",
                             Name = "ProjectViewer",
                             NormalizedName = "ProjectViewer"
                         },
                         new
                         {
                             Id = new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"),
-                            ConcurrencyStamp = "59a41259-af4e-467b-9031-62076c326d95",
+                            ConcurrencyStamp = "72059007-1523-46bd-b213-1aa9bbb16b02",
                             Name = "ContentManager",
                             NormalizedName = "ContentManager"
                         });
@@ -259,7 +259,7 @@ namespace VehicleExport.App.Migrations
                         {
                             Id = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "02f01ff0-0864-455d-9965-fc976f1d5ec7",
+                            ConcurrencyStamp = "d589058b-60d5-4106-92e1-9d2c83ea8e48",
                             Email = "admin@test.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -267,7 +267,7 @@ namespace VehicleExport.App.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TEST.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJuxBuIYGck7obz16r21XoUULaVPjQ9CzCQqszFkoIGVgCXp2BkxyGSSAayWD3WDtQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECPnMeexAvtZiNv2hEIKcPQAB2+KuwaCpJH087X+aqn+qNpHkjE8r/r3vjzpLTb+WA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -301,25 +301,25 @@ namespace VehicleExport.App.Migrations
                         {
                             UserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             RoleId = new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"),
-                            Id = new Guid("a58fba01-5af7-4955-9c4b-48b31c728d0b")
+                            Id = new Guid("7bc1e190-f48f-4f48-9c23-185e07bb8278")
                         },
                         new
                         {
                             UserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             RoleId = new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"),
-                            Id = new Guid("b5a1b0b6-c3e3-415c-82e0-6aeae117a4c1")
+                            Id = new Guid("2d2873cc-d878-4db7-bf50-1a8cbc03193f")
                         },
                         new
                         {
                             UserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             RoleId = new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"),
-                            Id = new Guid("5c7c94d6-c895-40f3-9bf8-f11019f33c25")
+                            Id = new Guid("da3aeb68-135a-4731-a266-029148b3a924")
                         },
                         new
                         {
                             UserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             RoleId = new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"),
-                            Id = new Guid("ac6c0cfe-5d57-4860-b27a-09485b5aa41e")
+                            Id = new Guid("7be1fed4-e037-4311-9b7a-afb084e5d252")
                         });
                 });
 
@@ -412,7 +412,7 @@ namespace VehicleExport.App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cfe1f7d4-369a-40cc-861e-899be751efc1"),
+                            Id = new Guid("0edf937c-3776-4baa-b7f5-454bd9748626"),
                             AllowedTokens = "[{\"Token\":\"passwordResetUrl\",\"Description\":\"The URL for the user to reset their password\"}]",
                             Description = "The text that appears in a password reset message",
                             IsPage = false,
@@ -422,7 +422,7 @@ namespace VehicleExport.App.Migrations
                         },
                         new
                         {
-                            Id = new Guid("33a97843-3023-4d79-99bf-0ddead3c43d5"),
+                            Id = new Guid("c6cb678e-30a2-485a-ba92-328510a81a49"),
                             Description = "The text that appears on the About page",
                             IsPage = true,
                             Slug = "about",
@@ -431,7 +431,7 @@ namespace VehicleExport.App.Migrations
                         },
                         new
                         {
-                            Id = new Guid("16a9cd41-ccf9-4915-b233-6b870e5008a2"),
+                            Id = new Guid("44f6eceb-aa86-4a80-9723-76af72d317cd"),
                             Description = "",
                             IsPage = true,
                             Slug = "placeholder",
@@ -440,7 +440,7 @@ namespace VehicleExport.App.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b3fd96cd-aa12-4f15-9df1-6418fa608e15"),
+                            Id = new Guid("21a4c444-5ae8-4232-94e0-850d235a1edb"),
                             Description = "Content that appears on the Home/Dashboard page",
                             IsPage = false,
                             Slug = "dashboard",
@@ -449,7 +449,7 @@ namespace VehicleExport.App.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5d480ee9-f8e4-4ef1-b70c-3e53bec40200"),
+                            Id = new Guid("c42f2879-1d39-42ca-a057-8f0ed2144d49"),
                             Description = "The help page that appears in the top nav",
                             IsPage = true,
                             Slug = "help",
@@ -458,135 +458,42 @@ namespace VehicleExport.App.Migrations
                         });
                 });
 
-            modelBuilder.Entity("VehicleExport.App.Models.Data.Dealers.Dealer", b =>
+            modelBuilder.Entity("VehicleExport.App.Models.Data.DatabaseFields.DatabaseField", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("DatabaseFieldId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<string>("AddressLineOne")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AddressLineTwo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DatabaseFieldId"), 1L, 1);
 
                     b.Property<byte[]>("ConcurrencyTimestamp")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<string>("DealerId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DescriptionNotes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Inactive")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("Mileage")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("FieldLabel")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("PeriodEnd")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("PeriodEnd");
+                    b.Property<string>("Notes")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
-                    b.Property<DateTime>("PeriodStart")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("PeriodStart");
-
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("SqlText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("dtmCreated")
+                        .HasColumnType("datetime2");
 
-                    b.Property<Guid>("PrimaryProjectManagerApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasKey("DatabaseFieldId");
 
-                    b.Property<Guid?>("PrimaryProjectManagerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SalesRepApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("SalesRepId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id");
-
-                    b.HasIndex("PrimaryProjectManagerId");
-
-                    b.HasIndex("SalesRepId");
-
-                    b.ToTable("Dealers", (string)null);
-
-                    b.ToTable(tb => tb.IsTemporal(ttb =>
-                        {
-                            ttb
-                                .HasPeriodStart("PeriodStart")
-                                .HasColumnName("PeriodStart");
-                            ttb
-                                .HasPeriodEnd("PeriodEnd")
-                                .HasColumnName("PeriodEnd");
-                        }
-                    ));
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("330763c3-43de-432d-b61d-526c1a0c9542"),
-                            AddressLineOne = "1600 Amphitheatre Pkwy",
-                            City = "Mountain View",
-                            DescriptionNotes = "This Dealer is google",
-                            Inactive = false,
-                            Mileage = 0m,
-                            Name = "Alphabet Inc.",
-                            PhoneNumber = "650-253-0000",
-                            PostalCode = "94043",
-                            PrimaryProjectManagerApplicationUserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
-                            SalesRepApplicationUserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
-                            State = "CA"
-                        },
-                        new
-                        {
-                            Id = new Guid("fa408c98-b0e7-4044-9be8-e06d4d0c06ad"),
-                            AddressLineOne = "1552 E Capitol Dr",
-                            City = "Shorewood",
-                            DescriptionNotes = "This Dealer is us",
-                            Inactive = false,
-                            Mileage = 0m,
-                            Name = "Northwoods",
-                            PhoneNumber = "650-253-0000",
-                            PostalCode = "53211",
-                            PrimaryProjectManagerApplicationUserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
-                            SalesRepApplicationUserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
-                            State = "WI"
-                        });
-                });
-
-            modelBuilder.Entity("VehicleExport.App.Models.Data.Dealers.DealerStats", b =>
-                {
-                    b.Property<Guid>("DealerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("DealerId");
-
-                    b.ToView("DealerStats");
+                    b.ToTable("DatabaseFields", (string)null);
                 });
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.Destinations.Destination", b =>
@@ -621,16 +528,111 @@ namespace VehicleExport.App.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<bool>("IncludeHeaders")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("OneFilePerDealer")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("OutputFileName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<short>("OutputFormatTypeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("ProtocolTypeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("SSHKeyFilePath")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("SendPhotosInZip")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("UseQuotedFields")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ZipOutputFile")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("dtmCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("dtmLastChanged")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("DestinationId");
 
                     b.HasIndex("DestinationId");
 
                     b.ToTable("Destinations", (string)null);
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.ExportDealerParameters.ExportDealerParameter", b =>
+                {
+                    b.Property<int>("ExportId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DealerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LayoutFieldId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("ConcurrencyTimestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<int?>("ExportDealerDealerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ExportDealerExportId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ParameterValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("dtmCreated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ExportId", "DealerId", "LayoutFieldId");
+
+                    b.HasIndex("LayoutFieldId");
+
+                    b.HasIndex("ExportDealerDealerId", "ExportDealerExportId");
+
+                    b.ToTable("ExportDealerParameters", (string)null);
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.ExportDealers.ExportDealer", b =>
+                {
+                    b.Property<int>("DealerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExportId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("ConcurrencyTimestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<DateTime>("dtmCreated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("DealerId", "ExportId");
+
+                    b.ToTable("ExportDealers", (string)null);
                 });
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.Exports.Export", b =>
@@ -649,16 +651,40 @@ namespace VehicleExport.App.Migrations
                     b.Property<int>("DestinationId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ExportName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("ExportDealerDealerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ExportDealerExportId")
+                        .HasColumnType("int");
 
                     b.Property<int>("LayoutId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("RunTimeOne")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("PeriodEnd")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("PeriodEnd");
+
+                    b.Property<DateTime>("PeriodStart")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("PeriodStart");
+
+                    b.Property<TimeSpan?>("RunTimeOne")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan?>("RunTimeTwo")
+                        .HasColumnType("time");
+
+                    b.Property<DateTime>("dtmCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("RunTimeTwo")
+                    b.Property<DateTime>("dtmLastChanged")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ExportId");
@@ -669,7 +695,73 @@ namespace VehicleExport.App.Migrations
 
                     b.HasIndex("LayoutId");
 
+                    b.HasIndex("ExportDealerDealerId", "ExportDealerExportId");
+
                     b.ToTable("Exports", (string)null);
+
+                    b.ToTable(tb => tb.IsTemporal(ttb =>
+                        {
+                            ttb
+                                .HasPeriodStart("PeriodStart")
+                                .HasColumnName("PeriodStart");
+                            ttb
+                                .HasPeriodEnd("PeriodEnd")
+                                .HasColumnName("PeriodEnd");
+                        }
+                    ));
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.Exports.ExportTracking", b =>
+                {
+                    b.Property<int>("ExportTrackingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExportTrackingId"), 1L, 1);
+
+                    b.Property<byte[]>("ConcurrencyTimestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<DateTime>("ExportDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ExportId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VehicleCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExportTrackingId");
+
+                    b.HasIndex("ExportId");
+
+                    b.ToTable("ExportTracking", (string)null);
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.Exports.ExportTrackingDealer", b =>
+                {
+                    b.Property<int>("ExportTrackingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DealerId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("ConcurrencyTimestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<short>("PhotoCount")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("VehicleCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExportTrackingId", "DealerId");
+
+                    b.ToTable("ExportTrackingDealer", (string)null);
                 });
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.Jobs.Job", b =>
@@ -785,6 +877,118 @@ namespace VehicleExport.App.Migrations
                     ));
                 });
 
+            modelBuilder.Entity("VehicleExport.App.Models.Data.LayoutFields.LayoutField", b =>
+                {
+                    b.Property<int>("LayoutFieldId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LayoutFieldId"), 1L, 1);
+
+                    b.Property<byte[]>("ConcurrencyTimestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<int?>("DatabaseFieldId")
+                        .HasColumnType("int");
+
+                    b.Property<short>("LayoutFieldTypeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("LayoutId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Parameter")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("dtmCreated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("LayoutFieldId");
+
+                    b.HasIndex("DatabaseFieldId");
+
+                    b.ToTable("LayoutFields", (string)null);
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.LayoutFieldsMap.LayoutFieldMap", b =>
+                {
+                    b.Property<int>("LayoutFieldsMapId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LayoutFieldsMapId"), 1L, 1);
+
+                    b.Property<byte[]>("ConcurrencyTimestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<short>("FieldOrder")
+                        .HasColumnType("smallint");
+
+                    b.Property<int?>("LayoutFieldId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LayoutId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PlaceholderLabel")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.HasKey("LayoutFieldsMapId");
+
+                    b.HasIndex("LayoutFieldId");
+
+                    b.HasIndex("LayoutId");
+
+                    b.ToTable("LayoutFieldsMap", (string)null);
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.LayoutFilters.LayoutFilter", b =>
+                {
+                    b.Property<int>("LayoutId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("CertifiedOnly")
+                        .HasColumnType("bit");
+
+                    b.Property<byte[]>("ConcurrencyTimestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<string>("MakesList")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("NewVehicles")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProductsList")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("UsedVehicles")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("WarrantiesList")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("dtmCreated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("LayoutId");
+
+                    b.ToTable("LayoutFilters", (string)null);
+                });
+
             modelBuilder.Entity("VehicleExport.App.Models.Data.Layouts.Layout", b =>
                 {
                     b.Property<int>("LayoutId")
@@ -798,11 +1002,117 @@ namespace VehicleExport.App.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("StoredProcedureName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("dtmCreated")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("LayoutId");
 
-                    b.HasIndex("LayoutId");
-
                     b.ToTable("Layouts", (string)null);
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.LayoutFieldType", b =>
+                {
+                    b.Property<short>("LayoutFieldTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("LayoutFieldTypeId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LayoutFieldTypeId");
+
+                    b.ToTable("LayoutFieldType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            LayoutFieldTypeId = (short)1,
+                            Description = "SQL"
+                        },
+                        new
+                        {
+                            LayoutFieldTypeId = (short)2,
+                            Description = "Parameter"
+                        });
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.OutputFormatType", b =>
+                {
+                    b.Property<short>("OutputFormatTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("OutputFormatTypeId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OutputFormatTypeId");
+
+                    b.ToTable("OutputFormatType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            OutputFormatTypeId = (short)1,
+                            Description = "Comma-Separated (CSV)"
+                        },
+                        new
+                        {
+                            OutputFormatTypeId = (short)2,
+                            Description = "Tab-Delimited (TAB)"
+                        },
+                        new
+                        {
+                            OutputFormatTypeId = (short)3,
+                            Description = "Pipe-Delimited"
+                        });
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.ProtocolType", b =>
+                {
+                    b.Property<short>("ProtocolTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("ProtocolTypeId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProtocolTypeId");
+
+                    b.ToTable("ProtocolType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            ProtocolTypeId = (short)1,
+                            Description = "Plain FTP"
+                        },
+                        new
+                        {
+                            ProtocolTypeId = (short)2,
+                            Description = "FTP+SSH"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -871,30 +1181,21 @@ namespace VehicleExport.App.Migrations
                     b.Navigation("ApplicationUser");
                 });
 
-            modelBuilder.Entity("VehicleExport.App.Models.Data.Dealers.Dealer", b =>
+            modelBuilder.Entity("VehicleExport.App.Models.Data.ExportDealerParameters.ExportDealerParameter", b =>
                 {
-                    b.HasOne("VehicleExport.App.Models.Data.Accounts.ApplicationUser", "PrimaryProjectManager")
+                    b.HasOne("VehicleExport.App.Models.Data.LayoutFields.LayoutField", "LayoutField")
                         .WithMany()
-                        .HasForeignKey("PrimaryProjectManagerId");
-
-                    b.HasOne("VehicleExport.App.Models.Data.Accounts.ApplicationUser", "SalesRep")
-                        .WithMany()
-                        .HasForeignKey("SalesRepId");
-
-                    b.Navigation("PrimaryProjectManager");
-
-                    b.Navigation("SalesRep");
-                });
-
-            modelBuilder.Entity("VehicleExport.App.Models.Data.Dealers.DealerStats", b =>
-                {
-                    b.HasOne("VehicleExport.App.Models.Data.Dealers.Dealer", "Dealer")
-                        .WithOne("DealerStats")
-                        .HasForeignKey("VehicleExport.App.Models.Data.Dealers.DealerStats", "DealerId")
+                        .HasForeignKey("LayoutFieldId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Dealer");
+                    b.HasOne("VehicleExport.App.Models.Data.ExportDealers.ExportDealer", "ExportDealer")
+                        .WithMany()
+                        .HasForeignKey("ExportDealerDealerId", "ExportDealerExportId");
+
+                    b.Navigation("ExportDealer");
+
+                    b.Navigation("LayoutField");
                 });
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.Exports.Export", b =>
@@ -911,9 +1212,31 @@ namespace VehicleExport.App.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("VehicleExport.App.Models.Data.ExportDealers.ExportDealer", null)
+                        .WithMany("Exports")
+                        .HasForeignKey("ExportDealerDealerId", "ExportDealerExportId");
+
                     b.Navigation("Destination");
 
                     b.Navigation("Layout");
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.Exports.ExportTracking", b =>
+                {
+                    b.HasOne("VehicleExport.App.Models.Data.Exports.Export", null)
+                        .WithMany("ExportTracking")
+                        .HasForeignKey("ExportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.Exports.ExportTrackingDealer", b =>
+                {
+                    b.HasOne("VehicleExport.App.Models.Data.Exports.ExportTracking", null)
+                        .WithMany("ExportTrackingDealer")
+                        .HasForeignKey("ExportTrackingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.Jobs.JobItem", b =>
@@ -925,6 +1248,43 @@ namespace VehicleExport.App.Migrations
                         .IsRequired();
 
                     b.Navigation("Job");
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.LayoutFields.LayoutField", b =>
+                {
+                    b.HasOne("VehicleExport.App.Models.Data.DatabaseFields.DatabaseField", "DatabaseField")
+                        .WithMany()
+                        .HasForeignKey("DatabaseFieldId");
+
+                    b.Navigation("DatabaseField");
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.LayoutFieldsMap.LayoutFieldMap", b =>
+                {
+                    b.HasOne("VehicleExport.App.Models.Data.LayoutFields.LayoutField", "LayoutField")
+                        .WithMany()
+                        .HasForeignKey("LayoutFieldId");
+
+                    b.HasOne("VehicleExport.App.Models.Data.Layouts.Layout", "Layout")
+                        .WithMany()
+                        .HasForeignKey("LayoutId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Layout");
+
+                    b.Navigation("LayoutField");
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.LayoutFilters.LayoutFilter", b =>
+                {
+                    b.HasOne("VehicleExport.App.Models.Data.Layouts.Layout", "Layout")
+                        .WithOne("LayoutFilter")
+                        .HasForeignKey("VehicleExport.App.Models.Data.LayoutFilters.LayoutFilter", "LayoutId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Layout");
                 });
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.Accounts.ApplicationRole", b =>
@@ -939,14 +1299,24 @@ namespace VehicleExport.App.Migrations
                     b.Navigation("Roles");
                 });
 
-            modelBuilder.Entity("VehicleExport.App.Models.Data.Dealers.Dealer", b =>
-                {
-                    b.Navigation("DealerStats");
-                });
-
             modelBuilder.Entity("VehicleExport.App.Models.Data.Destinations.Destination", b =>
                 {
                     b.Navigation("Exports");
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.ExportDealers.ExportDealer", b =>
+                {
+                    b.Navigation("Exports");
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.Exports.Export", b =>
+                {
+                    b.Navigation("ExportTracking");
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.Exports.ExportTracking", b =>
+                {
+                    b.Navigation("ExportTrackingDealer");
                 });
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.Jobs.Job", b =>
@@ -957,6 +1327,8 @@ namespace VehicleExport.App.Migrations
             modelBuilder.Entity("VehicleExport.App.Models.Data.Layouts.Layout", b =>
                 {
                     b.Navigation("Exports");
+
+                    b.Navigation("LayoutFilter");
                 });
 #pragma warning restore 612, 618
         }

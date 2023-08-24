@@ -6,8 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using VehicleExport.App.DAL;
 using VehicleExport.App.Models.Data;
 using VehicleExport.App.Models.Data.Accounts;
-using VehicleExport.App.Models.Data.Dealers;
-using VehicleExport.App.Models.Data.Dealers.Validators;
 using VehicleExport.App.Models.Data.Content;
 using VehicleExport.App.Models.Data.Content.Validators;
 using VehicleExport.App.Models.Data.Donors.Validators;
@@ -16,7 +14,6 @@ using VehicleExport.App.Models.Data.Jobs.Validators;
 using VehicleExport.App.Models.Service.WorkItems.Echo;
 using VehicleExport.App.Services.Data;
 using VehicleExport.App.Services.Data.Accounts;
-using VehicleExport.App.Services.Data.Dealers;
 using VehicleExport.App.Services.Data.Content;
 using VehicleExport.App.Services.Data.Jobs;
 using VehicleExport.App.Services.WorkItems;
@@ -110,9 +107,6 @@ namespace VehicleExport.App
             services.AddTransientListReadWriteService<ContentBlock, Guid, ContentBlockService>();
             services.AddTransient<ContentBlockService, ContentBlockService>();
 
-            services.AddTransientListReadWriteService<Dealer, Guid, DealerService>();
-            services.AddTransientListReadService<DealerStats, Guid, DealerStatsService>();
-
             services.AddTransientListReadWriteService<Job, Guid, JobService>();
             services.AddTransientListReadWriteService<JobItem, Guid, JobItemService>();
 
@@ -127,7 +121,6 @@ namespace VehicleExport.App
             services.AddSingleton<IValidator<ApplicationRole>, ApplicationRoleValidator>();
             services.AddSingleton<IValidator<ContentBlock>, ContentBlockValidator>();
 
-            services.AddSingleton<IValidator<Dealer>, DealerValidator>();
             services.AddSingleton<IValidator<Job>, JobValidator>();
             services.AddSingleton<IValidator<JobItem>, JobItemValidator>();
 

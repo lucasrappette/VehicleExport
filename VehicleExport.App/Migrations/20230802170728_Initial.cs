@@ -82,6 +82,24 @@ namespace VehicleExport.App.Migrations
                 .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
 
             migrationBuilder.CreateTable(
+                name: "DatabaseFields",
+                columns: table => new
+                {
+                    DatabaseFieldId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FieldLabel = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
+                    SqlText = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    dtmCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DatabaseFields", x => x.DatabaseFieldId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Destinations",
                 columns: table => new
                 {
@@ -92,11 +110,36 @@ namespace VehicleExport.App.Migrations
                     FtpHost = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FtpUsername = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     FtpPassword = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    FtpRemoteDir = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    FtpRemoteDir = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ProtocolTypeId = table.Column<short>(type: "smallint", nullable: false),
+                    SSHKeyFilePath = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    OutputFormatTypeId = table.Column<short>(type: "smallint", nullable: false),
+                    UseQuotedFields = table.Column<bool>(type: "bit", nullable: false),
+                    IncludeHeaders = table.Column<bool>(type: "bit", nullable: false),
+                    OutputFileName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ZipOutputFile = table.Column<bool>(type: "bit", nullable: false),
+                    OneFilePerDealer = table.Column<bool>(type: "bit", nullable: false),
+                    SendPhotosInZip = table.Column<bool>(type: "bit", nullable: false),
+                    dtmCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    dtmLastChanged = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Destinations", x => x.DestinationId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExportDealers",
+                columns: table => new
+                {
+                    ExportId = table.Column<int>(type: "int", nullable: false),
+                    DealerId = table.Column<int>(type: "int", nullable: false),
+                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
+                    dtmCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExportDealers", x => new { x.DealerId, x.ExportId });
                 });
 
             migrationBuilder.CreateTable(
@@ -146,16 +189,59 @@ namespace VehicleExport.App.Migrations
                 .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
 
             migrationBuilder.CreateTable(
+                name: "LayoutFieldType",
+                columns: table => new
+                {
+                    LayoutFieldTypeId = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LayoutFieldType", x => x.LayoutFieldTypeId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Layouts",
                 columns: table => new
                 {
                     LayoutId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
+                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    StoredProcedureName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    dtmCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Layouts", x => x.LayoutId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OutputFormatType",
+                columns: table => new
+                {
+                    OutputFormatTypeId = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OutputFormatType", x => x.OutputFormatTypeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProtocolType",
+                columns: table => new
+                {
+                    ProtocolTypeId = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProtocolType", x => x.ProtocolTypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -266,56 +352,6 @@ namespace VehicleExport.App.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Dealers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    DescriptionNotes = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AddressLineOne = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AddressLineTwo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Mileage = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DealerId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Inactive = table.Column<bool>(type: "bit", nullable: false),
-                    SalesRepApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SalesRepId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    PrimaryProjectManagerApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PrimaryProjectManagerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    PeriodEnd = table.Column<DateTime>(type: "datetime2", nullable: false)
-                        .Annotation("SqlServer:IsTemporal", true)
-                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
-                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart"),
-                    PeriodStart = table.Column<DateTime>(type: "datetime2", nullable: false)
-                        .Annotation("SqlServer:IsTemporal", true)
-                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
-                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Dealers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Dealers_AspNetUsers_PrimaryProjectManagerId",
-                        column: x => x.PrimaryProjectManagerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Dealers_AspNetUsers_SalesRepId",
-                        column: x => x.SalesRepId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                })
-                .Annotation("SqlServer:IsTemporal", true)
-                .Annotation("SqlServer:TemporalHistoryTableName", "DealersHistory")
-                .Annotation("SqlServer:TemporalHistoryTableSchema", null)
-                .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
-                .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
-
-            migrationBuilder.CreateTable(
                 name: "ExternalCredentials",
                 columns: table => new
                 {
@@ -334,6 +370,30 @@ namespace VehicleExport.App.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LayoutFields",
+                columns: table => new
+                {
+                    LayoutFieldId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LayoutId = table.Column<int>(type: "int", nullable: false),
+                    LayoutFieldTypeId = table.Column<short>(type: "smallint", nullable: false),
+                    DatabaseFieldId = table.Column<int>(type: "int", nullable: true),
+                    Parameter = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    dtmCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LayoutFields", x => x.LayoutFieldId);
+                    table.ForeignKey(
+                        name: "FK_LayoutFields_DatabaseFields_DatabaseFieldId",
+                        column: x => x.DatabaseFieldId,
+                        principalTable: "DatabaseFields",
+                        principalColumn: "DatabaseFieldId");
                 });
 
             migrationBuilder.CreateTable(
@@ -377,11 +437,23 @@ namespace VehicleExport.App.Migrations
                     ExportId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
-                    ExportName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RunTimeOne = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RunTimeTwo = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LayoutId = table.Column<int>(type: "int", nullable: false),
-                    DestinationId = table.Column<int>(type: "int", nullable: false)
+                    DestinationId = table.Column<int>(type: "int", nullable: false),
+                    RunTimeOne = table.Column<TimeSpan>(type: "time", nullable: true),
+                    RunTimeTwo = table.Column<TimeSpan>(type: "time", nullable: true),
+                    dtmCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    dtmLastChanged = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExportDealerDealerId = table.Column<int>(type: "int", nullable: true),
+                    ExportDealerExportId = table.Column<int>(type: "int", nullable: true),
+                    PeriodEnd = table.Column<DateTime>(type: "datetime2", nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart"),
+                    PeriodStart = table.Column<DateTime>(type: "datetime2", nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart")
                 },
                 constraints: table =>
                 {
@@ -393,10 +465,145 @@ namespace VehicleExport.App.Migrations
                         principalColumn: "DestinationId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Exports_ExportDealers_ExportDealerDealerId_ExportDealerExportId",
+                        columns: x => new { x.ExportDealerDealerId, x.ExportDealerExportId },
+                        principalTable: "ExportDealers",
+                        principalColumns: new[] { "DealerId", "ExportId" });
+                    table.ForeignKey(
                         name: "FK_Exports_Layouts_LayoutId",
                         column: x => x.LayoutId,
                         principalTable: "Layouts",
                         principalColumn: "LayoutId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("SqlServer:IsTemporal", true)
+                .Annotation("SqlServer:TemporalHistoryTableName", "ExportsHistory")
+                .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
+                .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
+
+            migrationBuilder.CreateTable(
+                name: "LayoutFilters",
+                columns: table => new
+                {
+                    LayoutId = table.Column<int>(type: "int", nullable: false),
+                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
+                    MakesList = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CertifiedOnly = table.Column<bool>(type: "bit", nullable: false),
+                    NewVehicles = table.Column<bool>(type: "bit", nullable: false),
+                    UsedVehicles = table.Column<bool>(type: "bit", nullable: false),
+                    WarrantiesList = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductsList = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    dtmCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LayoutFilters", x => x.LayoutId);
+                    table.ForeignKey(
+                        name: "FK_LayoutFilters_Layouts_LayoutId",
+                        column: x => x.LayoutId,
+                        principalTable: "Layouts",
+                        principalColumn: "LayoutId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExportDealerParameters",
+                columns: table => new
+                {
+                    ExportId = table.Column<int>(type: "int", nullable: false),
+                    DealerId = table.Column<int>(type: "int", nullable: false),
+                    LayoutFieldId = table.Column<int>(type: "int", nullable: false),
+                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
+                    ParameterValue = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    dtmCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExportDealerDealerId = table.Column<int>(type: "int", nullable: true),
+                    ExportDealerExportId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExportDealerParameters", x => new { x.ExportId, x.DealerId, x.LayoutFieldId });
+                    table.ForeignKey(
+                        name: "FK_ExportDealerParameters_ExportDealers_ExportDealerDealerId_ExportDealerExportId",
+                        columns: x => new { x.ExportDealerDealerId, x.ExportDealerExportId },
+                        principalTable: "ExportDealers",
+                        principalColumns: new[] { "DealerId", "ExportId" });
+                    table.ForeignKey(
+                        name: "FK_ExportDealerParameters_LayoutFields_LayoutFieldId",
+                        column: x => x.LayoutFieldId,
+                        principalTable: "LayoutFields",
+                        principalColumn: "LayoutFieldId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LayoutFieldsMap",
+                columns: table => new
+                {
+                    LayoutFieldsMapId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
+                    LayoutId = table.Column<int>(type: "int", nullable: false),
+                    LayoutFieldId = table.Column<int>(type: "int", nullable: true),
+                    PlaceholderLabel = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
+                    FieldOrder = table.Column<short>(type: "smallint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LayoutFieldsMap", x => x.LayoutFieldsMapId);
+                    table.ForeignKey(
+                        name: "FK_LayoutFieldsMap_LayoutFields_LayoutFieldId",
+                        column: x => x.LayoutFieldId,
+                        principalTable: "LayoutFields",
+                        principalColumn: "LayoutFieldId");
+                    table.ForeignKey(
+                        name: "FK_LayoutFieldsMap_Layouts_LayoutId",
+                        column: x => x.LayoutId,
+                        principalTable: "Layouts",
+                        principalColumn: "LayoutId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExportTracking",
+                columns: table => new
+                {
+                    ExportTrackingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
+                    ExportId = table.Column<int>(type: "int", nullable: false),
+                    ExportDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    VehicleCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExportTracking", x => x.ExportTrackingId);
+                    table.ForeignKey(
+                        name: "FK_ExportTracking_Exports_ExportId",
+                        column: x => x.ExportId,
+                        principalTable: "Exports",
+                        principalColumn: "ExportId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExportTrackingDealer",
+                columns: table => new
+                {
+                    ExportTrackingId = table.Column<int>(type: "int", nullable: false),
+                    DealerId = table.Column<int>(type: "int", nullable: false),
+                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
+                    VehicleCount = table.Column<int>(type: "int", nullable: false),
+                    PhotoCount = table.Column<short>(type: "smallint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExportTrackingDealer", x => new { x.ExportTrackingId, x.DealerId });
+                    table.ForeignKey(
+                        name: "FK_ExportTrackingDealer_ExportTracking_ExportTrackingId",
+                        column: x => x.ExportTrackingId,
+                        principalTable: "ExportTracking",
+                        principalColumn: "ExportTrackingId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -405,36 +612,55 @@ namespace VehicleExport.App.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"), "59a41259-af4e-467b-9031-62076c326d95", "ContentManager", "ContentManager" },
-                    { new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"), "156d40fd-95c1-4e4c-9c0e-e207e3c6a6fb", "ProjectManager", "ProjectManager" },
-                    { new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"), "8fc29173-60d5-47e8-b385-5787ed828c23", "SuperAdmin", "SuperAdmin" },
-                    { new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"), "6820b806-f9cf-4773-ba89-260d8b88c24f", "ProjectViewer", "ProjectViewer" }
+                    { new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"), "72059007-1523-46bd-b213-1aa9bbb16b02", "ContentManager", "ContentManager" },
+                    { new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"), "c53deee8-5151-48bf-b3b2-fe70021929c7", "ProjectManager", "ProjectManager" },
+                    { new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"), "0287a87d-98fd-42bb-a510-e7aca341c7fc", "SuperAdmin", "SuperAdmin" },
+                    { new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"), "992a5780-eb79-42a4-bea5-a97af97d3c63", "ProjectViewer", "ProjectViewer" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), 0, "02f01ff0-0864-455d-9965-fc976f1d5ec7", "admin@test.com", true, "Admin", "Admin", false, null, "ADMIN@TEST.COM", "ADMIN", "AQAAAAEAACcQAAAAEJuxBuIYGck7obz16r21XoUULaVPjQ9CzCQqszFkoIGVgCXp2BkxyGSSAayWD3WDtQ==", null, false, "", false, "admin" });
+                values: new object[] { new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), 0, "d589058b-60d5-4106-92e1-9d2c83ea8e48", "admin@test.com", true, "Admin", "Admin", false, null, "ADMIN@TEST.COM", "ADMIN", "AQAAAAEAACcQAAAAECPnMeexAvtZiNv2hEIKcPQAB2+KuwaCpJH087X+aqn+qNpHkjE8r/r3vjzpLTb+WA==", null, false, "", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "ContentBlocks",
                 columns: new[] { "Id", "AllowedTokens", "Description", "IsPage", "Slug", "Title", "Value" },
                 values: new object[,]
                 {
-                    { new Guid("16a9cd41-ccf9-4915-b233-6b870e5008a2"), null, "", true, "placeholder", "Placeholder", "This is a placeholder page. The underlying functionality has not yet been implemented." },
-                    { new Guid("33a97843-3023-4d79-99bf-0ddead3c43d5"), null, "The text that appears on the About page", true, "about", "About Us", "About us..." },
-                    { new Guid("5d480ee9-f8e4-4ef1-b70c-3e53bec40200"), null, "The help page that appears in the top nav", true, "help", "Help!", "Need help? Don't we all." },
-                    { new Guid("b3fd96cd-aa12-4f15-9df1-6418fa608e15"), null, "Content that appears on the Home/Dashboard page", false, "dashboard", "Hello", "Hello, world. Or whoever else is here. This content is editable within the app." },
-                    { new Guid("cfe1f7d4-369a-40cc-861e-899be751efc1"), "[{\"Token\":\"passwordResetUrl\",\"Description\":\"The URL for the user to reset their password\"}]", "The text that appears in a password reset message", false, "password-reset-email", "Reset Your Password", "To reset your account, follow this link: %passwordResetUrl%" }
+                    { new Guid("0edf937c-3776-4baa-b7f5-454bd9748626"), "[{\"Token\":\"passwordResetUrl\",\"Description\":\"The URL for the user to reset their password\"}]", "The text that appears in a password reset message", false, "password-reset-email", "Reset Your Password", "To reset your account, follow this link: %passwordResetUrl%" },
+                    { new Guid("21a4c444-5ae8-4232-94e0-850d235a1edb"), null, "Content that appears on the Home/Dashboard page", false, "dashboard", "Hello", "Hello, world. Or whoever else is here. This content is editable within the app." },
+                    { new Guid("44f6eceb-aa86-4a80-9723-76af72d317cd"), null, "", true, "placeholder", "Placeholder", "This is a placeholder page. The underlying functionality has not yet been implemented." },
+                    { new Guid("c42f2879-1d39-42ca-a057-8f0ed2144d49"), null, "The help page that appears in the top nav", true, "help", "Help!", "Need help? Don't we all." },
+                    { new Guid("c6cb678e-30a2-485a-ba92-328510a81a49"), null, "The text that appears on the About page", true, "about", "About Us", "About us..." }
                 });
 
             migrationBuilder.InsertData(
-                table: "Dealers",
-                columns: new[] { "Id", "AddressLineOne", "AddressLineTwo", "City", "DealerId", "DescriptionNotes", "Inactive", "Mileage", "Name", "PhoneNumber", "PostalCode", "PrimaryProjectManagerApplicationUserId", "PrimaryProjectManagerId", "SalesRepApplicationUserId", "SalesRepId", "State" },
+                table: "LayoutFieldType",
+                columns: new[] { "LayoutFieldTypeId", "Description" },
                 values: new object[,]
                 {
-                    { new Guid("330763c3-43de-432d-b61d-526c1a0c9542"), "1600 Amphitheatre Pkwy", null, "Mountain View", null, "This Dealer is google", false, 0m, "Alphabet Inc.", "650-253-0000", "94043", new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), null, new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), null, "CA" },
-                    { new Guid("fa408c98-b0e7-4044-9be8-e06d4d0c06ad"), "1552 E Capitol Dr", null, "Shorewood", null, "This Dealer is us", false, 0m, "Northwoods", "650-253-0000", "53211", new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), null, new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), null, "WI" }
+                    { (short)1, "SQL" },
+                    { (short)2, "Parameter" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "OutputFormatType",
+                columns: new[] { "OutputFormatTypeId", "Description" },
+                values: new object[,]
+                {
+                    { (short)1, "Comma-Separated (CSV)" },
+                    { (short)2, "Tab-Delimited (TAB)" },
+                    { (short)3, "Pipe-Delimited" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProtocolType",
+                columns: new[] { "ProtocolTypeId", "Description" },
+                values: new object[,]
+                {
+                    { (short)1, "Plain FTP" },
+                    { (short)2, "FTP+SSH" }
                 });
 
             migrationBuilder.InsertData(
@@ -442,10 +668,10 @@ namespace VehicleExport.App.Migrations
                 columns: new[] { "RoleId", "UserId", "Id" },
                 values: new object[,]
                 {
-                    { new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("ac6c0cfe-5d57-4860-b27a-09485b5aa41e") },
-                    { new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("b5a1b0b6-c3e3-415c-82e0-6aeae117a4c1") },
-                    { new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("a58fba01-5af7-4955-9c4b-48b31c728d0b") },
-                    { new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("5c7c94d6-c895-40f3-9bf8-f11019f33c25") }
+                    { new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("7be1fed4-e037-4311-9b7a-afb084e5d252") },
+                    { new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("2d2873cc-d878-4db7-bf50-1a8cbc03193f") },
+                    { new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("7bc1e190-f48f-4f48-9c23-185e07bb8278") },
+                    { new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("da3aeb68-135a-4731-a266-029148b3a924") }
                 });
 
             migrationBuilder.CreateIndex(
@@ -499,29 +725,29 @@ namespace VehicleExport.App.Migrations
                 column: "Slug");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Dealers_Id",
-                table: "Dealers",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Dealers_PrimaryProjectManagerId",
-                table: "Dealers",
-                column: "PrimaryProjectManagerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Dealers_SalesRepId",
-                table: "Dealers",
-                column: "SalesRepId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Destinations_DestinationId",
                 table: "Destinations",
                 column: "DestinationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ExportDealerParameters_ExportDealerDealerId_ExportDealerExportId",
+                table: "ExportDealerParameters",
+                columns: new[] { "ExportDealerDealerId", "ExportDealerExportId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExportDealerParameters_LayoutFieldId",
+                table: "ExportDealerParameters",
+                column: "LayoutFieldId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Exports_DestinationId",
                 table: "Exports",
                 column: "DestinationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Exports_ExportDealerDealerId_ExportDealerExportId",
+                table: "Exports",
+                columns: new[] { "ExportDealerDealerId", "ExportDealerExportId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Exports_ExportId",
@@ -532,6 +758,11 @@ namespace VehicleExport.App.Migrations
                 name: "IX_Exports_LayoutId",
                 table: "Exports",
                 column: "LayoutId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExportTracking_ExportId",
+                table: "ExportTracking",
+                column: "ExportId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExternalCredentials_ApplicationUserId",
@@ -549,11 +780,19 @@ namespace VehicleExport.App.Migrations
                 column: "Created");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Layouts_LayoutId",
-                table: "Layouts",
-                column: "LayoutId");
+                name: "IX_LayoutFields_DatabaseFieldId",
+                table: "LayoutFields",
+                column: "DatabaseFieldId");
 
-            migrationBuilder.BuildInitialViews();
+            migrationBuilder.CreateIndex(
+                name: "IX_LayoutFieldsMap_LayoutFieldId",
+                table: "LayoutFieldsMap",
+                column: "LayoutFieldId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LayoutFieldsMap_LayoutId",
+                table: "LayoutFieldsMap",
+                column: "LayoutId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -582,15 +821,10 @@ namespace VehicleExport.App.Migrations
                 .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
 
             migrationBuilder.DropTable(
-                name: "Dealers")
-                .Annotation("SqlServer:IsTemporal", true)
-                .Annotation("SqlServer:TemporalHistoryTableName", "DealersHistory")
-                .Annotation("SqlServer:TemporalHistoryTableSchema", null)
-                .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
-                .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
+                name: "ExportDealerParameters");
 
             migrationBuilder.DropTable(
-                name: "Exports");
+                name: "ExportTrackingDealer");
 
             migrationBuilder.DropTable(
                 name: "ExternalCredentials");
@@ -607,13 +841,25 @@ namespace VehicleExport.App.Migrations
                 .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
 
             migrationBuilder.DropTable(
+                name: "LayoutFieldsMap");
+
+            migrationBuilder.DropTable(
+                name: "LayoutFieldType");
+
+            migrationBuilder.DropTable(
+                name: "LayoutFilters");
+
+            migrationBuilder.DropTable(
+                name: "OutputFormatType");
+
+            migrationBuilder.DropTable(
+                name: "ProtocolType");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Destinations");
-
-            migrationBuilder.DropTable(
-                name: "Layouts");
+                name: "ExportTracking");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
@@ -625,6 +871,29 @@ namespace VehicleExport.App.Migrations
                 .Annotation("SqlServer:TemporalHistoryTableSchema", null)
                 .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
                 .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
+
+            migrationBuilder.DropTable(
+                name: "LayoutFields");
+
+            migrationBuilder.DropTable(
+                name: "Exports")
+                .Annotation("SqlServer:IsTemporal", true)
+                .Annotation("SqlServer:TemporalHistoryTableName", "ExportsHistory")
+                .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
+                .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
+
+            migrationBuilder.DropTable(
+                name: "DatabaseFields");
+
+            migrationBuilder.DropTable(
+                name: "Destinations");
+
+            migrationBuilder.DropTable(
+                name: "ExportDealers");
+
+            migrationBuilder.DropTable(
+                name: "Layouts");
         }
     }
 }

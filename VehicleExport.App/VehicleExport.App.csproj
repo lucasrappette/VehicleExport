@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -15,12 +15,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Data\Dealers\**" />
     <Compile Remove="Services\Agents\**" />
     <Compile Remove="Services\BackgroundServices\**" />
+    <Compile Remove="Services\Data\Dealers\**" />
+    <EmbeddedResource Remove="Models\Data\Dealers\**" />
     <EmbeddedResource Remove="Services\Agents\**" />
     <EmbeddedResource Remove="Services\BackgroundServices\**" />
+    <EmbeddedResource Remove="Services\Data\Dealers\**" />
+    <None Remove="Models\Data\Dealers\**" />
     <None Remove="Services\Agents\**" />
     <None Remove="Services\BackgroundServices\**" />
+    <None Remove="Services\Data\Dealers\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +54,20 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VehicleExport.Core\VehicleExport.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="Models\Data\ExportDealers\Validators\" />
+    <Folder Include="Models\Data\LayoutFields\Validators\" />
+    <Folder Include="Models\Data\LayoutFilters\" />
+    <Folder Include="Models\Data\LayoutFieldsMap\" />
+    <Folder Include="Models\Data\LayoutFieldType\" />
+    <Folder Include="Models\Data\ExportDealerParameters\" />
+    <Folder Include="Models\Data\ExportTracking\" />
+    <Folder Include="Models\Data\ExportTrackingDealer\" />
+    <Folder Include="Models\Data\OutputFormatType\" />
+    <Folder Include="Models\Data\ProtocolType\Validators\" />
   </ItemGroup>
 
 </Project>

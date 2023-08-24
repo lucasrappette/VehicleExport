@@ -106,14 +106,14 @@ To install the dev cert:
 ## Entity Framework Core Commands
 * Add EF migrations with:
   * cd CommLogicForms.App
-  * dotnet ef migrations add Initial --context ApplicationDbContext --startup-project ..\CommLogicForms.Web
+  * dotnet ef migrations add Initial --context ApplicationDbContext --startup-project ..\VehicleExport.Web
   * If you're modifying views, be sure to add a call to:
     * migrationBuilder.BuildInitialViews();
     * Remove calls to BuildInitialViews from the most recent migration with that call
 * Update database with:
-  * dotnet ef database update --context ApplicationDbContext --startup-project ..\CommLogicForms.Web
+  * dotnet ef database update --context ApplicationDbContext --startup-project ..\VehicleExport.Web
   * If that fails (timeout, etc.), run this to get the SQL script:
-    * dotnet ef migrations script PreviousMigrationName --idempotent --context ApplicationDbContext --startup-project ..\CommLogicForms.Web
+    * dotnet ef migrations script PreviousMigrationName --idempotent --context ApplicationDbContext --startup-project ..\VehicleExport.Web
 
 # General Architecture
 * There's a back-end/ASP.NET Core application that provides an API.

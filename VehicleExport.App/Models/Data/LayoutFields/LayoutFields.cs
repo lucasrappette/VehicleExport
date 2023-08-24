@@ -1,22 +1,20 @@
-﻿using VehicleExport.App.Models.Data.Accounts;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VehicleExport.App.Models.Data.Layouts;
-using VehicleExport.App.Models.Data.Destinations;
 
-namespace VehicleExport.App.Models.Data.Exports
+using VehicleExport.App.Models.Data.Destinations;
+using System.Collections.Generic;
+using VehicleExport.App.Models.Data.Exports;
+using VehicleExport.App.Models.Data.DatabaseFields;
+
+namespace VehicleExport.App.Models.Data.LayoutFields
 {
-    public class Export : IEntity, IHasId<int>, ILoggableName
+    public class LayoutField : IEntity, IHasId<int>, ILoggableName
     {
-        public int GetId() => ExportId;
+        public int GetId() => LayoutFieldId;
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ExportId { get; set; }
+        public int LayoutFieldId { get; set; }
 
         [Timestamp]
         [ConcurrencyCheck]
@@ -30,7 +28,7 @@ namespace VehicleExport.App.Models.Data.Exports
         }
 
         [NotMapped]
-        public string LoggableName { get { return ExportId.ToString(); } }
+        public string LoggableName { get { return LayoutFieldId.ToString(); } }
 
         [MaxLength(50)]
         [Required]
@@ -40,23 +38,19 @@ namespace VehicleExport.App.Models.Data.Exports
         public int LayoutId { get; set; }
 
         [Required]
-        public int DestinationId { get; set; }
+        public Int16 LayoutFieldTypeId { get; set; }
 
-        [DataType(DataType.Time)]
-        public TimeSpan? RunTimeOne { get; set; }
+        public int? DatabaseFieldId { get; set; }
 
-        [DataType(DataType.Time)]
-        public TimeSpan? RunTimeTwo { get; set; }
+        [MaxLength(50)]
+        public string? Parameter { get; set; }
 
+        [Required]
         public DateTime dtmCreated { get; set; }
-
-        public DateTime dtmLastChanged { get; set; }
 
 
         // External References. Use "Virtual" to enable lazy loading
-        public virtual Layout Layout { get; set; }
-        public virtual Destination Destination { get; set; }
-        public virtual List<ExportTracking> ExportTracking { get; set; }
+        public virtual DatabaseField DatabaseField { get; set; }
 
     }
 }

@@ -15,14 +15,21 @@ using VehicleExport.App.Models;
 using VehicleExport.Core.Models;
 using Newtonsoft.Json;
 using VehicleExport.App.Models.Data.Jobs;
-using VehicleExport.App.Models.Data.Dealers;
 using Microsoft.EntityFrameworkCore.DataEncryption;
 using Microsoft.EntityFrameworkCore.DataEncryption.Providers;
 using Microsoft.Extensions.Configuration;
 using VehicleExport.Core.Utilities;
 using VehicleExport.App.Models.Data.Destinations;
+using VehicleExport.App.Models.Data.DatabaseFields;
 using VehicleExport.App.Models.Data.Layouts;
+using VehicleExport.App.Models.Data.LayoutFilters;
 using VehicleExport.App.Models.Data.Exports;
+using VehicleExport.App.Models.Data.LayoutFields;
+using VehicleExport.App.Models.Data.ExportDealers;
+using VehicleExport.App.Models.Data.Layout_X_LayoutFields;
+using VehicleExport.App.Models.Data.LayoutFieldsMap;
+using VehicleExport.App.Models.Data.MinorEntity;
+using VehicleExport.App.Models.Data.ExportDealerParameters;
 
 namespace VehicleExport.App.DAL
 {
@@ -36,8 +43,8 @@ namespace VehicleExport.App.DAL
 
         public DbSet<ContentBlock> ContentBlocks { get; set; }
 
-        public DbSet<Dealer> Dealers { get; set; }
-        public DbSet<DealerStats> DealerStats { get; set; }
+        //public DbSet<Dealer> Dealers { get; set; }
+        //public DbSet<DealerStats> DealerStats { get; set; }
 
         public DbSet<Export> Exports { get; set; }
         public DbSet<Destination> Destinations { get; set; }
@@ -107,28 +114,27 @@ namespace VehicleExport.App.DAL
 
             /* Dealers */
 
-            modelBuilder.Entity<Dealer>()
-                .ToTable("Dealers", b => b.IsTemporal());
+            //modelBuilder.Entity<Dealer>()
+            //    .ToTable("Dealers", b => b.IsTemporal());
 
-            modelBuilder.Entity<Dealer>()
-                .HasIndex(x => x.Id);
+            //modelBuilder.Entity<Dealer>()
+            //    .HasIndex(x => x.Id);
 
-            modelBuilder.Entity<DealerStats>()
-                .ToView("DealerStats")
-                .HasKey(x => x.DealerId);
+            //modelBuilder.Entity<DealerStats>()
+            //    .ToView("DealerStats")
+            //    .HasKey(x => x.DealerId);
 
-            modelBuilder.Entity<DealerStats>()
-                .HasOne(x => x.Dealer)
-                .WithOne(x => x.DealerStats)
-                .HasForeignKey<DealerStats>(x => x.DealerId);
+            //modelBuilder.Entity<DealerStats>()
+            //    .HasOne(x => x.Dealer)
+            //    .WithOne(x => x.DealerStats)
+            //    .HasForeignKey<DealerStats>(x => x.DealerId);
 
-            /* Exports */
+            /* Database Fields */
 
-            modelBuilder.Entity<Layout>()
-                .ToTable("Layouts");
+            modelBuilder.Entity<DatabaseField>()
+                .ToTable("DatabaseFields");
 
-            modelBuilder.Entity<Layout>()
-                .HasIndex(x => x.LayoutId);
+            /* Destinations */
 
             modelBuilder.Entity<Destination>()
                 .ToTable("Destinations");
@@ -136,8 +142,10 @@ namespace VehicleExport.App.DAL
             modelBuilder.Entity<Destination>()
                 .HasIndex(x => x.DestinationId);
 
+            /* Exports */
+
             modelBuilder.Entity<Export>()
-                .ToTable("Exports");
+                .ToTable("Exports", b => b.IsTemporal());
 
             modelBuilder.Entity<Export>()
                 .HasIndex(x => x.ExportId);
@@ -151,6 +159,64 @@ namespace VehicleExport.App.DAL
                 .HasOne(x => x.Destination)
                 .WithMany(x => x.Exports)
                 .HasForeignKey(x => x.DestinationId);
+
+            /* Export Dealers */
+
+            modelBuilder.Entity<ExportDealer>()
+                .ToTable("ExportDealers")
+                .HasKey(k => new { k.DealerId, k.ExportId });
+
+            /* Export Dealer Parameters */
+
+            modelBuilder.Entity<ExportDealerParameter>()
+                .ToTable("ExportDealerParameters")
+                .HasKey(k => new { k.ExportId, k.DealerId, k.LayoutFieldId});
+
+            /* ExportTracking */
+
+            modelBuilder.Entity<ExportTracking>()
+                .ToTable("ExportTracking");
+
+            /* ExportTrackingDealer */
+
+            modelBuilder.Entity<ExportTrackingDealer>()
+                .ToTable("ExportTrackingDealer")
+                .HasKey(k => new { k.ExportTrackingId, k.DealerId });
+
+            /* Layouts */
+
+            modelBuilder.Entity<Layout>()
+                .ToTable("Layouts");
+
+            // Define one-to-one (optional) relationship with LayoutFilters
+            modelBuilder.Entity<Layout>()
+                .HasOne(e => e.LayoutFilter)
+                .WithOne(e => e.Layout)
+                .HasForeignKey<LayoutFilter>(e => e.LayoutId);
+
+            /* LayoutFields */
+
+            modelBuilder.Entity<LayoutField>()
+                .ToTable("LayoutFields");
+
+            /* LayoutFieldsMap */
+
+            modelBuilder.Entity<LayoutFieldMap>()
+                .ToTable("LayoutFieldsMap");
+
+            /* LayoutFilters */
+
+            modelBuilder.Entity<LayoutFilter>()
+                .ToTable("LayoutFilters");
+
+            /* Minor Entity Tables */
+
+            modelBuilder.Entity<ProtocolType>()
+                .ToTable("ProtocolType");
+            modelBuilder.Entity<LayoutFieldType>()
+                .ToTable("LayoutFieldType");
+            modelBuilder.Entity<OutputFormatType>()
+                .ToTable("OutputFormatType");
 
             /* Jobs */
 
@@ -322,32 +388,46 @@ namespace VehicleExport.App.DAL
             var alphabetId = Guid.NewGuid();
             var northwoodsId = Guid.NewGuid();
             var adminId = Guid.Parse("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be");
-            modelBuilder.Entity<Dealer>().HasData(new Dealer()
+
+            // ProtocolType
+            modelBuilder.Entity<ProtocolType>().HasData(new ProtocolType()
             {
-                Id = alphabetId,
-                Name = "Alphabet Inc.",
-                AddressLineOne = "1600 Amphitheatre Pkwy",
-                City = "Mountain View",
-                State = "CA",
-                PostalCode = "94043",
-                DescriptionNotes = "This Dealer is google",
-                PhoneNumber = "650-253-0000",
-                PrimaryProjectManagerApplicationUserId = adminId,
-                SalesRepApplicationUserId = adminId,
+                ProtocolTypeId = 1,
+                Description = "Plain FTP",
+            });
+            modelBuilder.Entity<ProtocolType>().HasData(new ProtocolType()
+            {
+                ProtocolTypeId = 2,
+                Description = "FTP+SSH",
             });
 
-            modelBuilder.Entity<Dealer>().HasData(new Dealer()
+            // LayoutFieldType
+            modelBuilder.Entity<LayoutFieldType>().HasData(new LayoutFieldType()
             {
-                Id = northwoodsId,
-                Name = "Northwoods",
-                AddressLineOne = "1552 E Capitol Dr",
-                City = "Shorewood",
-                State = "WI",
-                PostalCode = "53211",
-                DescriptionNotes = "This Dealer is us",
-                PhoneNumber = "650-253-0000",
-                PrimaryProjectManagerApplicationUserId = adminId,
-                SalesRepApplicationUserId = adminId,
+                LayoutFieldTypeId = 1,
+                Description = "SQL",
+            });
+            modelBuilder.Entity<LayoutFieldType>().HasData(new LayoutFieldType()
+            {
+                LayoutFieldTypeId = 2,
+                Description = "Parameter",
+            });
+
+            // OutputFormatType
+            modelBuilder.Entity<OutputFormatType>().HasData(new OutputFormatType()
+            {
+                OutputFormatTypeId = 1,
+                Description = "Comma-Separated (CSV)",
+            });
+            modelBuilder.Entity<OutputFormatType>().HasData(new OutputFormatType()
+            {
+                OutputFormatTypeId = 2,
+                Description = "Tab-Delimited (TAB)",
+            });
+            modelBuilder.Entity<OutputFormatType>().HasData(new OutputFormatType()
+            {
+                OutputFormatTypeId = 3,
+                Description = "Pipe-Delimited",
             });
         }
     }
