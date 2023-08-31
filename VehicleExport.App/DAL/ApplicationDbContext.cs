@@ -26,7 +26,6 @@ using VehicleExport.App.Models.Data.LayoutFilters;
 using VehicleExport.App.Models.Data.Exports;
 using VehicleExport.App.Models.Data.LayoutFields;
 using VehicleExport.App.Models.Data.ExportDealers;
-using VehicleExport.App.Models.Data.Layout_X_LayoutFields;
 using VehicleExport.App.Models.Data.LayoutFieldsMap;
 using VehicleExport.App.Models.Data.MinorEntity;
 using VehicleExport.App.Models.Data.ExportDealerParameters;
@@ -43,12 +42,18 @@ namespace VehicleExport.App.DAL
 
         public DbSet<ContentBlock> ContentBlocks { get; set; }
 
-        //public DbSet<Dealer> Dealers { get; set; }
-        //public DbSet<DealerStats> DealerStats { get; set; }
 
-        public DbSet<Export> Exports { get; set; }
+        public DbSet<DatabaseField> DatabaseFields { get; set; }
         public DbSet<Destination> Destinations { get; set; }
+        public DbSet<ExportDealerParameter> ExportDealerParameters { get; set; }
+        public DbSet<ExportDealer> ExportDealers { get; set; }
+        public DbSet<Export> Exports { get; set; }
+        public DbSet<ExportTracking> ExportTracking { get; set; }
+        public DbSet<ExportTrackingDealer> ExportTrackingDealer { get; set; }
+        public DbSet<LayoutField> LayoutFields { get; set; }
+        public DbSet<LayoutFieldMap> LayoutFieldMap { get; set; }
         public DbSet<Layout> Layouts { get; set; }
+
 
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobItem> JobItems { get; set; }
@@ -111,23 +116,6 @@ namespace VehicleExport.App.DAL
                     v => JsonConvert.SerializeObject(v),
                     v => JsonConvert.DeserializeObject<List<AllowedToken>>(v)
                 );
-
-            /* Dealers */
-
-            //modelBuilder.Entity<Dealer>()
-            //    .ToTable("Dealers", b => b.IsTemporal());
-
-            //modelBuilder.Entity<Dealer>()
-            //    .HasIndex(x => x.Id);
-
-            //modelBuilder.Entity<DealerStats>()
-            //    .ToView("DealerStats")
-            //    .HasKey(x => x.DealerId);
-
-            //modelBuilder.Entity<DealerStats>()
-            //    .HasOne(x => x.Dealer)
-            //    .WithOne(x => x.DealerStats)
-            //    .HasForeignKey<DealerStats>(x => x.DealerId);
 
             /* Database Fields */
 
