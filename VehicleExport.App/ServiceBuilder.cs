@@ -41,6 +41,8 @@ using VehicleExport.App.Services.Data.DatabaseFields;
 using VehicleExport.App.Services.Data.LayoutFields;
 using VehicleExport.App.Models.Data.LayoutFilters;
 using VehicleExport.App.Services.Data.LayoutFilters;
+using VehicleExport.App.Models.Data.MinorEntity;
+using VehicleExport.App.Services.Data.MinorEntity;
 
 namespace VehicleExport.App
 {
@@ -132,7 +134,10 @@ namespace VehicleExport.App
             services.AddTransientListReadWriteService<LayoutField, int, LayoutFieldsService>();
             services.AddTransientListReadWriteService<LayoutFilter, int, LayoutFilterService> ();
             services.AddTransientListReadWriteService<Layout, int, LayoutService>();
-            // TO DO: Add AddTransientListReadService for three ME tables
+            // Add AddTransientListReadService (ReadOnly) for three ME tables
+            services.AddTransientListReadService<LayoutFieldType, short, LayoutFieldTypeService>();
+            services.AddTransientListReadService<OutputFormatType, short, OutputFormatTypeService>();
+            services.AddTransientListReadService<ProtocolType, short, ProtocolTypeService>();
         }
 
         public static void AddEntityValidators(this IServiceCollection services)

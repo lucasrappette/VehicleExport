@@ -77,6 +77,9 @@
     <Folder Include="Services\Data\LayoutFields\" />
     <Folder Include="Services\Data\LayoutFieldsMap\" />
     <Folder Include="Services\Data\LayoutFilters\" />
+    <Folder Include="Services\Data\LayoutFieldType\" />
+    <Folder Include="Services\Data\OutputFormatType\" />
+    <Folder Include="Services\Data\ProtocolType\" />
   </ItemGroup>
 
 </Project>

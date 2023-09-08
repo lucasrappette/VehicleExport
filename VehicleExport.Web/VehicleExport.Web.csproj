@@ -90,6 +90,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\Data\DatabaseFields\" />
+    <Folder Include="Controllers\Data\ExportDealerParameters\" />
+    <Folder Include="Controllers\Data\ExportDealers\" />
+    <Folder Include="Controllers\Data\ExportTracking\" />
+    <Folder Include="Controllers\Data\ExportTrackingDealer\" />
+    <Folder Include="Controllers\Data\LayoutFields\" />
+    <Folder Include="Controllers\Data\LayoutFieldsMap\" />
+    <Folder Include="Controllers\Data\LayoutFieldType\" />
+    <Folder Include="Controllers\Data\LayoutFilters\" />
+    <Folder Include="Controllers\Data\ProtocolType\" />
+    <Folder Include="Controllers\Data\OutputFormatType\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
