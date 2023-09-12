@@ -29,6 +29,7 @@ using VehicleExport.App.Models.Data.ExportDealers;
 using VehicleExport.App.Models.Data.LayoutFieldsMap;
 using VehicleExport.App.Models.Data.MinorEntity;
 using VehicleExport.App.Models.Data.ExportDealerParameters;
+using System.Security.Cryptography;
 
 namespace VehicleExport.App.DAL
 {
@@ -75,6 +76,7 @@ namespace VehicleExport.App.DAL
 
             modelBuilder.UseEncryption(_encryptionProvider);
 
+            // ==============================================================
             /* Accounts */
 
             modelBuilder.Entity<ExternalCredential>()
@@ -101,6 +103,7 @@ namespace VehicleExport.App.DAL
                 .HasForeignKey(x => x.UserId)
                 .IsRequired();
 
+            // ==============================================================
             /* Content */
 
             modelBuilder.Entity<ContentBlock>()
@@ -117,26 +120,23 @@ namespace VehicleExport.App.DAL
                     v => JsonConvert.DeserializeObject<List<AllowedToken>>(v)
                 );
 
+            // ==============================================================
             /* Database Fields */
 
             modelBuilder.Entity<DatabaseField>()
                 .ToTable("DatabaseFields");
 
+            // ==============================================================
             /* Destinations */
 
             modelBuilder.Entity<Destination>()
                 .ToTable("Destinations");
 
-            modelBuilder.Entity<Destination>()
-                .HasIndex(x => x.DestinationId);
-
-            /* Exports */
+            // ==============================================================
+            // Exports
 
             modelBuilder.Entity<Export>()
                 .ToTable("Exports", b => b.IsTemporal());
-
-            modelBuilder.Entity<Export>()
-                .HasIndex(x => x.ExportId);
 
             modelBuilder.Entity<Export>()
                 .HasOne(x => x.Layout)
@@ -148,30 +148,53 @@ namespace VehicleExport.App.DAL
                 .WithMany(x => x.Exports)
                 .HasForeignKey(x => x.DestinationId);
 
-            /* Export Dealers */
+            // ==============================================================
+            // Export Dealers 
 
             modelBuilder.Entity<ExportDealer>()
-                .ToTable("ExportDealers")
-                .HasKey(k => new { k.DealerId, k.ExportId });
+                .ToTable("ExportDealers");
 
-            /* Export Dealer Parameters */
+            // For references to EXPORT table
+            modelBuilder.Entity<ExportDealer>()
+                .HasIndex(x => x.ExportId);
+
+            // For selects by EXPORT and VSO Dealer
+            modelBuilder.Entity<ExportDealer>()
+                .HasIndex(x => new { x.ExportId, x.DealerId });
+
+            //modelBuilder.Entity<ExportDealer>()
+            //                .HasOne(x => x.Export)
+            //                .WithMany(x => x.ExportDealer)
+            //                .HasForeignKey(x => x.ExportId)
+            //                .OnDelete(DeleteBehavior.NoAction);
+
+            // ==============================================================
+            // Export Dealer Parameters
 
             modelBuilder.Entity<ExportDealerParameter>()
-                .ToTable("ExportDealerParameters")
-                .HasKey(k => new { k.ExportId, k.DealerId, k.LayoutFieldId});
+                .ToTable("ExportDealerParameters");
 
-            /* ExportTracking */
+
+            // ==============================================================
+            // ExportTrackingDealer
+
+            modelBuilder.Entity<ExportTrackingDealer>()
+                .ToTable("ExportTrackingDealer");
+
+            modelBuilder.Entity<ExportTrackingDealer>()
+                .HasIndex(k => new { k.ExportTrackingId, k.DealerId });
+
+            // ==============================================================
+            // ExportTracking
 
             modelBuilder.Entity<ExportTracking>()
                 .ToTable("ExportTracking");
 
-            /* ExportTrackingDealer */
+            modelBuilder.Entity<ExportTracking>()
+                .HasIndex(x => x.ExportId);
 
-            modelBuilder.Entity<ExportTrackingDealer>()
-                .ToTable("ExportTrackingDealer")
-                .HasKey(k => new { k.ExportTrackingId, k.DealerId });
-
-            /* Layouts */
+            // ==============================================================
+            // Layouts
 
             modelBuilder.Entity<Layout>()
                 .ToTable("Layouts");
@@ -182,22 +205,32 @@ namespace VehicleExport.App.DAL
                 .WithOne(e => e.Layout)
                 .HasForeignKey<LayoutFilter>(e => e.LayoutId);
 
-            /* LayoutFields */
+            // ==============================================================
+            //LayoutFields
 
             modelBuilder.Entity<LayoutField>()
                 .ToTable("LayoutFields");
 
-            /* LayoutFieldsMap */
+            modelBuilder.Entity<LayoutField>()
+                .HasIndex(x => x.LayoutId);
+
+            modelBuilder.Entity<LayoutField>()
+                .HasIndex(x => x.DatabaseFieldId);
+
+            // ==============================================================
+            //LayoutFieldsMap
 
             modelBuilder.Entity<LayoutFieldMap>()
                 .ToTable("LayoutFieldsMap");
 
-            /* LayoutFilters */
+            // ==============================================================
+            //LayoutFilters
 
             modelBuilder.Entity<LayoutFilter>()
                 .ToTable("LayoutFilters");
 
-            /* Minor Entity Tables */
+            // ==============================================================
+            //Minor Entity Tables
 
             modelBuilder.Entity<ProtocolType>()
                 .ToTable("ProtocolType");
@@ -206,6 +239,7 @@ namespace VehicleExport.App.DAL
             modelBuilder.Entity<OutputFormatType>()
                 .ToTable("OutputFormatType");
 
+            // ==============================================================
             /* Jobs */
 
             modelBuilder.Entity<Job>()
@@ -230,12 +264,12 @@ namespace VehicleExport.App.DAL
         private void SeedData(ModelBuilder modelBuilder)
         {
             // If you're running this for the first time and need to seed this data, remove the conditional compilation directive below.
-//#if INITIAL_RUN
+            //#if INITIAL_RUN
             SeedRoles(modelBuilder);
             SeedUsers(modelBuilder);
             SeedContent(modelBuilder);
             SeedAppData(modelBuilder);
-//#endif
+            //#endif
         }
 
         private static class RoleIds
@@ -417,6 +451,48 @@ namespace VehicleExport.App.DAL
                 OutputFormatTypeId = 3,
                 Description = "Pipe-Delimited",
             });
+
+            // Destinations
+            modelBuilder.Entity<Destination>().HasData(new Destination()
+            {
+                DestinationId = 1,
+                Name = "Test Destination 1",
+                FtpHost = "vendor.windowstickers.biz",
+                FtpUsername = "someuser",
+                FtpPassword = "somepassword",
+                FtpRemoteDir = "/",
+                ProtocolTypeId = 1,
+                OutputFormatTypeId = 2,
+                UseQuotedFields = true,
+                IncludeHeaders = true,
+                OutputFileName = "Vehicledata.txt",
+                ZipOutputFile = false,
+                OneFilePerDealer = false,
+                SendPhotosInZip = false,
+                dtmCreated = DateTime.Now,
+                dtmLastChanged = DateTime.Now
+            });
+
+            // Layout
+            modelBuilder.Entity<Layout>().HasData(new Layout()
+            {
+                LayoutId = 1,
+                Name = "Sample Layout 1",
+                dtmCreated = DateTime.Now
+            });
+
+            //Exports
+            modelBuilder.Entity<Export>().HasData(new Export()
+            {
+                ExportId = 1,
+                Name = "Sample Export 1",
+                LayoutId = 1,
+                DestinationId = 1,
+                RunTimeOne = new TimeSpan(),
+                dtmCreated = DateTime.Now,
+                dtmLastChanged = DateTime.Now
+            });
         }
     }
 }
+

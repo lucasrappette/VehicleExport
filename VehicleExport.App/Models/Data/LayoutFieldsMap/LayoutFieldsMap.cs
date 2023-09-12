@@ -13,6 +13,16 @@ namespace VehicleExport.App.Models.Data.LayoutFieldsMap
         [Key]
         public int LayoutFieldsMapId { get; set; }
 
+        [Required]
+        public int LayoutId { get; set; }
+
+        public int? LayoutFieldId { get; set; }
+
+        [MaxLength(25)]
+        public string PlaceholderLabel { get; set; }
+
+        public short FieldOrder { get; set; }
+
         [Timestamp]
         [ConcurrencyCheck]
         public byte[] ConcurrencyTimestamp { get; set; }
@@ -25,16 +35,6 @@ namespace VehicleExport.App.Models.Data.LayoutFieldsMap
         }
         [NotMapped]
         public string LoggableName { get { return LayoutFieldsMapId.ToString(); } }
-
-        [Required]
-        public int LayoutId { get; set; }
-
-        public int? LayoutFieldId { get; set; }
-
-        [MaxLength(25)]
-        public string PlaceholderLabel { get; set; }
-
-        public short FieldOrder { get; set; }
 
         // External References. Use "Virtual" to enable lazy loading
         public virtual Layout Layout { get; set; }

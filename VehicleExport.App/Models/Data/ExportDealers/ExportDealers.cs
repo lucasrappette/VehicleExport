@@ -6,11 +6,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VehicleExport.App.Models.Data.Exports;
+using VehicleExport.App.Models.Data.Generics;
 
 namespace VehicleExport.App.Models.Data.ExportDealers
 {
-    public class ExportDealer : IEntity
+    public class ExportDealer : IEntity, IHasId<int> //, ILinkedItem
     {
+
+        public int GetId() => ExportDealerId;
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ExportDealerId { get; set; }
+
+        [Required]
+        public int ExportId { get; set; }
+
+        [Required]
+        public int DealerId { get; set; }
+
+        [Required]
+        public DateTime dtmCreated { get; set; }
 
         [Timestamp]
         [ConcurrencyCheck]
@@ -23,16 +38,9 @@ namespace VehicleExport.App.Models.Data.ExportDealers
             set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
         }
 
-        [Required]
-        public int ExportId { get; set; }
-
-        [Required]
-        public int DealerId { get; set; }
-
-        [Required]
-        public DateTime dtmCreated { get; set; }
+        [NotMapped]
+        public bool IsActive { get; set; }
 
         // External References. Use "Virtual" to enable lazy loading
-        public virtual List<Export> Exports { get; set; }
     }
 }

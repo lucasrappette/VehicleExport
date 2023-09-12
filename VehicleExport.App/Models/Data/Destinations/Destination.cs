@@ -13,17 +13,6 @@ namespace VehicleExport.App.Models.Data.Destinations
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DestinationId { get; set; }
 
-        [Timestamp]
-        [ConcurrencyCheck]
-        public byte[] ConcurrencyTimestamp { get; set; }
-
-        [NotMapped]
-        public string ConcurrencyCheck
-        {
-            get { return ConcurrencyTimestamp == null ? null : Convert.ToBase64String(ConcurrencyTimestamp); }
-            set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
-        }
-
         [NotMapped]
         public string LoggableName { get { return DestinationId.ToString(); } }
 
@@ -73,6 +62,17 @@ namespace VehicleExport.App.Models.Data.Destinations
         public DateTime dtmCreated { get; set; }
 
         public DateTime dtmLastChanged { get; set; }
+
+        [Timestamp]
+        [ConcurrencyCheck]
+        public byte[] ConcurrencyTimestamp { get; set; }
+
+        [NotMapped]
+        public string ConcurrencyCheck
+        {
+            get { return ConcurrencyTimestamp == null ? null : Convert.ToBase64String(ConcurrencyTimestamp); }
+            set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
+        }
 
         // External References
         public List<Export> Exports { get; set; }

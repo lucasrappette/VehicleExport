@@ -11,19 +11,12 @@ using VehicleExport.App.Models.Data.ExportDealers;
 
 namespace VehicleExport.App.Models.Data.ExportDealerParameters
 {
-    public class ExportDealerParameter : IEntity
+    public class ExportDealerParameter : IEntity, IHasId<int>
     {
+        public int GetId() => ExportDealerParameterId;
 
-        [Timestamp]
-        [ConcurrencyCheck]
-        public byte[] ConcurrencyTimestamp { get; set; }
-
-        [NotMapped]
-        public string ConcurrencyCheck
-        {
-            get { return ConcurrencyTimestamp == null ? null : Convert.ToBase64String(ConcurrencyTimestamp); }
-            set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
-        }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ExportDealerParameterId { get; set; }
 
         [Required]
         public int ExportId { get; set; }
@@ -40,8 +33,19 @@ namespace VehicleExport.App.Models.Data.ExportDealerParameters
         [Required]
         public DateTime dtmCreated { get; set; }
 
+        [Timestamp]
+        [ConcurrencyCheck]
+        public byte[] ConcurrencyTimestamp { get; set; }
+
+        [NotMapped]
+        public string ConcurrencyCheck
+        {
+            get { return ConcurrencyTimestamp == null ? null : Convert.ToBase64String(ConcurrencyTimestamp); }
+            set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
+        }
+
         // External References. Use "Virtual" to enable lazy loading
         public virtual LayoutField LayoutField { get; set; }
-        public virtual ExportDealer ExportDealer { get; set; }
+        //public virtual ExportDealer ExportDealer { get; set; }
     }
 }

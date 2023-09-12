@@ -15,17 +15,6 @@ namespace VehicleExport.App.Models.Data.LayoutFilters
         [Key]
          public int LayoutId { get; set; }
 
-        [Timestamp]
-        [ConcurrencyCheck]
-        public byte[] ConcurrencyTimestamp { get; set; }
-
-        [NotMapped]
-        public string ConcurrencyCheck
-        {
-            get { return ConcurrencyTimestamp == null ? null : Convert.ToBase64String(ConcurrencyTimestamp); }
-            set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
-        }
-
         [NotMapped]
         public string LoggableName { get { return LayoutId.ToString(); } }
 
@@ -43,6 +32,17 @@ namespace VehicleExport.App.Models.Data.LayoutFilters
 
         [Required]
         public DateTime dtmCreated { get; set; }
+
+        [Timestamp]
+        [ConcurrencyCheck]
+        public byte[] ConcurrencyTimestamp { get; set; }
+
+        [NotMapped]
+        public string ConcurrencyCheck
+        {
+            get { return ConcurrencyTimestamp == null ? null : Convert.ToBase64String(ConcurrencyTimestamp); }
+            set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
+        }
 
         // External References. Use "Virtual" to enable lazy loading
         public virtual Layout Layout { get; set; }

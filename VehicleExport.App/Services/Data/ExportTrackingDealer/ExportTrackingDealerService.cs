@@ -14,19 +14,21 @@ using System.Collections.Generic;
 using VehicleExport.Core.Models;
 using VehicleExport.App.Services.WorkItems;
 using VehicleExport.App.Models.Data.ExportDealerParameters;
+using VehicleExport.App.Models.Data.ExportDealers;
+using VehicleExport.App.Models.Data.Exports;
 
-namespace VehicleExport.App.Services.Data.ExportDealerParameters
+namespace VehicleExport.App.Services.Data.ExportDealers
 {
-    public class ExportDealerParameterService : EntityWriteService<ExportDealerParameter, int>
+    public class ExportTrackingDealerService : EntityWriteService<ExportTrackingDealer, int>
     {
-        public ExportDealerParameterService(ApplicationDbContext dbContext, IConfiguration configuration, UserManager<ApplicationUser> userManager, IValidator<ExportDealerParameter> validator, ILogger<ExportDealerParameterService> logger) : base(dbContext, configuration, userManager, validator, logger)
+        public ExportTrackingDealerService(ApplicationDbContext dbContext, IConfiguration configuration, UserManager<ApplicationUser> userManager, IValidator<ExportTrackingDealer> validator, ILogger<ExportTrackingDealerService> logger) : base(dbContext, configuration, userManager, validator, logger)
         {
 
         }
 
-        protected override async Task<IQueryable<ExportDealerParameter>> ApplyIdFilter(IQueryable<ExportDealerParameter> queryable, int id)
+        protected override async Task<IQueryable<ExportTrackingDealer>> ApplyIdFilter(IQueryable<ExportTrackingDealer> queryable, int id)
         {
-            return queryable.Where(x => x.ExportDealerParameterId == id);
+            return queryable.Where(x => x.ExportTrackingDealerId == id);
         }
 
         protected override List<string> ReadRoles => new List<string> { ApplicationRoleNames.SuperAdmin, ApplicationRoleNames.ProjectManager, ApplicationRoleNames.ProjectViewer };

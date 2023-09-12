@@ -16,17 +16,6 @@ namespace VehicleExport.App.Models.Data.LayoutFields
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int LayoutFieldId { get; set; }
 
-        [Timestamp]
-        [ConcurrencyCheck]
-        public byte[] ConcurrencyTimestamp { get; set; }
-
-        [NotMapped]
-        public string ConcurrencyCheck
-        {
-            get { return ConcurrencyTimestamp == null ? null : Convert.ToBase64String(ConcurrencyTimestamp); }
-            set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
-        }
-
         [NotMapped]
         public string LoggableName { get { return LayoutFieldId.ToString(); } }
 
@@ -48,6 +37,16 @@ namespace VehicleExport.App.Models.Data.LayoutFields
         [Required]
         public DateTime dtmCreated { get; set; }
 
+        [Timestamp]
+        [ConcurrencyCheck]
+        public byte[] ConcurrencyTimestamp { get; set; }
+
+        [NotMapped]
+        public string ConcurrencyCheck
+        {
+            get { return ConcurrencyTimestamp == null ? null : Convert.ToBase64String(ConcurrencyTimestamp); }
+            set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
+        }
 
         // External References. Use "Virtual" to enable lazy loading
         public virtual DatabaseField DatabaseField { get; set; }

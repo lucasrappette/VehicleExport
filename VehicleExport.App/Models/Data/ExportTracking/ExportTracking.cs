@@ -12,17 +12,6 @@ namespace VehicleExport.App.Models.Data.Exports
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ExportTrackingId { get; set; }
 
-        [Timestamp]
-        [ConcurrencyCheck]
-        public byte[] ConcurrencyTimestamp { get; set; }
-
-        [NotMapped]
-        public string ConcurrencyCheck
-        {
-            get { return ConcurrencyTimestamp == null ? null : Convert.ToBase64String(ConcurrencyTimestamp); }
-            set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
-        }
-
         [NotMapped]
         public string LoggableName { get { return ExportTrackingId.ToString(); } }
 
@@ -35,6 +24,16 @@ namespace VehicleExport.App.Models.Data.Exports
         [Required]
         public int VehicleCount { get; set; }
 
+        [Timestamp]
+        [ConcurrencyCheck]
+        public byte[] ConcurrencyTimestamp { get; set; }
+
+        [NotMapped]
+        public string ConcurrencyCheck
+        {
+            get { return ConcurrencyTimestamp == null ? null : Convert.ToBase64String(ConcurrencyTimestamp); }
+            set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
+        }
 
         // External References. Use "Virtual" to enable lazy loading
         public virtual List<ExportTrackingDealer> ExportTrackingDealer { get; set; }

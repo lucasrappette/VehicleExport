@@ -14,19 +14,20 @@ using System.Collections.Generic;
 using VehicleExport.Core.Models;
 using VehicleExport.App.Services.WorkItems;
 using VehicleExport.App.Models.Data.ExportDealerParameters;
+using VehicleExport.App.Models.Data.ExportDealers;
 
-namespace VehicleExport.App.Services.Data.ExportDealerParameters
+namespace VehicleExport.App.Services.Data.ExportDealers
 {
-    public class ExportDealerParameterService : EntityWriteService<ExportDealerParameter, int>
+    public class ExportDealerService : EntityWriteService<ExportDealer, int>
     {
-        public ExportDealerParameterService(ApplicationDbContext dbContext, IConfiguration configuration, UserManager<ApplicationUser> userManager, IValidator<ExportDealerParameter> validator, ILogger<ExportDealerParameterService> logger) : base(dbContext, configuration, userManager, validator, logger)
+        public ExportDealerService(ApplicationDbContext dbContext, IConfiguration configuration, UserManager<ApplicationUser> userManager, IValidator<ExportDealer> validator, ILogger<ExportDealerService> logger) : base(dbContext, configuration, userManager, validator, logger)
         {
 
         }
 
-        protected override async Task<IQueryable<ExportDealerParameter>> ApplyIdFilter(IQueryable<ExportDealerParameter> queryable, int id)
+        protected override async Task<IQueryable<ExportDealer>> ApplyIdFilter(IQueryable<ExportDealer> queryable, int id)
         {
-            return queryable.Where(x => x.ExportDealerParameterId == id);
+            return queryable.Where(x => x.ExportDealerId == id);
         }
 
         protected override List<string> ReadRoles => new List<string> { ApplicationRoleNames.SuperAdmin, ApplicationRoleNames.ProjectManager, ApplicationRoleNames.ProjectViewer };

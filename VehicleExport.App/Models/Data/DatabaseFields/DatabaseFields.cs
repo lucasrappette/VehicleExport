@@ -11,20 +11,6 @@ namespace VehicleExport.App.Models.Data.DatabaseFields
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DatabaseFieldId { get; set; }
 
-        [Timestamp]
-        [ConcurrencyCheck]
-        public byte[] ConcurrencyTimestamp { get; set; }
-
-        [NotMapped]
-        public string ConcurrencyCheck
-        {
-            get { return ConcurrencyTimestamp == null ? null : Convert.ToBase64String(ConcurrencyTimestamp); }
-            set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
-        }
-
-        [NotMapped]
-        public string LoggableName { get { return DatabaseFieldId.ToString(); } }
-
         [MaxLength(100)]
         [Required]
         public string Name { get; set; }
@@ -41,7 +27,21 @@ namespace VehicleExport.App.Models.Data.DatabaseFields
         [Required]
         public DateTime dtmCreated { get; set; }
 
+        [Timestamp]
+        [ConcurrencyCheck]
+        public byte[] ConcurrencyTimestamp { get; set; }
+
+        [NotMapped]
+        public string ConcurrencyCheck
+        {
+            get { return ConcurrencyTimestamp == null ? null : Convert.ToBase64String(ConcurrencyTimestamp); }
+            set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
+        }
+
+        [NotMapped]
+        public string LoggableName { get { return DatabaseFieldId.ToString(); } }
+
         // External References
 
-}
+    }
 }

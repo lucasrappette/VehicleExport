@@ -43,6 +43,7 @@ using VehicleExport.App.Models.Data.LayoutFilters;
 using VehicleExport.App.Services.Data.LayoutFilters;
 using VehicleExport.App.Models.Data.MinorEntity;
 using VehicleExport.App.Services.Data.MinorEntity;
+using VehicleExport.App.Models.Data.MinorEntity.Validators;
 
 namespace VehicleExport.App
 {
@@ -160,6 +161,10 @@ namespace VehicleExport.App
             services.AddSingleton<IValidator<LayoutFieldMap>, LayoutFieldsMapValidator>();
             services.AddSingleton<IValidator<LayoutFilter>, LayoutFiltersValidator>();
             services.AddSingleton<IValidator<Layout>, LayoutValidator>();
+            // Add ME Tables
+            services.AddSingleton<IValidator<LayoutFieldType>, LayoutFieldTypeValidator>();
+            services.AddSingleton<IValidator<OutputFormatType>, OutputFormatTypeValidator>();
+            services.AddSingleton<IValidator<ProtocolType>, ProtocolTypeValidator>();
         }
 
         public static void AddWorkItemServices(this IServiceCollection services)
