@@ -116,7 +116,35 @@ export default {
       selectOptions: [],
       pendingResolves: [],
       pendingRejects: []
-    }
+    },
+    protocolTypes: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
+    encryptionTypes: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
+    outputFormatTypes: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
+    encryptionProtocolTypes: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
   }),
   mutations: {
     SET_KNOWN_PAGE_NAME(state, item) {
@@ -188,6 +216,46 @@ export default {
       });
 
       state.dealers.loadState = STATE_LOADED;
+    },
+    LOAD_PROTOCOL_TYPES(state, values) {
+      state.protocolTypes.values = values;
+
+      state.protocolTypes.selectOptions = values.map(x => ({
+        text: x.description,
+        value: x.protocolTypeId
+      }));
+
+      state.protocolTypes.loadState = STATE_LOADED;
+    },
+    LOAD_ENCRYPTION_PROTOCOL_TYPES(state, values) {
+      state.encryptionProtocolTypes.values = values;
+
+      state.encryptionProtocolTypes.selectOptions = values.map(x => ({
+        text: x.description,
+        value: x.encryptionProtocolTypeId
+      }));
+
+      state.encryptionProtocolTypes.loadState = STATE_LOADED;
+    },
+    LOAD_ENCRYPTION_TYPES(state, values) {
+      state.encryptionTypes.values = values;
+
+      state.encryptionTypes.selectOptions = values.map(x => ({
+        text: x.description,
+        value: x.encryptionTypeId
+      }));
+
+      state.encryptionTypes.loadState = STATE_LOADED;
+    },
+    LOAD_OUTPUT_FORMAT_TYPES(state, values) {
+      state.outputFormatTypes.values = values;
+
+      state.outputFormatTypes.selectOptions = values.map(x => ({
+        text: x.description,
+        value: x.outputFormatTypeId
+      }));
+
+      state.outputFormatTypes.loadState = STATE_LOADED;
     },
   },
   actions: {
@@ -274,20 +342,65 @@ export default {
       });
       dispatch('loadApplicationRoles');
     },
-    loadDealers({ commit, dispatch }) {
+    loadProtocolTypes({ commit, dispatch }) {
       return dispatch('loadValues', { 
-        type: 'dealers', 
-        commitType: 'DEALERS', 
-        url: '/api/dealer',
-        order: 'name'
+        type: 'protocolTypes', 
+        commitType: 'PROTOCOL_TYPES', 
+        url: '/api/protocolType',
+        order: 'protocolTypeId'
       });
     },
-    reloadDealers({ commit, dispatch }) {
+    reloadProtocolTypes({ commit, dispatch }) {
       commit('SET_LOAD_STATE', {
-        type: 'dealers',
+        type: 'protocolTypes',
         loadState: STATE_UNLOADED
       });
-      dispatch('loadDealers');
+      dispatch('loadProtocolTypes');
+    },
+    loadEncryptionTypes({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'encryptionTypes', 
+        commitType: 'ENCRYPTION_TYPES', 
+        url: '/api/encryptionType',
+        order: 'encryptionTypeId'
+      });
+    },
+    reloadEncryptionTypes({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'encryptionTypes',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadEncryptionTypes');
+    },
+    loadEncryptionProtocolTypes({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'encryptionProtocolTypes', 
+        commitType: 'ENCRYPTION_PROTOCOL_TYPES', 
+        url: '/api/encryptionProtocolType',
+        order: 'encryptionProtocolTypeId'
+      });
+    },
+    reloadEncryptionProtocolTypes({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'encryptionProtocolTypes',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadEncryptionProtocolTypes');
+    },
+    loadOutputFormatTypes({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'outputFormatTypes', 
+        commitType: 'OUTPUT_FORMAT_TYPES', 
+        url: '/api/outputFormatType',
+        order: 'outputFormatTypeId'
+      });
+    },
+    reloadOutputFormatTypes({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'outputFormatTypes',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadOutputFormatTypes');
     },
     loadApplicationUsers({ commit, dispatch }) {
       return dispatch('loadValues', { 
@@ -304,16 +417,20 @@ export default {
       dispatch('loadApplicationUsers');
     },
     loadCachedData({ commit, dispatch }) {
-      dispatch('loadDealers');
       dispatch('loadApplicationRoles');
-      dispatch('loadWorkRoles');
       dispatch('loadApplicationUsers');
+      dispatch('loadProtocolTypes');
+      dispatch('loadEncryptionTypes');
+      dispatch('loadOutputFormatTypes');
+      dispatch('loadEncryptionProtocolTypes');
     },
     reloadCachedData({ commit, dispatch }) {
-      dispatch('reloadDealers');
       dispatch('reloadApplicationRoles');
-      dispatch('reloadWorkRoles');
       dispatch('reloadApplicationUsers');
+      dispatch('reloadProtocolTypes');
+      dispatch('reloadEncryptionTypes');
+      dispatch('reloadOutputFormatTypes');
+      dispatch('loadEncryptionProtocolTypes');
     }
   },
   getters: {

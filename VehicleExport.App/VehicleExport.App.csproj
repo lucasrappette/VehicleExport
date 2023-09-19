@@ -60,7 +60,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="Models\Data\ExportDealers\Validators\" />
     <Folder Include="Models\Data\LayoutFields\Validators\" />
     <Folder Include="Models\Data\LayoutFilters\" />

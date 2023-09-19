@@ -100,32 +100,29 @@ namespace VehicleExport.App.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Destinations",
+                name: "EncryptionProtocolType",
                 columns: table => new
                 {
-                    DestinationId = table.Column<int>(type: "int", nullable: false)
+                    EncryptionProtocolTypeId = table.Column<short>(type: "smallint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    FtpHost = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    FtpUsername = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    FtpPassword = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    FtpRemoteDir = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    ProtocolTypeId = table.Column<short>(type: "smallint", nullable: false),
-                    SSHKeyFilePath = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
-                    OutputFormatTypeId = table.Column<short>(type: "smallint", nullable: false),
-                    UseQuotedFields = table.Column<bool>(type: "bit", nullable: false),
-                    IncludeHeaders = table.Column<bool>(type: "bit", nullable: false),
-                    OutputFileName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ZipOutputFile = table.Column<bool>(type: "bit", nullable: false),
-                    OneFilePerDealer = table.Column<bool>(type: "bit", nullable: false),
-                    SendPhotosInZip = table.Column<bool>(type: "bit", nullable: false),
-                    dtmCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    dtmLastChanged = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Destinations", x => x.DestinationId);
+                    table.PrimaryKey("PK_EncryptionProtocolType", x => x.EncryptionProtocolTypeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EncryptionType",
+                columns: table => new
+                {
+                    EncryptionTypeId = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EncryptionType", x => x.EncryptionTypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -417,51 +414,6 @@ namespace VehicleExport.App.Migrations
                 .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
 
             migrationBuilder.CreateTable(
-                name: "Exports",
-                columns: table => new
-                {
-                    ExportId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LayoutId = table.Column<int>(type: "int", nullable: false),
-                    DestinationId = table.Column<int>(type: "int", nullable: false),
-                    RunTimeOne = table.Column<TimeSpan>(type: "time", nullable: true),
-                    RunTimeTwo = table.Column<TimeSpan>(type: "time", nullable: true),
-                    dtmCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    dtmLastChanged = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
-                    PeriodEnd = table.Column<DateTime>(type: "datetime2", nullable: false)
-                        .Annotation("SqlServer:IsTemporal", true)
-                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
-                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart"),
-                    PeriodStart = table.Column<DateTime>(type: "datetime2", nullable: false)
-                        .Annotation("SqlServer:IsTemporal", true)
-                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
-                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Exports", x => x.ExportId);
-                    table.ForeignKey(
-                        name: "FK_Exports_Destinations_DestinationId",
-                        column: x => x.DestinationId,
-                        principalTable: "Destinations",
-                        principalColumn: "DestinationId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Exports_Layouts_LayoutId",
-                        column: x => x.LayoutId,
-                        principalTable: "Layouts",
-                        principalColumn: "LayoutId",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("SqlServer:IsTemporal", true)
-                .Annotation("SqlServer:TemporalHistoryTableName", "ExportsHistory")
-                .Annotation("SqlServer:TemporalHistoryTableSchema", null)
-                .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
-                .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
-
-            migrationBuilder.CreateTable(
                 name: "LayoutFilters",
                 columns: table => new
                 {
@@ -483,6 +435,62 @@ namespace VehicleExport.App.Migrations
                         column: x => x.LayoutId,
                         principalTable: "Layouts",
                         principalColumn: "LayoutId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Destinations",
+                columns: table => new
+                {
+                    DestinationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FtpHost = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FtpUsername = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FtpPassword = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FtpRemoteDir = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ProtocolTypeId = table.Column<short>(type: "smallint", nullable: false),
+                    EncryptionTypeId = table.Column<short>(type: "smallint", nullable: false),
+                    EncryptionProtocolTypeId = table.Column<short>(type: "smallint", nullable: false),
+                    SSHKeyFileName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    OutputFormatTypeId = table.Column<short>(type: "smallint", nullable: false),
+                    UseQuotedFields = table.Column<bool>(type: "bit", nullable: false),
+                    IncludeHeaders = table.Column<bool>(type: "bit", nullable: false),
+                    OutputFileName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ZipOutputFile = table.Column<bool>(type: "bit", nullable: false),
+                    OneFilePerDealer = table.Column<bool>(type: "bit", nullable: false),
+                    SendPhotosInZip = table.Column<bool>(type: "bit", nullable: false),
+                    dtmCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    dtmLastChanged = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SshFilePassword = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Destinations", x => x.DestinationId);
+                    table.ForeignKey(
+                        name: "FK_Destinations_EncryptionProtocolType_EncryptionProtocolTypeId",
+                        column: x => x.EncryptionProtocolTypeId,
+                        principalTable: "EncryptionProtocolType",
+                        principalColumn: "EncryptionProtocolTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Destinations_EncryptionType_EncryptionTypeId",
+                        column: x => x.EncryptionTypeId,
+                        principalTable: "EncryptionType",
+                        principalColumn: "EncryptionTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Destinations_OutputFormatType_OutputFormatTypeId",
+                        column: x => x.OutputFormatTypeId,
+                        principalTable: "OutputFormatType",
+                        principalColumn: "OutputFormatTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Destinations_ProtocolType_ProtocolTypeId",
+                        column: x => x.ProtocolTypeId,
+                        principalTable: "ProtocolType",
+                        principalColumn: "ProtocolTypeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -537,6 +545,51 @@ namespace VehicleExport.App.Migrations
                         principalColumn: "LayoutId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Exports",
+                columns: table => new
+                {
+                    ExportId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LayoutId = table.Column<int>(type: "int", nullable: false),
+                    DestinationId = table.Column<int>(type: "int", nullable: false),
+                    RunTimeOne = table.Column<TimeSpan>(type: "time", nullable: true),
+                    RunTimeTwo = table.Column<TimeSpan>(type: "time", nullable: true),
+                    dtmCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    dtmLastChanged = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
+                    PeriodEnd = table.Column<DateTime>(type: "datetime2", nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart"),
+                    PeriodStart = table.Column<DateTime>(type: "datetime2", nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Exports", x => x.ExportId);
+                    table.ForeignKey(
+                        name: "FK_Exports_Destinations_DestinationId",
+                        column: x => x.DestinationId,
+                        principalTable: "Destinations",
+                        principalColumn: "DestinationId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Exports_Layouts_LayoutId",
+                        column: x => x.LayoutId,
+                        principalTable: "Layouts",
+                        principalColumn: "LayoutId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("SqlServer:IsTemporal", true)
+                .Annotation("SqlServer:TemporalHistoryTableName", "ExportsHistory")
+                .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
+                .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart");
 
             migrationBuilder.CreateTable(
                 name: "ExportDealers",
@@ -610,33 +663,46 @@ namespace VehicleExport.App.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"), "aa6f4888-8992-48c2-bc42-42689ab6e8b6", "ContentManager", "ContentManager" },
-                    { new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"), "9d34193a-d7f9-4f5e-a3f0-0b9ef0220ccf", "ProjectManager", "ProjectManager" },
-                    { new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"), "0df565ec-edcb-44b1-b2eb-394ad569af85", "SuperAdmin", "SuperAdmin" },
-                    { new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"), "dbe543c2-9809-40f3-9377-a1811252e58c", "ProjectViewer", "ProjectViewer" }
+                    { new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"), "a947937b-c795-4ab1-ad96-db6f24677f30", "ContentManager", "ContentManager" },
+                    { new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"), "bae50c46-ddfb-4322-8d28-84dd2831db15", "ProjectManager", "ProjectManager" },
+                    { new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"), "ba3dab83-e5a7-4058-966f-0b6144eec781", "SuperAdmin", "SuperAdmin" },
+                    { new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"), "19d42f1a-0316-4166-bc88-8192daddccfa", "ProjectViewer", "ProjectViewer" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), 0, "042f1263-e745-49f8-9656-1eb4c87e297e", "admin@test.com", true, "Admin", "Admin", false, null, "ADMIN@TEST.COM", "ADMIN", "AQAAAAEAACcQAAAAEC0veKD/zo8uPSSgAEwP59iTfPIydjYlVvNZ3ubDp2nwPhgEYHcgEDKgyKl5QKAhog==", null, false, "", false, "admin" });
+                values: new object[] { new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), 0, "1479067a-e332-4010-9d52-8ef9a7eeabf4", "admin@test.com", true, "Admin", "Admin", false, null, "ADMIN@TEST.COM", "ADMIN", "AQAAAAEAACcQAAAAEOvcxAXN5tuEzAVCzTDr9dsijI+zSPJOlGuRt/nm09rMb6elXM4nvMIt3Ypxwt7VxA==", null, false, "", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "ContentBlocks",
                 columns: new[] { "Id", "AllowedTokens", "Description", "IsPage", "Slug", "Title", "Value" },
                 values: new object[,]
                 {
-                    { new Guid("1bae9bb6-a209-47b3-a2ef-2c164c4c98fd"), null, "The help page that appears in the top nav", true, "help", "Help!", "Need help? Don't we all." },
-                    { new Guid("711e0b20-647b-4565-9191-bf06993e574f"), null, "", true, "placeholder", "Placeholder", "This is a placeholder page. The underlying functionality has not yet been implemented." },
-                    { new Guid("7249d0f0-262c-47ae-8094-d3bcddeab502"), "[{\"Token\":\"passwordResetUrl\",\"Description\":\"The URL for the user to reset their password\"}]", "The text that appears in a password reset message", false, "password-reset-email", "Reset Your Password", "To reset your account, follow this link: %passwordResetUrl%" },
-                    { new Guid("b95c9e7a-cbab-48b4-80ef-8634729aeab5"), null, "The text that appears on the About page", true, "about", "About Us", "About us..." },
-                    { new Guid("f4d8d000-6d04-460e-b525-a73605bd7a35"), null, "Content that appears on the Home/Dashboard page", false, "dashboard", "Hello", "Hello, world. Or whoever else is here. This content is editable within the app." }
+                    { new Guid("0b351158-ad87-499f-945b-1e61373e2e45"), null, "The text that appears on the About page", true, "about", "About Us", "About us..." },
+                    { new Guid("1216cb5d-7047-4c64-8ac5-86627898ac3e"), "[{\"Token\":\"passwordResetUrl\",\"Description\":\"The URL for the user to reset their password\"}]", "The text that appears in a password reset message", false, "password-reset-email", "Reset Your Password", "To reset your account, follow this link: %passwordResetUrl%" },
+                    { new Guid("20c6ab53-0c44-4f8d-ae2d-51721ed9b785"), null, "Content that appears on the Home/Dashboard page", false, "dashboard", "Hello", "Hello, world. Or whoever else is here. This content is editable within the app." },
+                    { new Guid("30ee8fe7-fd3e-4f86-ae39-cae419a0bacc"), null, "", true, "placeholder", "Placeholder", "This is a placeholder page. The underlying functionality has not yet been implemented." },
+                    { new Guid("9a13d562-8732-41a2-9c22-4fb88fa78969"), null, "The help page that appears in the top nav", true, "help", "Help!", "Need help? Don't we all." }
                 });
 
             migrationBuilder.InsertData(
-                table: "Destinations",
-                columns: new[] { "DestinationId", "FtpHost", "FtpPassword", "FtpRemoteDir", "FtpUsername", "IncludeHeaders", "Name", "OneFilePerDealer", "OutputFileName", "OutputFormatTypeId", "ProtocolTypeId", "SSHKeyFilePath", "SendPhotosInZip", "UseQuotedFields", "ZipOutputFile", "dtmCreated", "dtmLastChanged" },
-                values: new object[] { 1, "vendor.windowstickers.biz", "somepassword", "/", "someuser", true, "Test Destination 1", false, "Vehicledata.txt", (short)2, (short)1, null, false, true, false, new DateTime(2023, 9, 8, 16, 48, 22, 131, DateTimeKind.Local).AddTicks(4983), new DateTime(2023, 9, 8, 16, 48, 22, 131, DateTimeKind.Local).AddTicks(5013) });
+                table: "EncryptionProtocolType",
+                columns: new[] { "EncryptionProtocolTypeId", "Description" },
+                values: new object[,]
+                {
+                    { (short)1, "Explicit FTP over TLS" },
+                    { (short)2, "Plain FTP" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "EncryptionType",
+                columns: new[] { "EncryptionTypeId", "Description" },
+                values: new object[,]
+                {
+                    { (short)1, "Active" },
+                    { (short)2, "Passive" }
+                });
 
             migrationBuilder.InsertData(
                 table: "LayoutFieldType",
@@ -650,7 +716,7 @@ namespace VehicleExport.App.Migrations
             migrationBuilder.InsertData(
                 table: "Layouts",
                 columns: new[] { "LayoutId", "Description", "Name", "StoredProcedureName", "dtmCreated" },
-                values: new object[] { 1, null, "Sample Layout 1", null, new DateTime(2023, 9, 8, 16, 48, 22, 131, DateTimeKind.Local).AddTicks(5032) });
+                values: new object[] { 1, null, "Sample Layout 1", null, new DateTime(2023, 9, 19, 18, 13, 58, 164, DateTimeKind.Local).AddTicks(8539) });
 
             migrationBuilder.InsertData(
                 table: "OutputFormatType",
@@ -676,16 +742,21 @@ namespace VehicleExport.App.Migrations
                 columns: new[] { "RoleId", "UserId", "Id" },
                 values: new object[,]
                 {
-                    { new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("2ae5c28c-27bc-4e7c-bd05-d8a7131296ab") },
-                    { new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("be0babbc-abc0-4b2c-bb36-f35b697cd306") },
-                    { new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("d430373a-6f92-49f1-a170-7c635e33cccd") },
-                    { new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("bdd1b4e3-e9fc-4894-9218-0e71659316f1") }
+                    { new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("1daf52d1-447d-4565-b099-ea67e5d1d40d") },
+                    { new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("b778e0bc-7a2b-41b9-9e16-5a2240597966") },
+                    { new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("855f5acc-46a3-4803-a6c5-0b1a7af77dbd") },
+                    { new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("157d137f-0491-4d8d-89cc-e492368d5fe3") }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Destinations",
+                columns: new[] { "DestinationId", "EncryptionProtocolTypeId", "EncryptionTypeId", "FtpHost", "FtpPassword", "FtpRemoteDir", "FtpUsername", "IncludeHeaders", "Name", "OneFilePerDealer", "OutputFileName", "OutputFormatTypeId", "ProtocolTypeId", "SSHKeyFileName", "SendPhotosInZip", "SshFilePassword", "UseQuotedFields", "ZipOutputFile", "dtmCreated", "dtmLastChanged" },
+                values: new object[] { 1, (short)1, (short)1, "vendor.windowstickers.biz", "somepassword", "/", "someuser", true, "Test Destination 1", false, "Vehicledata.txt", (short)2, (short)1, null, false, null, true, false, new DateTime(2023, 9, 19, 18, 13, 58, 164, DateTimeKind.Local).AddTicks(8489), new DateTime(2023, 9, 19, 18, 13, 58, 164, DateTimeKind.Local).AddTicks(8525) });
 
             migrationBuilder.InsertData(
                 table: "Exports",
                 columns: new[] { "ExportId", "DestinationId", "LayoutId", "Name", "RunTimeOne", "RunTimeTwo", "dtmCreated", "dtmLastChanged" },
-                values: new object[] { 1, 1, 1, "Sample Export 1", new TimeSpan(0, 0, 0, 0, 0), null, new DateTime(2023, 9, 8, 16, 48, 22, 131, DateTimeKind.Local).AddTicks(5052), new DateTime(2023, 9, 8, 16, 48, 22, 131, DateTimeKind.Local).AddTicks(5053) });
+                values: new object[] { 1, 1, 1, "Sample Export 1", new TimeSpan(0, 0, 0, 0, 0), null, new DateTime(2023, 9, 19, 18, 13, 58, 164, DateTimeKind.Local).AddTicks(8555), new DateTime(2023, 9, 19, 18, 13, 58, 164, DateTimeKind.Local).AddTicks(8557) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -736,6 +807,26 @@ namespace VehicleExport.App.Migrations
                 name: "IX_ContentBlocks_Slug",
                 table: "ContentBlocks",
                 column: "Slug");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Destinations_EncryptionProtocolTypeId",
+                table: "Destinations",
+                column: "EncryptionProtocolTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Destinations_EncryptionTypeId",
+                table: "Destinations",
+                column: "EncryptionTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Destinations_OutputFormatTypeId",
+                table: "Destinations",
+                column: "OutputFormatTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Destinations_ProtocolTypeId",
+                table: "Destinations",
+                column: "ProtocolTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExportDealerParameters_LayoutFieldId",
@@ -866,12 +957,6 @@ namespace VehicleExport.App.Migrations
                 name: "LayoutFilters");
 
             migrationBuilder.DropTable(
-                name: "OutputFormatType");
-
-            migrationBuilder.DropTable(
-                name: "ProtocolType");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -907,6 +992,18 @@ namespace VehicleExport.App.Migrations
 
             migrationBuilder.DropTable(
                 name: "Layouts");
+
+            migrationBuilder.DropTable(
+                name: "EncryptionProtocolType");
+
+            migrationBuilder.DropTable(
+                name: "EncryptionType");
+
+            migrationBuilder.DropTable(
+                name: "OutputFormatType");
+
+            migrationBuilder.DropTable(
+                name: "ProtocolType");
         }
     }
 }

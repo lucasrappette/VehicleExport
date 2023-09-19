@@ -139,6 +139,8 @@ namespace VehicleExport.App
             services.AddTransientListReadService<LayoutFieldType, short, LayoutFieldTypeService>();
             services.AddTransientListReadService<OutputFormatType, short, OutputFormatTypeService>();
             services.AddTransientListReadService<ProtocolType, short, ProtocolTypeService>();
+            services.AddTransientListReadService<EncryptionType, short, EncryptionTypeService>();
+            services.AddTransientListReadService<EncryptionProtocolType, short, EncryptionProtocolTypeService>();
         }
 
         public static void AddEntityValidators(this IServiceCollection services)
@@ -165,6 +167,8 @@ namespace VehicleExport.App
             services.AddSingleton<IValidator<LayoutFieldType>, LayoutFieldTypeValidator>();
             services.AddSingleton<IValidator<OutputFormatType>, OutputFormatTypeValidator>();
             services.AddSingleton<IValidator<ProtocolType>, ProtocolTypeValidator>();
+            services.AddSingleton<IValidator<EncryptionType>, EncryptionTypeValidator>();
+            services.AddSingleton<IValidator<EncryptionProtocolType>, EncryptionProtocolTypeValidator>();
         }
 
         public static void AddWorkItemServices(this IServiceCollection services)

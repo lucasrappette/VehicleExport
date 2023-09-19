@@ -54,6 +54,10 @@ namespace VehicleExport.App.DAL
         public DbSet<LayoutField> LayoutFields { get; set; }
         public DbSet<LayoutFieldMap> LayoutFieldMap { get; set; }
         public DbSet<Layout> Layouts { get; set; }
+        public DbSet<ProtocolType> ProtocolTypes { get; set; }
+        public DbSet<OutputFormatType> OutputFormatTypes { get; set; }
+        public DbSet<EncryptionType> EncryptionTypes { get; set; }
+        public DbSet<EncryptionProtocolType> EncryptionProtocolTypes { get; set; }
 
 
         public DbSet<Job> Jobs { get; set; }
@@ -131,6 +135,25 @@ namespace VehicleExport.App.DAL
 
             modelBuilder.Entity<Destination>()
                 .ToTable("Destinations");
+
+            modelBuilder.Entity<Destination>()
+                .HasOne(x => x.ProtocolType)
+                .WithMany(x => x.Destinations)
+                .HasForeignKey(x => x.ProtocolTypeId);
+
+            modelBuilder.Entity<Destination>()
+                .HasOne(x => x.OutputFormatType)
+                .WithMany(x => x.Destinations)
+                .HasForeignKey(x => x.OutputFormatTypeId);
+
+            modelBuilder.Entity<Destination>()
+                .HasOne(x => x.EncryptionType)
+                .WithMany(x => x.Destinations)
+                .HasForeignKey(x => x.EncryptionTypeId);
+            modelBuilder.Entity<Destination>()
+                .HasOne(x => x.EncryptionProtocolType)
+                .WithMany(x => x.Destinations)
+                .HasForeignKey(x => x.EncryptionProtocolTypeId);
 
             // ==============================================================
             // Exports
@@ -238,6 +261,10 @@ namespace VehicleExport.App.DAL
                 .ToTable("LayoutFieldType");
             modelBuilder.Entity<OutputFormatType>()
                 .ToTable("OutputFormatType");
+            modelBuilder.Entity<EncryptionType>()
+                .ToTable("EncryptionType");
+            modelBuilder.Entity<EncryptionProtocolType>()
+                .ToTable("EncryptionProtocolType");
 
             // ==============================================================
             /* Jobs */
@@ -452,6 +479,28 @@ namespace VehicleExport.App.DAL
                 Description = "Pipe-Delimited",
             });
 
+            modelBuilder.Entity<EncryptionType>().HasData(new EncryptionType()
+            {
+                EncryptionTypeId = 1,
+                Description = "Active",
+            });
+            modelBuilder.Entity<EncryptionType>().HasData(new EncryptionType()
+            {
+                EncryptionTypeId = 2,
+                Description = "Passive",
+            });
+
+            modelBuilder.Entity<EncryptionProtocolType>().HasData(new EncryptionProtocolType()
+            {
+                EncryptionProtocolTypeId = 1,
+                Description = "Explicit FTP over TLS",
+            });
+            modelBuilder.Entity<EncryptionProtocolType>().HasData(new EncryptionProtocolType()
+            {
+                EncryptionProtocolTypeId = 2,
+                Description = "Plain FTP",
+            });
+
             // Destinations
             modelBuilder.Entity<Destination>().HasData(new Destination()
             {
@@ -463,6 +512,8 @@ namespace VehicleExport.App.DAL
                 FtpRemoteDir = "/",
                 ProtocolTypeId = 1,
                 OutputFormatTypeId = 2,
+                EncryptionTypeId = 1,
+                EncryptionProtocolTypeId = 1,
                 UseQuotedFields = true,
                 IncludeHeaders = true,
                 OutputFileName = "Vehicledata.txt",
