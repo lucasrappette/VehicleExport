@@ -51,10 +51,18 @@ export default {
       this.goToParentPage();
     },
     onSubmit(evt) {
-      let url = '/api/destination/' + this.id + '?context=WebApiElevated';
-
+      let url = '/api/destination/';
+      var config = {
+      headers: {
+        "Content-Type": "multipart/form-data"
+        }
+      };
+      var myFormData = new FormData();
+      for (const [key, value] of Object.entries(this.item)) {
+          myFormData.append(key.toString(), value);
+      };
       axios
-        .put(url, this.item)
+        .put(url, myFormData, config)
         .then(response => {
           this.item = response.data;
           this.processEditSuccessResponse(response, 'destination');

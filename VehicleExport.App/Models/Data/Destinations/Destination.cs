@@ -74,6 +74,7 @@ namespace VehicleExport.App.Models.Data.Destinations
         public DateTime dtmLastChanged { get; set; }
 
         public string SshFilePassword { get; set; }
+        public string SshKeyFileChecksum { get; set; }
 
         [Timestamp]
         [ConcurrencyCheck]

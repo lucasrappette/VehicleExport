@@ -48,9 +48,17 @@ export default {
     },
     onSubmit(evt) {
       let url = '/api/destination?context=WebApiElevated';
-
+      var config = {
+      headers: {
+        "Content-Type": "multipart/form-data"
+        }
+      };
+      var myFormData = new FormData();
+      for (const [key, value] of Object.entries(this.item)) {
+        myFormData.append(key.toString(), value);
+      };
       axios
-        .post(url, this.item)
+        .post(url, myFormData, config)
         .then(response => {
           this.item = response.data;
 

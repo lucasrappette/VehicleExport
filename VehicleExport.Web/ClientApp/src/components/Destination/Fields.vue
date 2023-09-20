@@ -20,18 +20,29 @@
           <hr />
           <select-list-control label="Output File Format Type" required v-model="item.outputFormatTypeId" :options="nonNullOutputFormatTypeSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
           <text-control label="Output File Name" required v-model="item.outputFileName" :concurrency-check="item.concurrencyCheck"></text-control>
+          <br/>
           <h4>File Formatting Options</h4>
+          <hr />
           <checkbox-control label="Quoted Text Fields?" v-model="item.useQuotedFields" :concurrency-check="item.concurrencyCheck"></checkbox-control>
           <checkbox-control label="Include Headers?" v-model="item.includeHeaders" :concurrency-check="item.concurrencyCheck"></checkbox-control>
+          <br/>
           <h4>Output Options</h4>
+          <hr />
           <checkbox-control label="Zipped File?" v-model="item.zipOutputFile" :concurrency-check="item.concurrencyCheck"></checkbox-control>
           <checkbox-control label="One File Per Dealer?" v-model="item.oneFilePerDealer" :concurrency-check="item.concurrencyCheck"></checkbox-control>
           <checkbox-control label="Send Photos In Zip?" v-model="item.sendPhotosInZip" :concurrency-check="item.concurrencyCheck"></checkbox-control>
         </b-col>
-         <b-col xs="12" sm="6" lg="3">
+         <b-col v-if="item.protocolTypeId==2" xs="12" sm="6" lg="3">
           <h4>SSH</h4>
           <hr />
-          <file-upload-control label="SSH File" v-model="item.sshFile" :concurrency-check="item.concurrencyCheck"></file-upload-control>
+          <!--<b-form-file
+          v-model="item.sshFile"
+          :state="Boolean(item.sshFile)"
+          placeholder="SSH File"
+          ref="upInput"
+          class="mt-1"
+          ></b-form-file>-->
+          <file-upload-control label="SSH File" @upload="upload" v-model="item.sshkeyFileName" :concurrency-check="item.concurrencyCheck"></file-upload-control>
           <text-control label="File Password" v-model="item.sshFilePassword" :concurrency-check="item.concurrencyCheck"></text-control>
         </b-col>
       </b-row>
@@ -74,6 +85,14 @@ export default {
     },
     onSubmit(evt) {
       this.$emit('submit');
+    },
+    upload(file) {
+      this.item.sshkeyFileName = file.name;
+      this.item.sshFile = file;
+    },
+    download(sshKeyFileName)
+    {
+      
     }
   }
 };

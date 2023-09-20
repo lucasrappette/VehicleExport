@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace VehicleExport.App.Utilities.Serialization
 {
@@ -154,7 +155,7 @@ namespace VehicleExport.App.Utilities.Serialization
                     {
                         dstProperty.SetValue(dst, Guid.Parse(srcDict[dstPropertyName].ToString()));
                     }
-                    else if (dstPropertyType == typeof(string))
+                    else if (dstPropertyType == typeof(string) || dstPropertyType == typeof(IFormFile))
                     {
                         dstProperty.SetValue(dst, srcDict[dstPropertyName]);
                     }

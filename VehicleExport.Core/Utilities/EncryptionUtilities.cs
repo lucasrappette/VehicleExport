@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -24,6 +25,15 @@ namespace VehicleExport.Core.Utilities
                     hash = hash.Replace("+", "X");
 
                 return hash;
+            }
+        }
+
+        public static string GetFileChecksum(Stream fileStream)
+        {
+            using (var hasher = SHA256.Create())
+            {
+                byte[] checksum = hasher.ComputeHash(fileStream);
+                return BitConverter.ToString(checksum).Replace("-", String.Empty);
             }
         }
 
@@ -56,7 +66,7 @@ namespace VehicleExport.Core.Utilities
 
             return res.ToString();
         }
-        
+
         public static string GetIdentityTokenFromDonorId(long donorId, string key)
         {
             var encoding = new ASCIIEncoding();

@@ -18,6 +18,7 @@ using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using VehicleExport.App.Exceptions;
+using VehicleExport.Core.Utilities;
 
 namespace VehicleExport.App.Services.Data.Destinations
 {
@@ -45,68 +46,83 @@ namespace VehicleExport.App.Services.Data.Destinations
 
         protected override async Task OnCreated(ClaimsPrincipal user, Destination dataModel, Dictionary<string, object> extraData)
         {
-            //Needs to save checksum for file
-            var blobName = Guid.NewGuid().ToString();
-
-            var blobServiceClient = new BlobServiceClient(_configuration.GetValue<string>("AzureBlobStorage"));
-            var containerName = "sshkeyfiles";
-            var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
-
-            await containerClient.CreateIfNotExistsAsync();
-
-            var blobClient = containerClient.GetBlobClient(blobName);
-            await blobClient.UploadAsync(dataModel.SshFile.OpenReadStream());
-
-            dataModel.SSHKeyFileName = blobName;
-
-            await Update(user, dataModel);
-        }
-
-        public async Task<Destination> UploadFile(ClaimsPrincipal user, Guid? clientId, IFormFile file)
-        {
-            var applicationUser = await GetApplicationUser(user);
-            var blobName = Guid.NewGuid().ToString();
-
-            var markDownImage = new Destination()
+            if (dataModel.SshFile != null)
             {
-                /*ClientId = clientId,
-                BlobName = blobName,
-                ContentType = file.ContentType,
-                Uploaded = DateTime.UtcNow*/
-            };
+                //Needs to save checksum for file
+                using (var readStream = dataModel.SshFile.OpenReadStream())
+                {
+                    var blobName = Guid.NewGuid().ToString();
 
-            if (!await CanCreate(applicationUser, markDownImage, new Dictionary<string, object>()))
-                throw new ForbiddenException();
+                    var blobServiceClient = new BlobServiceClient(_configuration.GetValue<string>("AzureBlobStorage"));
+                    var containerName = "sshkeyfiles";
+                    var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 
-            var blobServiceClient = new BlobServiceClient(_configuration.GetValue<string>("AzureBlobStorage"));
-            var containerName = "sshkeyfiles";
-            var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+                    await containerClient.CreateIfNotExistsAsync();
 
-            await containerClient.CreateIfNotExistsAsync();
+                    var blobClient = containerClient.GetBlobClient(blobName);
+                    await blobClient.UploadAsync(readStream);
+                    readStream.Seek(0, SeekOrigin.Begin);
+                    dataModel.SSHKeyFileName = blobName;
+                    dataModel.SshKeyFileChecksum = EncryptionUtilities.GetFileChecksum(readStream);
 
-            var blobClient = containerClient.GetBlobClient(blobName);
-            await blobClient.UploadAsync(file.OpenReadStream());
 
-            var newMarkDownImage = await Create(user, markDownImage);
+                    await Update(user, dataModel);
+                }
+            }
+        }
+        protected override async Task OnUpdated(ClaimsPrincipal user, Destination dataModel, Destination oldDataModel, Dictionary<string, object> extraData)
+        {
+            if (dataModel.SshFile != null)
+            {
+                using (var readStream = dataModel.SshFile.OpenReadStream())
+                {
+                    if (dataModel.SshKeyFileChecksum == null || (dataModel.SshKeyFileChecksum != EncryptionUtilities.GetFileChecksum(readStream)))
+                    {
+                        var blobName = Guid.NewGuid().ToString();
 
-            return newMarkDownImage;
+                        var blobServiceClient = new BlobServiceClient(_configuration.GetValue<string>("AzureBlobStorage"));
+                        var containerName = "sshkeyfiles";
+                        var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+
+                        await containerClient.CreateIfNotExistsAsync();
+
+                        var blobClient = containerClient.GetBlobClient(blobName);
+                        await blobClient.UploadAsync(readStream);
+                        readStream.Seek(0, SeekOrigin.Begin);
+                        dataModel.SSHKeyFileName = blobName;
+                        dataModel.SshKeyFileChecksum = EncryptionUtilities.GetFileChecksum(readStream);
+                        await Update(user, dataModel);
+                    }
+                    //SSH File Deleted
+                    else if (oldDataModel.SSHKeyFileName != null && dataModel.SSHKeyFileName == null)
+                    {
+                        dataModel.SshKeyFileChecksum = null;
+                        var blobServiceClient = new BlobServiceClient(_configuration.GetValue<string>("AzureBlobStorage"));
+                        var containerName = "sshkeyfiles";
+                        var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+
+                        await containerClient.CreateIfNotExistsAsync();
+
+                        var blobClient = containerClient.GetBlobClient(oldDataModel.SSHKeyFileName);
+                        await blobClient.DeleteAsync();
+                        await Update(user, dataModel);
+                    }
+                }
+            }
         }
 
-        public async Task<Tuple<Destination, Stream>> DownloadFile(ClaimsPrincipal user, int id)
+        public async Task<Stream> DownloadFile(ClaimsPrincipal user, string sshKeyFileName)
         {
-            var applicationUser = await GetApplicationUser(user);
-            var markDownImage = await GetOne(user, id, null);
-
             var blobServiceClient = new BlobServiceClient(_configuration.GetValue<string>("AzureBlobStorage"));
             var containerName = "sshkeyfiles";
             var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 
             await containerClient.CreateIfNotExistsAsync();
 
-            var blobClient = containerClient.GetBlobClient(markDownImage.SSHKeyFileName);
+            var blobClient = containerClient.GetBlobClient(sshKeyFileName);
             var content = await blobClient.DownloadContentAsync();
 
-            return new Tuple<Destination, Stream>(markDownImage, content.Value.Content.ToStream());
+            return content.Value.Content.ToStream();
         }
 
         protected override List<string> ReadRoles => new List<string> { ApplicationRoleNames.SuperAdmin, ApplicationRoleNames.ProjectManager, ApplicationRoleNames.ProjectViewer };
