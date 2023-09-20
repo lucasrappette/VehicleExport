@@ -92,7 +92,7 @@ export default {
     },
     download(sshKeyFileName)
     {
-      
+      window.open("/api/destination/downloadFile/" + sshKeyFileName);
     }
   }
 };
