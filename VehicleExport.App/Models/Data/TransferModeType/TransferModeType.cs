@@ -10,12 +10,12 @@ using VehicleExport.App.Models.Data.Destinations;
 
 namespace VehicleExport.App.Models.Data.MinorEntity
 {
-    public class EncryptionProtocolType : IEntity, IHasId<short>
+    public class TransferModeType : IEntity, IHasId<short>
     {
-        public short GetId() => EncryptionProtocolTypeId;
+        public short GetId() => TransferModeTypeId;
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public short EncryptionProtocolTypeId { get; set; }
+        public short TransferModeTypeId { get; set; }
 
         [Required]
         public string Description { get; set; }

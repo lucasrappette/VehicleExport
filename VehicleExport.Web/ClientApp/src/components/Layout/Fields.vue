@@ -14,7 +14,7 @@
         <b-col xs="12" sm="6" lg="3">
           <h4>Filters</h4>
           <hr />
-          <multi-select-list-control label="Makes" required v-model="item.makesList" :options="nonNullStateSelectOptions" :concurrency-check="item.concurrencyCheck"></multi-select-list-control>
+          <text-control label="Makes" required v-model="item.makesList" :options="nonNullStateSelectOptions" :concurrency-check="item.concurrencyCheck"></text-control>
           <checkbox-control label="Certified Only?" v-model="item.certifiedOnly" :concurrency-check="item.concurrencyCheck"></checkbox-control>
           <checkbox-control label="New Vehicles?" v-model="item.newVehicles" :concurrency-check="item.concurrencyCheck"></checkbox-control>
           <checkbox-control label="Used Vehicles?" v-model="item.usedVehicles" :concurrency-check="item.concurrencyCheck"></checkbox-control>

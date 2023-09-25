@@ -17,16 +17,16 @@ using VehicleExport.App.Models.Data.MinorEntity;
 
 namespace VehicleExport.App.Services.Data.MinorEntity
 {
-    public class EncryptionProtocolTypeService : EntityReadService<EncryptionProtocolType, short>
+    public class TransferModeTypeService : EntityReadService<TransferModeType, short>
     {
-        public EncryptionProtocolTypeService(ApplicationDbContext dbContext, IConfiguration configuration, UserManager<ApplicationUser> userManager, IValidator<EncryptionProtocolType> validator, ILogger<EncryptionProtocolTypeService> logger) : base(dbContext, configuration, userManager, logger)
+        public TransferModeTypeService(ApplicationDbContext dbContext, IConfiguration configuration, UserManager<ApplicationUser> userManager, IValidator<TransferModeType> validator, ILogger<TransferModeTypeService> logger) : base(dbContext, configuration, userManager, logger)
         {
            
         }
 
-        protected override async Task<IQueryable<EncryptionProtocolType>> ApplyIdFilter(IQueryable<EncryptionProtocolType> queryable, short id)
+        protected override async Task<IQueryable<TransferModeType>> ApplyIdFilter(IQueryable<TransferModeType> queryable, short id)
         {
-            return queryable.Where(x => x.EncryptionProtocolTypeId == id);
+            return queryable.Where(x => x.TransferModeTypeId == id);
         }
 
         protected override List<string> ReadRoles => new List<string> { ApplicationRoleNames.SuperAdmin, ApplicationRoleNames.ProjectManager, ApplicationRoleNames.ProjectViewer };

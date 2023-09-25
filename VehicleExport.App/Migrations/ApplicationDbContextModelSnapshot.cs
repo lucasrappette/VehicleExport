@@ -154,28 +154,28 @@ namespace VehicleExport.App.Migrations
                         new
                         {
                             Id = new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"),
-                            ConcurrencyStamp = "a982c7d5-43d5-451c-ba5a-b1fb15fbe14f",
+                            ConcurrencyStamp = "14e71596-2535-4d0c-9ba1-c585526a4579",
                             Name = "SuperAdmin",
                             NormalizedName = "SuperAdmin"
                         },
                         new
                         {
                             Id = new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"),
-                            ConcurrencyStamp = "0a5eb5f8-37b2-4f5f-a4f0-11b7c25262b6",
+                            ConcurrencyStamp = "f9b3c23f-8110-41fc-960e-c3ec3cfda9da",
                             Name = "ProjectManager",
                             NormalizedName = "ProjectManager"
                         },
                         new
                         {
                             Id = new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"),
-                            ConcurrencyStamp = "72d4bd2f-f4a3-4dd8-9cb7-5383ac9fa7ef",
+                            ConcurrencyStamp = "447935b7-9841-4593-a7ce-afa740bc4207",
                             Name = "ProjectViewer",
                             NormalizedName = "ProjectViewer"
                         },
                         new
                         {
                             Id = new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"),
-                            ConcurrencyStamp = "cd2c0fc3-7142-4ab4-b70a-e63404061a23",
+                            ConcurrencyStamp = "e5ed1247-93d4-45d2-8550-17d7fc451cda",
                             Name = "ContentManager",
                             NormalizedName = "ContentManager"
                         });
@@ -259,7 +259,7 @@ namespace VehicleExport.App.Migrations
                         {
                             Id = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4772cf5e-40ac-4a2f-86d3-a74254e5c8e8",
+                            ConcurrencyStamp = "79ed7eca-aa6a-447c-b139-1edff53f1c06",
                             Email = "admin@test.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -267,7 +267,7 @@ namespace VehicleExport.App.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TEST.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFoWyJdCAp2mXetLj9Ql5CpS+DiM9iyNQdfYoj0fuxc3mRPORps8lQJ6Gtq2Uu330Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDcZqUrwcE8DpDpraaZE5BE9lclhHsTtElz70pFfjR1M0KxE13xLqVLQ69UQIMyt5g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -301,25 +301,25 @@ namespace VehicleExport.App.Migrations
                         {
                             UserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             RoleId = new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"),
-                            Id = new Guid("56130dac-25fb-4773-8cbc-bc9a4a0fc7c2")
+                            Id = new Guid("90dd7705-2042-4252-83d9-fe461126f866")
                         },
                         new
                         {
                             UserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             RoleId = new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"),
-                            Id = new Guid("26a94ffb-ea9a-40d2-9e96-30ff5b3271bd")
+                            Id = new Guid("ba695b1f-fbd1-449e-a74a-f4da23b235ea")
                         },
                         new
                         {
                             UserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             RoleId = new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"),
-                            Id = new Guid("45248a7e-12da-43d7-a157-9b6139a3ccdf")
+                            Id = new Guid("df076ffa-378d-4ecb-b139-72aaea8eaadf")
                         },
                         new
                         {
                             UserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             RoleId = new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"),
-                            Id = new Guid("05b4d865-609d-4c1a-bc9c-231e1d3ff971")
+                            Id = new Guid("7371d78f-d92c-42ad-b749-40549893ffb5")
                         });
                 });
 
@@ -412,7 +412,7 @@ namespace VehicleExport.App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("705968e8-75a9-4499-8a86-9fea45f9592b"),
+                            Id = new Guid("a032eb4a-041f-4805-827e-8003356c6b88"),
                             AllowedTokens = "[{\"Token\":\"passwordResetUrl\",\"Description\":\"The URL for the user to reset their password\"}]",
                             Description = "The text that appears in a password reset message",
                             IsPage = false,
@@ -422,7 +422,7 @@ namespace VehicleExport.App.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8b8a6786-c127-4222-874f-e48fd611e444"),
+                            Id = new Guid("829e0f49-767a-4e3e-9b42-68971505b799"),
                             Description = "The text that appears on the About page",
                             IsPage = true,
                             Slug = "about",
@@ -431,7 +431,7 @@ namespace VehicleExport.App.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c96b0584-5f38-4e10-b22f-795766ce83de"),
+                            Id = new Guid("c2b40157-0837-4306-87ac-0e4ec87ebd11"),
                             Description = "",
                             IsPage = true,
                             Slug = "placeholder",
@@ -440,7 +440,7 @@ namespace VehicleExport.App.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3963d275-e9a4-4dda-b025-702a8206f1d8"),
+                            Id = new Guid("8d8681f0-e78d-4050-beee-182a18b46645"),
                             Description = "Content that appears on the Home/Dashboard page",
                             IsPage = false,
                             Slug = "dashboard",
@@ -449,7 +449,7 @@ namespace VehicleExport.App.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2cbaec0d-eecc-4235-b3e9-6ed54c7ae462"),
+                            Id = new Guid("29dfdbd8-c52f-4488-9173-d8a90deaa816"),
                             Description = "The help page that appears in the top nav",
                             IsPage = true,
                             Slug = "help",
@@ -509,9 +509,6 @@ namespace VehicleExport.App.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<short>("EncryptionProtocolTypeId")
-                        .HasColumnType("smallint");
-
                     b.Property<short>("EncryptionTypeId")
                         .HasColumnType("smallint");
 
@@ -569,6 +566,9 @@ namespace VehicleExport.App.Migrations
                     b.Property<string>("SshKeyFileChecksum")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<short>("TransferModeTypeId")
+                        .HasColumnType("smallint");
+
                     b.Property<bool>("UseQuotedFields")
                         .HasColumnType("bit");
 
@@ -583,13 +583,13 @@ namespace VehicleExport.App.Migrations
 
                     b.HasKey("DestinationId");
 
-                    b.HasIndex("EncryptionProtocolTypeId");
-
                     b.HasIndex("EncryptionTypeId");
 
                     b.HasIndex("OutputFormatTypeId");
 
                     b.HasIndex("ProtocolTypeId");
+
+                    b.HasIndex("TransferModeTypeId");
 
                     b.ToTable("Destinations", (string)null);
 
@@ -597,7 +597,6 @@ namespace VehicleExport.App.Migrations
                         new
                         {
                             DestinationId = 1,
-                            EncryptionProtocolTypeId = (short)1,
                             EncryptionTypeId = (short)1,
                             FtpHost = "vendor.windowstickers.biz",
                             FtpPassword = "somepassword",
@@ -610,10 +609,11 @@ namespace VehicleExport.App.Migrations
                             OutputFormatTypeId = (short)2,
                             ProtocolTypeId = (short)1,
                             SendPhotosInZip = false,
+                            TransferModeTypeId = (short)1,
                             UseQuotedFields = true,
                             ZipOutputFile = false,
-                            dtmCreated = new DateTime(2023, 9, 25, 2, 2, 13, 967, DateTimeKind.Local).AddTicks(3346),
-                            dtmLastChanged = new DateTime(2023, 9, 25, 2, 2, 13, 967, DateTimeKind.Local).AddTicks(3376)
+                            dtmCreated = new DateTime(2023, 9, 25, 12, 12, 48, 11, DateTimeKind.Local).AddTicks(4301),
+                            dtmLastChanged = new DateTime(2023, 9, 25, 12, 12, 48, 11, DateTimeKind.Local).AddTicks(4334)
                         });
                 });
 
@@ -757,8 +757,8 @@ namespace VehicleExport.App.Migrations
                             LayoutId = 1,
                             Name = "Sample Export 1",
                             RunTimeOne = new TimeSpan(0, 0, 0, 0, 0),
-                            dtmCreated = new DateTime(2023, 9, 25, 2, 2, 13, 967, DateTimeKind.Local).AddTicks(3405),
-                            dtmLastChanged = new DateTime(2023, 9, 25, 2, 2, 13, 967, DateTimeKind.Local).AddTicks(3406)
+                            dtmCreated = new DateTime(2023, 9, 25, 12, 12, 48, 11, DateTimeKind.Local).AddTicks(4366),
+                            dtmLastChanged = new DateTime(2023, 9, 25, 12, 12, 48, 11, DateTimeKind.Local).AddTicks(4368)
                         });
                 });
 
@@ -955,9 +955,6 @@ namespace VehicleExport.App.Migrations
                     b.Property<short>("LayoutFieldTypeId")
                         .HasColumnType("smallint");
 
-                    b.Property<int>("LayoutId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -975,8 +972,6 @@ namespace VehicleExport.App.Migrations
                     b.HasIndex("DatabaseFieldId");
 
                     b.HasIndex("LayoutFieldTypeId");
-
-                    b.HasIndex("LayoutId");
 
                     b.ToTable("LayoutFields", (string)null);
                 });
@@ -1078,36 +1073,7 @@ namespace VehicleExport.App.Migrations
                             LayoutId = 1,
                             LayoutDataSourceTypeId = (short)1,
                             Name = "Sample Layout 1",
-                            dtmCreated = new DateTime(2023, 9, 25, 2, 2, 13, 967, DateTimeKind.Local).AddTicks(3389)
-                        });
-                });
-
-            modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.EncryptionProtocolType", b =>
-                {
-                    b.Property<short>("EncryptionProtocolTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("EncryptionProtocolTypeId"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("EncryptionProtocolTypeId");
-
-                    b.ToTable("EncryptionProtocolType", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            EncryptionProtocolTypeId = (short)1,
-                            Description = "Explicit FTP over TLS"
-                        },
-                        new
-                        {
-                            EncryptionProtocolTypeId = (short)2,
-                            Description = "Plain FTP"
+                            dtmCreated = new DateTime(2023, 9, 25, 12, 12, 48, 11, DateTimeKind.Local).AddTicks(4350)
                         });
                 });
 
@@ -1131,12 +1097,12 @@ namespace VehicleExport.App.Migrations
                         new
                         {
                             EncryptionTypeId = (short)1,
-                            Description = "Active"
+                            Description = "Explicit FTP over TLS"
                         },
                         new
                         {
                             EncryptionTypeId = (short)2,
-                            Description = "Passive"
+                            Description = "Plain FTP"
                         });
                 });
 
@@ -1189,7 +1155,7 @@ namespace VehicleExport.App.Migrations
                         new
                         {
                             LayoutFieldTypeId = (short)1,
-                            Description = "SQL"
+                            Description = "Database Field"
                         },
                         new
                         {
@@ -1261,6 +1227,35 @@ namespace VehicleExport.App.Migrations
                         });
                 });
 
+            modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.TransferModeType", b =>
+                {
+                    b.Property<short>("TransferModeTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("TransferModeTypeId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TransferModeTypeId");
+
+                    b.ToTable("TransferModeType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            TransferModeTypeId = (short)1,
+                            Description = "Active"
+                        },
+                        new
+                        {
+                            TransferModeTypeId = (short)2,
+                            Description = "Passive"
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("VehicleExport.App.Models.Data.Accounts.ApplicationRole", null)
@@ -1329,12 +1324,6 @@ namespace VehicleExport.App.Migrations
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.Destinations.Destination", b =>
                 {
-                    b.HasOne("VehicleExport.App.Models.Data.MinorEntity.EncryptionProtocolType", "EncryptionProtocolType")
-                        .WithMany("Destinations")
-                        .HasForeignKey("EncryptionProtocolTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("VehicleExport.App.Models.Data.MinorEntity.EncryptionType", "EncryptionType")
                         .WithMany("Destinations")
                         .HasForeignKey("EncryptionTypeId")
@@ -1353,13 +1342,19 @@ namespace VehicleExport.App.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("EncryptionProtocolType");
+                    b.HasOne("VehicleExport.App.Models.Data.MinorEntity.TransferModeType", "TransferModeType")
+                        .WithMany("Destinations")
+                        .HasForeignKey("TransferModeTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("EncryptionType");
 
                     b.Navigation("OutputFormatType");
 
                     b.Navigation("ProtocolType");
+
+                    b.Navigation("TransferModeType");
                 });
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.ExportDealerParameters.ExportDealerParameter", b =>
@@ -1514,11 +1509,6 @@ namespace VehicleExport.App.Migrations
                     b.Navigation("Exports");
                 });
 
-            modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.EncryptionProtocolType", b =>
-                {
-                    b.Navigation("Destinations");
-                });
-
             modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.EncryptionType", b =>
                 {
                     b.Navigation("Destinations");
@@ -1540,6 +1530,11 @@ namespace VehicleExport.App.Migrations
                 });
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.ProtocolType", b =>
+                {
+                    b.Navigation("Destinations");
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.TransferModeType", b =>
                 {
                     b.Navigation("Destinations");
                 });

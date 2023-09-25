@@ -139,7 +139,7 @@ export default {
       pendingResolves: [],
       pendingRejects: []
     },
-    encryptionProtocolTypes: {
+    transferModeTypes: {
       loadState: STATE_UNLOADED,
       values: [],
       selectOptions: [],
@@ -242,15 +242,15 @@ export default {
 
       state.protocolTypes.loadState = STATE_LOADED;
     },
-    LOAD_ENCRYPTION_PROTOCOL_TYPES(state, values) {
-      state.encryptionProtocolTypes.values = values;
+    LOAD_TRANSFER_MODE_TYPES(state, values) {
+      state.transferModeTypes.values = values;
 
-      state.encryptionProtocolTypes.selectOptions = values.map(x => ({
+      state.transferModeTypes.selectOptions = values.map(x => ({
         text: x.description,
-        value: x.encryptionProtocolTypeId
+        value: x.transferModeTypeId
       }));
 
-      state.encryptionProtocolTypes.loadState = STATE_LOADED;
+      state.transferModeTypes.loadState = STATE_LOADED;
     },
     LOAD_ENCRYPTION_TYPES(state, values) {
       state.encryptionTypes.values = values;
@@ -407,20 +407,20 @@ export default {
       });
       dispatch('loadEncryptionTypes');
     },
-    loadEncryptionProtocolTypes({ commit, dispatch }) {
+    loadTransferModeTypes({ commit, dispatch }) {
       return dispatch('loadValues', { 
-        type: 'encryptionProtocolTypes', 
-        commitType: 'ENCRYPTION_PROTOCOL_TYPES', 
-        url: '/api/encryptionProtocolType',
-        order: 'encryptionProtocolTypeId'
+        type: 'transferModeTypes', 
+        commitType: 'TRANSFER_MODE_TYPES', 
+        url: '/api/transferModeType',
+        order: 'transferModeTypeId'
       });
     },
-    reloadEncryptionProtocolTypes({ commit, dispatch }) {
+    reloadTransferModeTypes({ commit, dispatch }) {
       commit('SET_LOAD_STATE', {
-        type: 'encryptionProtocolTypes',
+        type: 'transferModeTypes',
         loadState: STATE_UNLOADED
       });
-      dispatch('loadEncryptionProtocolTypes');
+      dispatch('loadTransferModeTypes');
     },
     loadOutputFormatTypes({ commit, dispatch }) {
       return dispatch('loadValues', { 
@@ -488,7 +488,7 @@ export default {
       dispatch('loadEncryptionTypes');
       dispatch('loadOutputFormatTypes');
       dispatch('loadLayoutFieldTypes');
-      dispatch('loadEncryptionProtocolTypes');
+      dispatch('loadTransferModeTypes');
       dispatch('loadLayoutDataSourceTypes');
     },
     reloadCachedData({ commit, dispatch }) {
@@ -498,7 +498,7 @@ export default {
       dispatch('reloadEncryptionTypes');
       dispatch('reloadOutputFormatTypes');
       dispatch('reloadLayoutFieldTypes');
-      dispatch('loadEncryptionProtocolTypes');
+      dispatch('loadTransferModeTypes');
       dispatch('reloadLayoutDataSourceTypes');
     }
   },

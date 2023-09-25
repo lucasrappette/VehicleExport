@@ -12,7 +12,7 @@
           <text-control label="Ftp Password" required v-model="item.ftpPassword" :concurrency-check="item.concurrencyCheck"></text-control>
           <text-control label="Ftp Remote Directory" v-model="item.ftpRemoteDir" :concurrency-check="item.concurrencyCheck"></text-control>
           <select-list-control label="Protocol" required v-model="item.protocolTypeId" :options="nonNullProtocolTypeSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
-          <select-list-control label="Encryption Protocol" required v-model="item.encryptionProtocolTypeId" :options="nonNullEncryptionProtocolTypeSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
+          <select-list-control label="Transfer Mode Type" required v-model="item.transferModeTypeId" :options="nonNulltransferModeTypeSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
           <select-list-control label="Encryption Type" required v-model="item.encryptionTypeId" :options="nonNullEncryptionTypeSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
         </b-col>
          <b-col xs="12" sm="6" lg="3">
@@ -65,15 +65,15 @@ export default {
     };
   },
   computed: {
-    ...mapState('cachedData', ['protocolTypes', 'encryptionTypes', 'encryptionProtocolTypes', 'outputFormatTypes']),
+    ...mapState('cachedData', ['protocolTypes', 'encryptionTypes', 'transferModeTypes', 'outputFormatTypes']),
     nonNullProtocolTypeSelectOptions: function () {
       return this.protocolTypes.selectOptions.filter(x => x.value != null);
     },
     nonNullEncryptionTypeSelectOptions: function () {
       return this.encryptionTypes.selectOptions.filter(x => x.value != null);
     },
-    nonNullEncryptionProtocolTypeSelectOptions: function () {
-      return this.encryptionProtocolTypes.selectOptions.filter(x => x.value != null);
+    nonNulltransferModeTypeSelectOptions: function () {
+      return this.transferModeTypes.selectOptions.filter(x => x.value != null);
     },
     nonNullOutputFormatTypeSelectOptions: function () {
       return this.outputFormatTypes.selectOptions.filter(x => x.value != null);

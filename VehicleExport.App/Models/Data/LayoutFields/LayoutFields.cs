@@ -26,9 +26,6 @@ namespace VehicleExport.App.Models.Data.LayoutFields
         public string Name { get; set; }
 
         [Required]
-        public int LayoutId { get; set; }
-
-        [Required]
         public Int16 LayoutFieldTypeId { get; set; }
 
         public int? DatabaseFieldId { get; set; }

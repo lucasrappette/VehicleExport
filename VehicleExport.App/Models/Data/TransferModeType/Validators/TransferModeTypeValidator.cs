@@ -2,7 +2,7 @@
 
 namespace VehicleExport.App.Models.Data.MinorEntity.Validators
 {
-    public class EncryptionProtocolTypeValidator : AbstractValidator<EncryptionProtocolType>
+    public class TransferModeTypeValidator : AbstractValidator<TransferModeType>
     {
     }
 }

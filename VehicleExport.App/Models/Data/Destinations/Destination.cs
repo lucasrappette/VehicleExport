@@ -46,7 +46,7 @@ namespace VehicleExport.App.Models.Data.Destinations
         [Required]
         public short EncryptionTypeId { get; set; }
         [Required]
-        public short EncryptionProtocolTypeId { get; set; }
+        public short TransferModeTypeId { get; set; }
 
         [MaxLength(250)]
         public string SSHKeyFileName { get; set; }
@@ -91,7 +91,7 @@ namespace VehicleExport.App.Models.Data.Destinations
         public List<Export> Exports { get; set; }
         public VehicleExport.App.Models.Data.MinorEntity.ProtocolType ProtocolType { get; set; }
         public OutputFormatType OutputFormatType { get; set; }
+        public TransferModeType TransferModeType { get; set; }
         public EncryptionType EncryptionType { get; set; }
-        public EncryptionProtocolType EncryptionProtocolType { get; set; }
     }
 }

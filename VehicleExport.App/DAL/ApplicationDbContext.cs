@@ -55,8 +55,7 @@ namespace VehicleExport.App.DAL
         public DbSet<Layout> Layouts { get; set; }
         public DbSet<ProtocolType> ProtocolTypes { get; set; }
         public DbSet<OutputFormatType> OutputFormatTypes { get; set; }
-        public DbSet<EncryptionType> EncryptionTypes { get; set; }
-        public DbSet<EncryptionProtocolType> EncryptionProtocolTypes { get; set; }
+        public DbSet<TransferModeType> EncryptionTypes { get; set; }
         public DbSet<LayoutDataSourceType> LayoutDataSourceTypes { get; set; }
 
 
@@ -150,10 +149,6 @@ namespace VehicleExport.App.DAL
                 .HasOne(x => x.EncryptionType)
                 .WithMany(x => x.Destinations)
                 .HasForeignKey(x => x.EncryptionTypeId);
-            modelBuilder.Entity<Destination>()
-                .HasOne(x => x.EncryptionProtocolType)
-                .WithMany(x => x.Destinations)
-                .HasForeignKey(x => x.EncryptionProtocolTypeId);
 
             // ==============================================================
             // Exports
@@ -229,13 +224,10 @@ namespace VehicleExport.App.DAL
                 .ToTable("LayoutFields");
 
             modelBuilder.Entity<LayoutField>()
-                .HasIndex(x => x.LayoutId);
-
-            modelBuilder.Entity<LayoutField>()
                 .HasIndex(x => x.DatabaseFieldId);
 
             modelBuilder.Entity<LayoutField>()
-                .HasOne(x => x.LayoutFieldType)
+                .HasOne(x => x.LayoutFieldType) 
                 .WithMany(x => x.LayoutFields)
                 .HasForeignKey(x => x.LayoutFieldTypeId);
 
@@ -254,10 +246,10 @@ namespace VehicleExport.App.DAL
                 .ToTable("LayoutFieldType");
             modelBuilder.Entity<OutputFormatType>()
                 .ToTable("OutputFormatType");
+            modelBuilder.Entity<TransferModeType>()
+                .ToTable("TransferModeType");
             modelBuilder.Entity<EncryptionType>()
                 .ToTable("EncryptionType");
-            modelBuilder.Entity<EncryptionProtocolType>()
-                .ToTable("EncryptionProtocolType");
             modelBuilder.Entity<LayoutDataSourceType>()
                 .ToTable("LayoutDataSourceType");
 
@@ -457,12 +449,6 @@ namespace VehicleExport.App.DAL
                 Description = "Parameter",
             });
 
-            modelBuilder.Entity<LayoutFieldType>().HasData(new LayoutFieldType()
-            {
-                LayoutFieldTypeId = 3,
-                Description = "Placeholder",
-            });
-
             // OutputFormatType
             modelBuilder.Entity<OutputFormatType>().HasData(new OutputFormatType()
             {
@@ -480,25 +466,25 @@ namespace VehicleExport.App.DAL
                 Description = "Pipe-Delimited",
             });
 
+            modelBuilder.Entity<TransferModeType>().HasData(new TransferModeType()
+            {
+                TransferModeTypeId = 1,
+                Description = "Active",
+            });
+            modelBuilder.Entity<TransferModeType>().HasData(new TransferModeType()
+            {
+                TransferModeTypeId = 2,
+                Description = "Passive",
+            });
+
             modelBuilder.Entity<EncryptionType>().HasData(new EncryptionType()
             {
                 EncryptionTypeId = 1,
-                Description = "Active",
+                Description = "Explicit FTP over TLS",
             });
             modelBuilder.Entity<EncryptionType>().HasData(new EncryptionType()
             {
                 EncryptionTypeId = 2,
-                Description = "Passive",
-            });
-
-            modelBuilder.Entity<EncryptionProtocolType>().HasData(new EncryptionProtocolType()
-            {
-                EncryptionProtocolTypeId = 1,
-                Description = "Explicit FTP over TLS",
-            });
-            modelBuilder.Entity<EncryptionProtocolType>().HasData(new EncryptionProtocolType()
-            {
-                EncryptionProtocolTypeId = 2,
                 Description = "Plain FTP",
             });
 
@@ -525,7 +511,7 @@ namespace VehicleExport.App.DAL
                 ProtocolTypeId = 1,
                 OutputFormatTypeId = 2,
                 EncryptionTypeId = 1,
-                EncryptionProtocolTypeId = 1,
+                TransferModeTypeId = 1,
                 UseQuotedFields = true,
                 IncludeHeaders = true,
                 OutputFileName = "Vehicledata.txt",

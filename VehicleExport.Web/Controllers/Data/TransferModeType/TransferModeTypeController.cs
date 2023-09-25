@@ -13,9 +13,9 @@ using VehicleExport.App.Models.Data.MinorEntity;
 namespace VehicleExport.Web.Controllers.Data.MinorEntity
 {
     [Authorize]
-    public class EncryptionProtocolTypeController : EntityReadController<EncryptionProtocolType, IEntityReadService<EncryptionProtocolType, short>, short>
+    public class TransferModeTypeController : EntityReadController<TransferModeType, IEntityReadService<TransferModeType, short>, short>
     {
-        public EncryptionProtocolTypeController(IConfiguration configuration, IEntityReadService<EncryptionProtocolType, short> service) : base(configuration, service)
+        public TransferModeTypeController(IConfiguration configuration, IEntityReadService<TransferModeType, short> service) : base(configuration, service)
         {
         }
     }
