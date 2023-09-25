@@ -16,6 +16,7 @@ export default {
       { path: '/summary', name: 'Summary' },
 
       { path: '/dealer', name: 'Dealers' },
+      { path: '/layout', name: 'Layouts' },
       { path: '/destination', name: 'Destinations' },
       { path: '/applicationUser', name: 'Users' },
       { path: '/contentBlock', name: 'Content Blocks' },
@@ -116,7 +117,49 @@ export default {
       selectOptions: [],
       pendingResolves: [],
       pendingRejects: []
-    }
+    },
+    protocolTypes: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
+    encryptionTypes: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
+    outputFormatTypes: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
+    transferModeTypes: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
+    layoutFieldTypes: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
+    layoutDataSourceTypes: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
   }),
   mutations: {
     SET_KNOWN_PAGE_NAME(state, item) {
@@ -188,6 +231,66 @@ export default {
       });
 
       state.dealers.loadState = STATE_LOADED;
+    },
+    LOAD_PROTOCOL_TYPES(state, values) {
+      state.protocolTypes.values = values;
+
+      state.protocolTypes.selectOptions = values.map(x => ({
+        text: x.description,
+        value: x.protocolTypeId
+      }));
+
+      state.protocolTypes.loadState = STATE_LOADED;
+    },
+    LOAD_TRANSFER_MODE_TYPES(state, values) {
+      state.transferModeTypes.values = values;
+
+      state.transferModeTypes.selectOptions = values.map(x => ({
+        text: x.description,
+        value: x.transferModeTypeId
+      }));
+
+      state.transferModeTypes.loadState = STATE_LOADED;
+    },
+    LOAD_ENCRYPTION_TYPES(state, values) {
+      state.encryptionTypes.values = values;
+
+      state.encryptionTypes.selectOptions = values.map(x => ({
+        text: x.description,
+        value: x.encryptionTypeId
+      }));
+
+      state.encryptionTypes.loadState = STATE_LOADED;
+    },
+    LOAD_OUTPUT_FORMAT_TYPES(state, values) {
+      state.outputFormatTypes.values = values;
+
+      state.outputFormatTypes.selectOptions = values.map(x => ({
+        text: x.description,
+        value: x.outputFormatTypeId
+      }));
+
+      state.outputFormatTypes.loadState = STATE_LOADED;
+    },
+    LOAD_LAYOUT_FIELD_TYPES(state, values) {
+      state.layoutFieldTypes.values = values;
+
+      state.layoutFieldTypes.selectOptions = values.map(x => ({
+        text: x.description,
+        value: x.layoutFieldTypeId
+      }));
+
+      state.layoutFieldTypes.loadState = STATE_LOADED;
+    },
+    LOAD_LAYOUT_DATA_SOURCE_TYPES(state, values) {
+      state.layoutDataSourceTypes.values = values;
+
+      state.layoutDataSourceTypes.selectOptions = values.map(x => ({
+        text: x.description,
+        value: x.layoutDataSourceTypeId
+      }));
+
+      state.layoutDataSourceTypes.loadState = STATE_LOADED;
     },
   },
   actions: {
@@ -274,20 +377,95 @@ export default {
       });
       dispatch('loadApplicationRoles');
     },
-    loadDealers({ commit, dispatch }) {
+    loadProtocolTypes({ commit, dispatch }) {
       return dispatch('loadValues', { 
-        type: 'dealers', 
-        commitType: 'DEALERS', 
-        url: '/api/dealer',
-        order: 'name'
+        type: 'protocolTypes', 
+        commitType: 'PROTOCOL_TYPES', 
+        url: '/api/protocolType',
+        order: 'protocolTypeId'
       });
     },
-    reloadDealers({ commit, dispatch }) {
+    reloadProtocolTypes({ commit, dispatch }) {
       commit('SET_LOAD_STATE', {
-        type: 'dealers',
+        type: 'protocolTypes',
         loadState: STATE_UNLOADED
       });
-      dispatch('loadDealers');
+      dispatch('loadProtocolTypes');
+    },
+    loadEncryptionTypes({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'encryptionTypes', 
+        commitType: 'ENCRYPTION_TYPES', 
+        url: '/api/encryptionType',
+        order: 'encryptionTypeId'
+      });
+    },
+    reloadEncryptionTypes({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'encryptionTypes',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadEncryptionTypes');
+    },
+    loadTransferModeTypes({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'transferModeTypes', 
+        commitType: 'TRANSFER_MODE_TYPES', 
+        url: '/api/transferModeType',
+        order: 'transferModeTypeId'
+      });
+    },
+    reloadTransferModeTypes({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'transferModeTypes',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadTransferModeTypes');
+    },
+    loadOutputFormatTypes({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'outputFormatTypes', 
+        commitType: 'OUTPUT_FORMAT_TYPES', 
+        url: '/api/outputFormatType',
+        order: 'outputFormatTypeId'
+      });
+    },
+    reloadOutputFormatTypes({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'outputFormatTypes',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadOutputFormatTypes');
+    },
+    loadLayoutFieldTypes({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'layoutFieldTypes', 
+        commitType: 'LAYOUT_FIELD_TYPES', 
+        url: '/api/layoutFieldType',
+        order: 'layoutFieldTypeId'
+      });
+    },
+    reloadLayoutFieldTypes({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'layoutFieldTypes',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadOutputFormatTypes');
+    },
+    loadLayoutDataSourceTypes({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'layoutDataSourceTypes', 
+        commitType: 'LAYOUT_DATA_SOURCE_TYPES', 
+        url: '/api/layoutDataSourceType',
+        order: 'layoutDataSourceTypeId'
+      });
+    },
+    reloadLayoutDataSourceTypes({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'layoutDataSourceTypes',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadLayoutDataSourceTypes');
     },
     loadApplicationUsers({ commit, dispatch }) {
       return dispatch('loadValues', { 
@@ -304,16 +482,24 @@ export default {
       dispatch('loadApplicationUsers');
     },
     loadCachedData({ commit, dispatch }) {
-      dispatch('loadDealers');
       dispatch('loadApplicationRoles');
-      dispatch('loadWorkRoles');
       dispatch('loadApplicationUsers');
+      dispatch('loadProtocolTypes');
+      dispatch('loadEncryptionTypes');
+      dispatch('loadOutputFormatTypes');
+      dispatch('loadLayoutFieldTypes');
+      dispatch('loadTransferModeTypes');
+      dispatch('loadLayoutDataSourceTypes');
     },
     reloadCachedData({ commit, dispatch }) {
-      dispatch('reloadDealers');
       dispatch('reloadApplicationRoles');
-      dispatch('reloadWorkRoles');
       dispatch('reloadApplicationUsers');
+      dispatch('reloadProtocolTypes');
+      dispatch('reloadEncryptionTypes');
+      dispatch('reloadOutputFormatTypes');
+      dispatch('reloadLayoutFieldTypes');
+      dispatch('loadTransferModeTypes');
+      dispatch('reloadLayoutDataSourceTypes');
     }
   },
   getters: {

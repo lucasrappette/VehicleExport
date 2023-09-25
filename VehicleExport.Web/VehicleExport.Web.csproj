@@ -99,7 +99,6 @@
     <Folder Include="Controllers\Data\LayoutFields\" />
     <Folder Include="Controllers\Data\LayoutFieldsMap\" />
     <Folder Include="Controllers\Data\LayoutFieldType\" />
-    <Folder Include="Controllers\Data\LayoutFilters\" />
     <Folder Include="Controllers\Data\ProtocolType\" />
     <Folder Include="Controllers\Data\OutputFormatType\" />
     <Folder Include="Properties\PublishProfiles\" />

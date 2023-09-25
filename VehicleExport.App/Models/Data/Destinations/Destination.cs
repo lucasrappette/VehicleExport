@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using VehicleExport.App.Models.Data.Exports;
+using System.Net.Sockets;
+using VehicleExport.App.Models.Data.MinorEntity;
+using Microsoft.AspNetCore.Http;
 
 namespace VehicleExport.App.Models.Data.Destinations
 {
@@ -15,6 +18,9 @@ namespace VehicleExport.App.Models.Data.Destinations
 
         [NotMapped]
         public string LoggableName { get { return DestinationId.ToString(); } }
+
+        [NotMapped]
+        public IFormFile SshFile { get; set; }
 
         [MaxLength(100)]
         [Required]
@@ -33,13 +39,17 @@ namespace VehicleExport.App.Models.Data.Destinations
         public string FtpPassword { get; set; }
 
         [MaxLength(50)]
-        public string? FtpRemoteDir { get; set; }
+        public string FtpRemoteDir { get; set; }
 
         [Required]
         public short ProtocolTypeId { get; set; }
+        [Required]
+        public short EncryptionTypeId { get; set; }
+        [Required]
+        public short TransferModeTypeId { get; set; }
 
         [MaxLength(250)]
-        public string SSHKeyFilePath { get; set; }
+        public string SSHKeyFileName { get; set; }
 
         [Required]
         public short OutputFormatTypeId { get; set; }
@@ -63,6 +73,9 @@ namespace VehicleExport.App.Models.Data.Destinations
 
         public DateTime dtmLastChanged { get; set; }
 
+        public string SshFilePassword { get; set; }
+        public string SshKeyFileChecksum { get; set; }
+
         [Timestamp]
         [ConcurrencyCheck]
         public byte[] ConcurrencyTimestamp { get; set; }
@@ -76,5 +89,9 @@ namespace VehicleExport.App.Models.Data.Destinations
 
         // External References
         public List<Export> Exports { get; set; }
+        public VehicleExport.App.Models.Data.MinorEntity.ProtocolType ProtocolType { get; set; }
+        public OutputFormatType OutputFormatType { get; set; }
+        public TransferModeType TransferModeType { get; set; }
+        public EncryptionType EncryptionType { get; set; }
     }
 }

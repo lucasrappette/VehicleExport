@@ -60,10 +60,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="Models\Data\ExportDealers\Validators\" />
     <Folder Include="Models\Data\LayoutFields\Validators\" />
-    <Folder Include="Models\Data\LayoutFilters\" />
     <Folder Include="Models\Data\LayoutFieldsMap\" />
     <Folder Include="Models\Data\LayoutFieldType\" />
     <Folder Include="Models\Data\ExportDealerParameters\" />
@@ -76,7 +74,6 @@
     <Folder Include="Services\Data\ExportTrackingDealer\" />
     <Folder Include="Services\Data\LayoutFields\" />
     <Folder Include="Services\Data\LayoutFieldsMap\" />
-    <Folder Include="Services\Data\LayoutFilters\" />
     <Folder Include="Services\Data\LayoutFieldType\" />
     <Folder Include="Services\Data\OutputFormatType\" />
     <Folder Include="Services\Data\ProtocolType\" />

@@ -1,8 +1,8 @@
 <template>
   <form-page-template :page-title="pageTitle" :item="item">
-    <destination-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
-      <template v-slot:save>Add Destination</template>
-    </destination-fields>
+    <layout-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
+      <template v-slot:save>Add Layout</template>
+    </layout-fields>
   </form-page-template>
 </template>
 
@@ -11,7 +11,7 @@ import axios from "axios";
 import FormMixin from '../Mixins/FormMixin.vue';
 
 export default {
-  name: "DestinationAdd",
+  name: "LayoutAdd",
   mixins: [FormMixin],
   props: [],
   data() {
@@ -29,46 +29,37 @@ export default {
         return null;
     },
     pageTitle: function () {
-      return 'New Destination' + (this.itemTitle && this.itemTitle.length > 0 ? ': ' + this.itemTitle : '');
+      return 'New Layout' + (this.itemTitle && this.itemTitle.length > 0 ? ': ' + this.itemTitle : '');
     }
   },
   methods: {
     load: function () {
       axios
-        .get('/api/destination/new')
+        .get('/api/layout/new')
         .then(response => {
           this.item = response.data;
         })
         .catch(error => {
-          this.processAddErrorResponse(error, 'dealer');
+          this.processAddErrorResponse(error, 'layout');
         });
     },
     onCancel(evt) {
-      this.$router.push('/destination');
+      this.$router.push('/layout');
     },
     onSubmit(evt) {
-      let url = '/api/destination?context=WebApiElevated';
-      var config = {
-      headers: {
-        "Content-Type": "multipart/form-data"
-        }
-      };
-      var myFormData = new FormData();
-      for (const [key, value] of Object.entries(this.item)) {
-        myFormData.append(key.toString(), value);
-      };
+      let url = '/api/layout?context=WebApiElevated';
+
       axios
-        .post(url, myFormData, config)
+        .post(url, this.item)
         .then(response => {
           this.item = response.data;
 
-          this.processAddSuccessResponse(response, 'destination');
-
-
-          this.$router.push('/destination');
+          this.processAddSuccessResponse(response, 'layout');
+          //Dispatch here
+          this.$router.push('layout');
         })
         .catch(error => {
-          this.processAddErrorResponse(error, 'destination');
+          this.processAddErrorResponse(error, 'layout');
         });
     }    
   },

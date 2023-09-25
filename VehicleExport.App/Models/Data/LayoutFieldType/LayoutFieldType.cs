@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VehicleExport.App.Models.Data.Exports;
+using VehicleExport.App.Models.Data.Layouts;
+using VehicleExport.App.Models.Data.LayoutFields;
 
 namespace VehicleExport.App.Models.Data.MinorEntity
 {
@@ -18,6 +20,7 @@ namespace VehicleExport.App.Models.Data.MinorEntity
 
         [Required]
         public string Description { get; set; }
+        public List<LayoutField> LayoutFields { get; set; }
 
     }
 }

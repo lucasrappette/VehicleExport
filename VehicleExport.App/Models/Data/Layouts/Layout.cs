@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VehicleExport.App.Models.Data.Exports;
-using VehicleExport.App.Models.Data.LayoutFilters;
 using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Data;
+using VehicleExport.App.Models.Data.MinorEntity;
 
 namespace VehicleExport.App.Models.Data.Layouts
 {
@@ -35,6 +35,21 @@ namespace VehicleExport.App.Models.Data.Layouts
         public string StoredProcedureName { get; set; }
 
         [Required]
+        public short LayoutDataSourceTypeId { get; set; }
+
+        public string MakesList { get; set; }
+
+        public bool? CertifiedOnly { get; set; }
+
+        public bool? NewVehicles { get; set; }
+
+        public bool? UsedVehicles { get; set; }
+
+        public string WarrantiesList { get; set; }
+
+        public string ProductsList { get; set; }
+
+        [Required]
         public DateTime dtmCreated { get; set; }
 
         [Timestamp]
@@ -51,6 +66,6 @@ namespace VehicleExport.App.Models.Data.Layouts
         // External References
         public List<Export> Exports { get; set; }
 
-        public virtual LayoutFilter LayoutFilter  { get; set; }
-}
+        public virtual LayoutDataSourceType LayoutDataSourceType { get; set; }
+    }
 }

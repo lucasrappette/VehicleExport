@@ -22,7 +22,6 @@ using VehicleExport.Core.Utilities;
 using VehicleExport.App.Models.Data.Destinations;
 using VehicleExport.App.Models.Data.DatabaseFields;
 using VehicleExport.App.Models.Data.Layouts;
-using VehicleExport.App.Models.Data.LayoutFilters;
 using VehicleExport.App.Models.Data.Exports;
 using VehicleExport.App.Models.Data.LayoutFields;
 using VehicleExport.App.Models.Data.ExportDealers;
@@ -54,6 +53,10 @@ namespace VehicleExport.App.DAL
         public DbSet<LayoutField> LayoutFields { get; set; }
         public DbSet<LayoutFieldMap> LayoutFieldMap { get; set; }
         public DbSet<Layout> Layouts { get; set; }
+        public DbSet<ProtocolType> ProtocolTypes { get; set; }
+        public DbSet<OutputFormatType> OutputFormatTypes { get; set; }
+        public DbSet<TransferModeType> EncryptionTypes { get; set; }
+        public DbSet<LayoutDataSourceType> LayoutDataSourceTypes { get; set; }
 
 
         public DbSet<Job> Jobs { get; set; }
@@ -132,6 +135,21 @@ namespace VehicleExport.App.DAL
             modelBuilder.Entity<Destination>()
                 .ToTable("Destinations");
 
+            modelBuilder.Entity<Destination>()
+                .HasOne(x => x.ProtocolType)
+                .WithMany(x => x.Destinations)
+                .HasForeignKey(x => x.ProtocolTypeId);
+
+            modelBuilder.Entity<Destination>()
+                .HasOne(x => x.OutputFormatType)
+                .WithMany(x => x.Destinations)
+                .HasForeignKey(x => x.OutputFormatTypeId);
+
+            modelBuilder.Entity<Destination>()
+                .HasOne(x => x.EncryptionType)
+                .WithMany(x => x.Destinations)
+                .HasForeignKey(x => x.EncryptionTypeId);
+
             // ==============================================================
             // Exports
 
@@ -199,12 +217,6 @@ namespace VehicleExport.App.DAL
             modelBuilder.Entity<Layout>()
                 .ToTable("Layouts");
 
-            // Define one-to-one (optional) relationship with LayoutFilters
-            modelBuilder.Entity<Layout>()
-                .HasOne(e => e.LayoutFilter)
-                .WithOne(e => e.Layout)
-                .HasForeignKey<LayoutFilter>(e => e.LayoutId);
-
             // ==============================================================
             //LayoutFields
 
@@ -212,22 +224,18 @@ namespace VehicleExport.App.DAL
                 .ToTable("LayoutFields");
 
             modelBuilder.Entity<LayoutField>()
-                .HasIndex(x => x.LayoutId);
+                .HasIndex(x => x.DatabaseFieldId);
 
             modelBuilder.Entity<LayoutField>()
-                .HasIndex(x => x.DatabaseFieldId);
+                .HasOne(x => x.LayoutFieldType) 
+                .WithMany(x => x.LayoutFields)
+                .HasForeignKey(x => x.LayoutFieldTypeId);
 
             // ==============================================================
             //LayoutFieldsMap
 
             modelBuilder.Entity<LayoutFieldMap>()
                 .ToTable("LayoutFieldsMap");
-
-            // ==============================================================
-            //LayoutFilters
-
-            modelBuilder.Entity<LayoutFilter>()
-                .ToTable("LayoutFilters");
 
             // ==============================================================
             //Minor Entity Tables
@@ -238,6 +246,12 @@ namespace VehicleExport.App.DAL
                 .ToTable("LayoutFieldType");
             modelBuilder.Entity<OutputFormatType>()
                 .ToTable("OutputFormatType");
+            modelBuilder.Entity<TransferModeType>()
+                .ToTable("TransferModeType");
+            modelBuilder.Entity<EncryptionType>()
+                .ToTable("EncryptionType");
+            modelBuilder.Entity<LayoutDataSourceType>()
+                .ToTable("LayoutDataSourceType");
 
             // ==============================================================
             /* Jobs */
@@ -427,7 +441,7 @@ namespace VehicleExport.App.DAL
             modelBuilder.Entity<LayoutFieldType>().HasData(new LayoutFieldType()
             {
                 LayoutFieldTypeId = 1,
-                Description = "SQL",
+                Description = "Database Field",
             });
             modelBuilder.Entity<LayoutFieldType>().HasData(new LayoutFieldType()
             {
@@ -452,6 +466,39 @@ namespace VehicleExport.App.DAL
                 Description = "Pipe-Delimited",
             });
 
+            modelBuilder.Entity<TransferModeType>().HasData(new TransferModeType()
+            {
+                TransferModeTypeId = 1,
+                Description = "Active",
+            });
+            modelBuilder.Entity<TransferModeType>().HasData(new TransferModeType()
+            {
+                TransferModeTypeId = 2,
+                Description = "Passive",
+            });
+
+            modelBuilder.Entity<EncryptionType>().HasData(new EncryptionType()
+            {
+                EncryptionTypeId = 1,
+                Description = "Explicit FTP over TLS",
+            });
+            modelBuilder.Entity<EncryptionType>().HasData(new EncryptionType()
+            {
+                EncryptionTypeId = 2,
+                Description = "Plain FTP",
+            });
+
+            modelBuilder.Entity<LayoutDataSourceType>().HasData(new LayoutDataSourceType()
+            {
+                LayoutDataSourceTypeId = 1,
+                Description = "Layout Fields",
+            });
+            modelBuilder.Entity<LayoutDataSourceType>().HasData(new LayoutDataSourceType()
+            {
+                LayoutDataSourceTypeId = 2,
+                Description = "Stored Procedure",
+            });
+
             // Destinations
             modelBuilder.Entity<Destination>().HasData(new Destination()
             {
@@ -463,6 +510,8 @@ namespace VehicleExport.App.DAL
                 FtpRemoteDir = "/",
                 ProtocolTypeId = 1,
                 OutputFormatTypeId = 2,
+                EncryptionTypeId = 1,
+                TransferModeTypeId = 1,
                 UseQuotedFields = true,
                 IncludeHeaders = true,
                 OutputFileName = "Vehicledata.txt",
@@ -478,6 +527,7 @@ namespace VehicleExport.App.DAL
             {
                 LayoutId = 1,
                 Name = "Sample Layout 1",
+                LayoutDataSourceTypeId = 1,
                 dtmCreated = DateTime.Now
             });
 

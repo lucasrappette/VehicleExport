@@ -23,6 +23,7 @@ import FormattingMixin from './components/Mixins/FormattingMixin.vue'
 import TextControl from './components/Controls/TextControl.vue'
 import TextareaControl from './components/Controls/TextareaControl.vue'
 import SelectListControl from './components/Controls/SelectListControl.vue'
+import MultiSelectListControl from './components/Controls/MultiSelectListControl.vue'
 import CheckboxControl from './components/Controls/CheckboxControl.vue'
 import RadioButtonListControl from './components/Controls/RadioButtonListControl.vue'
 import CheckBoxListControl from './components/Controls/CheckBoxListControl.vue'
@@ -68,6 +69,11 @@ import DestinationList from './components/Destination/List.vue'
 import DestinationFields from './components/Destination/Fields.vue'
 import DestinationAdd from './components/Destination/Add.vue'
 import DestinationEdit from './components/Destination/Edit.vue'
+
+import LayoutList from './components/Layout/List.vue'
+import LayoutFields from './components/Layout/Fields.vue'
+import LayoutAdd from './components/Layout/Add.vue'
+import LayoutEdit from './components/Layout/Edit.vue'
 import JobList from './components/Job/List.vue'
 
 Vue.use(VueRouter);
@@ -101,6 +107,7 @@ Vue.component('auth-form', AuthForm);
 Vue.component('text-control', TextControl);
 Vue.component('textarea-control', TextareaControl);
 Vue.component('select-list-control', SelectListControl);
+Vue.component('multi-select-list-control', MultiSelectListControl);
 Vue.component('checkbox-control', CheckboxControl);
 Vue.component('radio-button-list-control', RadioButtonListControl);
 Vue.component('check-box-list-control', CheckBoxListControl);
@@ -112,6 +119,7 @@ Vue.component('application-user-fields', ApplicationUserFields);
 Vue.component('content-block-fields', ContentBlockFields);
 Vue.component('dealer-fields', DealerFields);
 Vue.component('destination-fields', DestinationFields);
+Vue.component('layout-fields', LayoutFields);
 
 
 Vue.config.productionTip = false;
@@ -130,6 +138,10 @@ const routes = [
   { path: '/dealer', component: DealerList },
   { path: '/dealer/add', component: DealerAdd },
   { path: '/dealer/:id', component: DealerEdit, props: route => ({ id: route.params.id })},
+
+  { path: '/layout', component: LayoutList },
+  { path: '/layout/add', component: LayoutAdd },
+  { path: '/layout/:id', component: LayoutEdit, props: route => ({ id: route.params.id })},
 
   { path: '/destination', component: DestinationList },
   { path: '/destination/add', component: DestinationAdd },
