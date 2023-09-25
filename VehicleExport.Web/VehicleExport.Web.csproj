@@ -30,6 +30,7 @@
     <PackageReference Include="AspNetCore.HealthChecks.UI.SqlServer.Storage" Version="6.0.2" />
     <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="6.0.2" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.151" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.1" />
