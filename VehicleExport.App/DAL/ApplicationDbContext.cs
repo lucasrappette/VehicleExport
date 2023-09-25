@@ -22,7 +22,6 @@ using VehicleExport.Core.Utilities;
 using VehicleExport.App.Models.Data.Destinations;
 using VehicleExport.App.Models.Data.DatabaseFields;
 using VehicleExport.App.Models.Data.Layouts;
-using VehicleExport.App.Models.Data.LayoutFilters;
 using VehicleExport.App.Models.Data.Exports;
 using VehicleExport.App.Models.Data.LayoutFields;
 using VehicleExport.App.Models.Data.ExportDealers;
@@ -58,6 +57,7 @@ namespace VehicleExport.App.DAL
         public DbSet<OutputFormatType> OutputFormatTypes { get; set; }
         public DbSet<EncryptionType> EncryptionTypes { get; set; }
         public DbSet<EncryptionProtocolType> EncryptionProtocolTypes { get; set; }
+        public DbSet<LayoutDataSourceType> LayoutDataSourceTypes { get; set; }
 
 
         public DbSet<Job> Jobs { get; set; }
@@ -222,12 +222,6 @@ namespace VehicleExport.App.DAL
             modelBuilder.Entity<Layout>()
                 .ToTable("Layouts");
 
-            // Define one-to-one (optional) relationship with LayoutFilters
-            modelBuilder.Entity<Layout>()
-                .HasOne(e => e.LayoutFilter)
-                .WithOne(e => e.Layout)
-                .HasForeignKey<LayoutFilter>(e => e.LayoutId);
-
             // ==============================================================
             //LayoutFields
 
@@ -240,17 +234,16 @@ namespace VehicleExport.App.DAL
             modelBuilder.Entity<LayoutField>()
                 .HasIndex(x => x.DatabaseFieldId);
 
+            modelBuilder.Entity<LayoutField>()
+                .HasOne(x => x.LayoutFieldType)
+                .WithMany(x => x.LayoutFields)
+                .HasForeignKey(x => x.LayoutFieldTypeId);
+
             // ==============================================================
             //LayoutFieldsMap
 
             modelBuilder.Entity<LayoutFieldMap>()
                 .ToTable("LayoutFieldsMap");
-
-            // ==============================================================
-            //LayoutFilters
-
-            modelBuilder.Entity<LayoutFilter>()
-                .ToTable("LayoutFilters");
 
             // ==============================================================
             //Minor Entity Tables
@@ -265,6 +258,8 @@ namespace VehicleExport.App.DAL
                 .ToTable("EncryptionType");
             modelBuilder.Entity<EncryptionProtocolType>()
                 .ToTable("EncryptionProtocolType");
+            modelBuilder.Entity<LayoutDataSourceType>()
+                .ToTable("LayoutDataSourceType");
 
             // ==============================================================
             /* Jobs */
@@ -454,12 +449,18 @@ namespace VehicleExport.App.DAL
             modelBuilder.Entity<LayoutFieldType>().HasData(new LayoutFieldType()
             {
                 LayoutFieldTypeId = 1,
-                Description = "SQL",
+                Description = "Database Field",
             });
             modelBuilder.Entity<LayoutFieldType>().HasData(new LayoutFieldType()
             {
                 LayoutFieldTypeId = 2,
                 Description = "Parameter",
+            });
+
+            modelBuilder.Entity<LayoutFieldType>().HasData(new LayoutFieldType()
+            {
+                LayoutFieldTypeId = 3,
+                Description = "Placeholder",
             });
 
             // OutputFormatType
@@ -501,6 +502,17 @@ namespace VehicleExport.App.DAL
                 Description = "Plain FTP",
             });
 
+            modelBuilder.Entity<LayoutDataSourceType>().HasData(new LayoutDataSourceType()
+            {
+                LayoutDataSourceTypeId = 1,
+                Description = "Layout Fields",
+            });
+            modelBuilder.Entity<LayoutDataSourceType>().HasData(new LayoutDataSourceType()
+            {
+                LayoutDataSourceTypeId = 2,
+                Description = "Stored Procedure",
+            });
+
             // Destinations
             modelBuilder.Entity<Destination>().HasData(new Destination()
             {
@@ -529,6 +541,7 @@ namespace VehicleExport.App.DAL
             {
                 LayoutId = 1,
                 Name = "Sample Layout 1",
+                LayoutDataSourceTypeId = 1,
                 dtmCreated = DateTime.Now
             });
 

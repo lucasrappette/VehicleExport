@@ -7,20 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 using VehicleExport.App.Models.Data.Exports;
 using VehicleExport.App.Models.Data.Layouts;
-using VehicleExport.App.Models.Data.LayoutFields;
 
 namespace VehicleExport.App.Models.Data.MinorEntity
 {
-    public class LayoutFieldType : IEntity, IHasId<short>
+    public class LayoutDataSourceType : IEntity, IHasId<short>
     {
-        public short GetId() => LayoutFieldTypeId;
+        public short GetId() => LayoutDataSourceTypeId;
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public short LayoutFieldTypeId { get; set; }
+        public short LayoutDataSourceTypeId { get; set; }
 
         [Required]
         public string Description { get; set; }
-        public List<LayoutField> LayoutFields { get; set; }
+        public List<Layout> Layouts { get; set; }
 
     }
 }

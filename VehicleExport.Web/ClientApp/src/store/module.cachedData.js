@@ -16,6 +16,7 @@ export default {
       { path: '/summary', name: 'Summary' },
 
       { path: '/dealer', name: 'Dealers' },
+      { path: '/layout', name: 'Layouts' },
       { path: '/destination', name: 'Destinations' },
       { path: '/applicationUser', name: 'Users' },
       { path: '/contentBlock', name: 'Content Blocks' },
@@ -145,6 +146,20 @@ export default {
       pendingResolves: [],
       pendingRejects: []
     },
+    layoutFieldTypes: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
+    layoutDataSourceTypes: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
   }),
   mutations: {
     SET_KNOWN_PAGE_NAME(state, item) {
@@ -256,6 +271,26 @@ export default {
       }));
 
       state.outputFormatTypes.loadState = STATE_LOADED;
+    },
+    LOAD_LAYOUT_FIELD_TYPES(state, values) {
+      state.layoutFieldTypes.values = values;
+
+      state.layoutFieldTypes.selectOptions = values.map(x => ({
+        text: x.description,
+        value: x.layoutFieldTypeId
+      }));
+
+      state.layoutFieldTypes.loadState = STATE_LOADED;
+    },
+    LOAD_LAYOUT_DATA_SOURCE_TYPES(state, values) {
+      state.layoutDataSourceTypes.values = values;
+
+      state.layoutDataSourceTypes.selectOptions = values.map(x => ({
+        text: x.description,
+        value: x.layoutDataSourceTypeId
+      }));
+
+      state.layoutDataSourceTypes.loadState = STATE_LOADED;
     },
   },
   actions: {
@@ -402,6 +437,36 @@ export default {
       });
       dispatch('loadOutputFormatTypes');
     },
+    loadLayoutFieldTypes({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'layoutFieldTypes', 
+        commitType: 'LAYOUT_FIELD_TYPES', 
+        url: '/api/layoutFieldType',
+        order: 'layoutFieldTypeId'
+      });
+    },
+    reloadLayoutFieldTypes({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'layoutFieldTypes',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadOutputFormatTypes');
+    },
+    loadLayoutDataSourceTypes({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'layoutDataSourceTypes', 
+        commitType: 'LAYOUT_DATA_SOURCE_TYPES', 
+        url: '/api/layoutDataSourceType',
+        order: 'layoutDataSourceTypeId'
+      });
+    },
+    reloadLayoutDataSourceTypes({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'layoutDataSourceTypes',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadLayoutDataSourceTypes');
+    },
     loadApplicationUsers({ commit, dispatch }) {
       return dispatch('loadValues', { 
         type: 'applicationUsers', 
@@ -422,7 +487,9 @@ export default {
       dispatch('loadProtocolTypes');
       dispatch('loadEncryptionTypes');
       dispatch('loadOutputFormatTypes');
+      dispatch('loadLayoutFieldTypes');
       dispatch('loadEncryptionProtocolTypes');
+      dispatch('loadLayoutDataSourceTypes');
     },
     reloadCachedData({ commit, dispatch }) {
       dispatch('reloadApplicationRoles');
@@ -430,7 +497,9 @@ export default {
       dispatch('reloadProtocolTypes');
       dispatch('reloadEncryptionTypes');
       dispatch('reloadOutputFormatTypes');
+      dispatch('reloadLayoutFieldTypes');
       dispatch('loadEncryptionProtocolTypes');
+      dispatch('reloadLayoutDataSourceTypes');
     }
   },
   getters: {

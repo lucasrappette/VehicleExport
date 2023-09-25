@@ -154,28 +154,28 @@ namespace VehicleExport.App.Migrations
                         new
                         {
                             Id = new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"),
-                            ConcurrencyStamp = "1c2914ac-1e55-4d2e-9805-8504210ec154",
+                            ConcurrencyStamp = "a982c7d5-43d5-451c-ba5a-b1fb15fbe14f",
                             Name = "SuperAdmin",
                             NormalizedName = "SuperAdmin"
                         },
                         new
                         {
                             Id = new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"),
-                            ConcurrencyStamp = "80ca4b48-6e44-4b7c-9bf1-38ec61e62658",
+                            ConcurrencyStamp = "0a5eb5f8-37b2-4f5f-a4f0-11b7c25262b6",
                             Name = "ProjectManager",
                             NormalizedName = "ProjectManager"
                         },
                         new
                         {
                             Id = new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"),
-                            ConcurrencyStamp = "00f4b1b8-0acd-4763-b248-6e7cc90fb36a",
+                            ConcurrencyStamp = "72d4bd2f-f4a3-4dd8-9cb7-5383ac9fa7ef",
                             Name = "ProjectViewer",
                             NormalizedName = "ProjectViewer"
                         },
                         new
                         {
                             Id = new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"),
-                            ConcurrencyStamp = "17f6ac00-02b0-463f-ba66-6798cb2daffc",
+                            ConcurrencyStamp = "cd2c0fc3-7142-4ab4-b70a-e63404061a23",
                             Name = "ContentManager",
                             NormalizedName = "ContentManager"
                         });
@@ -259,7 +259,7 @@ namespace VehicleExport.App.Migrations
                         {
                             Id = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3d4f6d26-04c7-4248-b18c-d96780d56dfb",
+                            ConcurrencyStamp = "4772cf5e-40ac-4a2f-86d3-a74254e5c8e8",
                             Email = "admin@test.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -267,7 +267,7 @@ namespace VehicleExport.App.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TEST.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAECQl/z2t66ZBj3NRRmSs4F5Fq9U8MyvJgeu3hwzyU7YOmuH56jDo28CArwJDN5iw0g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFoWyJdCAp2mXetLj9Ql5CpS+DiM9iyNQdfYoj0fuxc3mRPORps8lQJ6Gtq2Uu330Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -301,25 +301,25 @@ namespace VehicleExport.App.Migrations
                         {
                             UserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             RoleId = new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"),
-                            Id = new Guid("c55f0bcc-960e-41c5-9da3-c1db01bdf100")
+                            Id = new Guid("56130dac-25fb-4773-8cbc-bc9a4a0fc7c2")
                         },
                         new
                         {
                             UserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             RoleId = new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"),
-                            Id = new Guid("3f196891-9375-4aa1-b601-e80933de7520")
+                            Id = new Guid("26a94ffb-ea9a-40d2-9e96-30ff5b3271bd")
                         },
                         new
                         {
                             UserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             RoleId = new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"),
-                            Id = new Guid("de241c4e-e998-4f02-85b6-8112d9752fc6")
+                            Id = new Guid("45248a7e-12da-43d7-a157-9b6139a3ccdf")
                         },
                         new
                         {
                             UserId = new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"),
                             RoleId = new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"),
-                            Id = new Guid("4d9a3afa-dfd2-4635-89a9-f4f26f22eba0")
+                            Id = new Guid("05b4d865-609d-4c1a-bc9c-231e1d3ff971")
                         });
                 });
 
@@ -412,7 +412,7 @@ namespace VehicleExport.App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4bcf9ed3-9146-4c61-b9ae-0f84af6d3728"),
+                            Id = new Guid("705968e8-75a9-4499-8a86-9fea45f9592b"),
                             AllowedTokens = "[{\"Token\":\"passwordResetUrl\",\"Description\":\"The URL for the user to reset their password\"}]",
                             Description = "The text that appears in a password reset message",
                             IsPage = false,
@@ -422,7 +422,7 @@ namespace VehicleExport.App.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b1d578f5-b2c4-4e06-8669-8e5cff61bd39"),
+                            Id = new Guid("8b8a6786-c127-4222-874f-e48fd611e444"),
                             Description = "The text that appears on the About page",
                             IsPage = true,
                             Slug = "about",
@@ -431,7 +431,7 @@ namespace VehicleExport.App.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f29fd3a7-3dfe-4ff0-9b20-3e2d011c051b"),
+                            Id = new Guid("c96b0584-5f38-4e10-b22f-795766ce83de"),
                             Description = "",
                             IsPage = true,
                             Slug = "placeholder",
@@ -440,7 +440,7 @@ namespace VehicleExport.App.Migrations
                         },
                         new
                         {
-                            Id = new Guid("88ffca5b-88ce-4a88-add0-83806917e5bc"),
+                            Id = new Guid("3963d275-e9a4-4dda-b025-702a8206f1d8"),
                             Description = "Content that appears on the Home/Dashboard page",
                             IsPage = false,
                             Slug = "dashboard",
@@ -449,7 +449,7 @@ namespace VehicleExport.App.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ae6dd039-1b6a-42da-9c4d-1146d3c3ca64"),
+                            Id = new Guid("2cbaec0d-eecc-4235-b3e9-6ed54c7ae462"),
                             Description = "The help page that appears in the top nav",
                             IsPage = true,
                             Slug = "help",
@@ -612,8 +612,8 @@ namespace VehicleExport.App.Migrations
                             SendPhotosInZip = false,
                             UseQuotedFields = true,
                             ZipOutputFile = false,
-                            dtmCreated = new DateTime(2023, 9, 20, 3, 2, 45, 916, DateTimeKind.Local).AddTicks(1488),
-                            dtmLastChanged = new DateTime(2023, 9, 20, 3, 2, 45, 916, DateTimeKind.Local).AddTicks(1527)
+                            dtmCreated = new DateTime(2023, 9, 25, 2, 2, 13, 967, DateTimeKind.Local).AddTicks(3346),
+                            dtmLastChanged = new DateTime(2023, 9, 25, 2, 2, 13, 967, DateTimeKind.Local).AddTicks(3376)
                         });
                 });
 
@@ -757,8 +757,8 @@ namespace VehicleExport.App.Migrations
                             LayoutId = 1,
                             Name = "Sample Export 1",
                             RunTimeOne = new TimeSpan(0, 0, 0, 0, 0),
-                            dtmCreated = new DateTime(2023, 9, 20, 3, 2, 45, 916, DateTimeKind.Local).AddTicks(1568),
-                            dtmLastChanged = new DateTime(2023, 9, 20, 3, 2, 45, 916, DateTimeKind.Local).AddTicks(1570)
+                            dtmCreated = new DateTime(2023, 9, 25, 2, 2, 13, 967, DateTimeKind.Local).AddTicks(3405),
+                            dtmLastChanged = new DateTime(2023, 9, 25, 2, 2, 13, 967, DateTimeKind.Local).AddTicks(3406)
                         });
                 });
 
@@ -974,6 +974,8 @@ namespace VehicleExport.App.Migrations
 
                     b.HasIndex("DatabaseFieldId");
 
+                    b.HasIndex("LayoutFieldTypeId");
+
                     b.HasIndex("LayoutId");
 
                     b.ToTable("LayoutFields", (string)null);
@@ -1014,42 +1016,6 @@ namespace VehicleExport.App.Migrations
                     b.ToTable("LayoutFieldsMap", (string)null);
                 });
 
-            modelBuilder.Entity("VehicleExport.App.Models.Data.LayoutFilters.LayoutFilter", b =>
-                {
-                    b.Property<int>("LayoutId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("CertifiedOnly")
-                        .HasColumnType("bit");
-
-                    b.Property<byte[]>("ConcurrencyTimestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
-
-                    b.Property<string>("MakesList")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("NewVehicles")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ProductsList")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("UsedVehicles")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("WarrantiesList")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("dtmCreated")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("LayoutId");
-
-                    b.ToTable("LayoutFilters", (string)null);
-                });
-
             modelBuilder.Entity("VehicleExport.App.Models.Data.Layouts.Layout", b =>
                 {
                     b.Property<int>("LayoutId")
@@ -1057,6 +1023,9 @@ namespace VehicleExport.App.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LayoutId"), 1L, 1);
+
+                    b.Property<bool?>("CertifiedOnly")
+                        .HasColumnType("bit");
 
                     b.Property<byte[]>("ConcurrencyTimestamp")
                         .IsConcurrencyToken()
@@ -1067,19 +1036,39 @@ namespace VehicleExport.App.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<short>("LayoutDataSourceTypeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("MakesList")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool?>("NewVehicles")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProductsList")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("StoredProcedureName")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool?>("UsedVehicles")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("WarrantiesList")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("dtmCreated")
                         .HasColumnType("datetime2");
 
                     b.HasKey("LayoutId");
+
+                    b.HasIndex("LayoutDataSourceTypeId");
 
                     b.ToTable("Layouts", (string)null);
 
@@ -1087,8 +1076,9 @@ namespace VehicleExport.App.Migrations
                         new
                         {
                             LayoutId = 1,
+                            LayoutDataSourceTypeId = (short)1,
                             Name = "Sample Layout 1",
-                            dtmCreated = new DateTime(2023, 9, 20, 3, 2, 45, 916, DateTimeKind.Local).AddTicks(1548)
+                            dtmCreated = new DateTime(2023, 9, 25, 2, 2, 13, 967, DateTimeKind.Local).AddTicks(3389)
                         });
                 });
 
@@ -1147,6 +1137,35 @@ namespace VehicleExport.App.Migrations
                         {
                             EncryptionTypeId = (short)2,
                             Description = "Passive"
+                        });
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.LayoutDataSourceType", b =>
+                {
+                    b.Property<short>("LayoutDataSourceTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("LayoutDataSourceTypeId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LayoutDataSourceTypeId");
+
+                    b.ToTable("LayoutDataSourceType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            LayoutDataSourceTypeId = (short)1,
+                            Description = "Layout Fields"
+                        },
+                        new
+                        {
+                            LayoutDataSourceTypeId = (short)2,
+                            Description = "Stored Procedure"
                         });
                 });
 
@@ -1417,7 +1436,15 @@ namespace VehicleExport.App.Migrations
                         .WithMany()
                         .HasForeignKey("DatabaseFieldId");
 
+                    b.HasOne("VehicleExport.App.Models.Data.MinorEntity.LayoutFieldType", "LayoutFieldType")
+                        .WithMany("LayoutFields")
+                        .HasForeignKey("LayoutFieldTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("DatabaseField");
+
+                    b.Navigation("LayoutFieldType");
                 });
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.LayoutFieldsMap.LayoutFieldMap", b =>
@@ -1437,15 +1464,15 @@ namespace VehicleExport.App.Migrations
                     b.Navigation("LayoutField");
                 });
 
-            modelBuilder.Entity("VehicleExport.App.Models.Data.LayoutFilters.LayoutFilter", b =>
+            modelBuilder.Entity("VehicleExport.App.Models.Data.Layouts.Layout", b =>
                 {
-                    b.HasOne("VehicleExport.App.Models.Data.Layouts.Layout", "Layout")
-                        .WithOne("LayoutFilter")
-                        .HasForeignKey("VehicleExport.App.Models.Data.LayoutFilters.LayoutFilter", "LayoutId")
+                    b.HasOne("VehicleExport.App.Models.Data.MinorEntity.LayoutDataSourceType", "LayoutDataSourceType")
+                        .WithMany("Layouts")
+                        .HasForeignKey("LayoutDataSourceTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Layout");
+                    b.Navigation("LayoutDataSourceType");
                 });
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.Accounts.ApplicationRole", b =>
@@ -1485,8 +1512,6 @@ namespace VehicleExport.App.Migrations
             modelBuilder.Entity("VehicleExport.App.Models.Data.Layouts.Layout", b =>
                 {
                     b.Navigation("Exports");
-
-                    b.Navigation("LayoutFilter");
                 });
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.EncryptionProtocolType", b =>
@@ -1497,6 +1522,16 @@ namespace VehicleExport.App.Migrations
             modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.EncryptionType", b =>
                 {
                     b.Navigation("Destinations");
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.LayoutDataSourceType", b =>
+                {
+                    b.Navigation("Layouts");
+                });
+
+            modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.LayoutFieldType", b =>
+                {
+                    b.Navigation("LayoutFields");
                 });
 
             modelBuilder.Entity("VehicleExport.App.Models.Data.MinorEntity.OutputFormatType", b =>

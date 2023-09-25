@@ -39,8 +39,6 @@ using VehicleExport.App.Models.Data.LayoutFieldsMap;
 using VehicleExport.App.Models.Data.LayoutFieldsMap.Validators;
 using VehicleExport.App.Services.Data.DatabaseFields;
 using VehicleExport.App.Services.Data.LayoutFields;
-using VehicleExport.App.Models.Data.LayoutFilters;
-using VehicleExport.App.Services.Data.LayoutFilters;
 using VehicleExport.App.Models.Data.MinorEntity;
 using VehicleExport.App.Services.Data.MinorEntity;
 using VehicleExport.App.Models.Data.MinorEntity.Validators;
@@ -133,7 +131,6 @@ namespace VehicleExport.App
             services.AddTransientListReadWriteService<Export, int, ExportService>();
             services.AddTransientListReadWriteService<ExportTracking, int, ExportTrackingService>();
             services.AddTransientListReadWriteService<LayoutField, int, LayoutFieldsService>();
-            services.AddTransientListReadWriteService<LayoutFilter, int, LayoutFilterService> ();
             services.AddTransientListReadWriteService<Layout, int, LayoutService>();
             // Add AddTransientListReadService (ReadOnly) for three ME tables
             services.AddTransientListReadService<LayoutFieldType, short, LayoutFieldTypeService>();
@@ -141,6 +138,7 @@ namespace VehicleExport.App
             services.AddTransientListReadService<ProtocolType, short, ProtocolTypeService>();
             services.AddTransientListReadService<EncryptionType, short, EncryptionTypeService>();
             services.AddTransientListReadService<EncryptionProtocolType, short, EncryptionProtocolTypeService>();
+            services.AddTransientListReadService<LayoutDataSourceType, short, LayoutDataSourceTypeService>();
         }
 
         public static void AddEntityValidators(this IServiceCollection services)
@@ -161,7 +159,6 @@ namespace VehicleExport.App
             services.AddSingleton<IValidator<Export>, ExportValidator>();
             services.AddSingleton<IValidator<LayoutField>, LayoutFieldsValidator>();
             services.AddSingleton<IValidator<LayoutFieldMap>, LayoutFieldsMapValidator>();
-            services.AddSingleton<IValidator<LayoutFilter>, LayoutFiltersValidator>();
             services.AddSingleton<IValidator<Layout>, LayoutValidator>();
             // Add ME Tables
             services.AddSingleton<IValidator<LayoutFieldType>, LayoutFieldTypeValidator>();
@@ -169,6 +166,7 @@ namespace VehicleExport.App
             services.AddSingleton<IValidator<ProtocolType>, ProtocolTypeValidator>();
             services.AddSingleton<IValidator<EncryptionType>, EncryptionTypeValidator>();
             services.AddSingleton<IValidator<EncryptionProtocolType>, EncryptionProtocolTypeValidator>();
+            services.AddSingleton<IValidator<LayoutDataSourceType>, LayoutDataSourceTypeValidator>();
         }
 
         public static void AddWorkItemServices(this IServiceCollection services)
