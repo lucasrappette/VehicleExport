@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using VehicleExport.App.Models.Data.Destinations;
 using System.Collections.Generic;
 using VehicleExport.App.Models.Data.Exports;
-using VehicleExport.App.Models.Data.DatabaseFields;
 using VehicleExport.App.Models.Data.Layouts;
 using VehicleExport.App.Models.Data.MinorEntity;
 
@@ -28,10 +27,17 @@ namespace VehicleExport.App.Models.Data.LayoutFields
         [Required]
         public Int16 LayoutFieldTypeId { get; set; }
 
-        public int? DatabaseFieldId { get; set; }
+        [MaxLength(75)]
+        [Required]
+        public string DatabaseFieldLabel { get; set; }
+
+        public string DatabaseFieldSqlText { get; set; }
+
+        [MaxLength(1000)]
+        public string Notes { get; set; }
 
         [MaxLength(50)]
-        public string? Parameter { get; set; }
+        public string Parameter { get; set; }
 
         [Required]
         public DateTime dtmCreated { get; set; }
@@ -48,7 +54,6 @@ namespace VehicleExport.App.Models.Data.LayoutFields
         }
 
         // External References. Use "Virtual" to enable lazy loading
-        public virtual DatabaseField DatabaseField { get; set; }
         public virtual LayoutFieldType LayoutFieldType { get; set; }
     }
 }

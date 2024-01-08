@@ -20,7 +20,6 @@ using Microsoft.EntityFrameworkCore.DataEncryption.Providers;
 using Microsoft.Extensions.Configuration;
 using VehicleExport.Core.Utilities;
 using VehicleExport.App.Models.Data.Destinations;
-using VehicleExport.App.Models.Data.DatabaseFields;
 using VehicleExport.App.Models.Data.Layouts;
 using VehicleExport.App.Models.Data.Exports;
 using VehicleExport.App.Models.Data.LayoutFields;
@@ -43,7 +42,6 @@ namespace VehicleExport.App.DAL
         public DbSet<ContentBlock> ContentBlocks { get; set; }
 
 
-        public DbSet<DatabaseField> DatabaseFields { get; set; }
         public DbSet<Destination> Destinations { get; set; }
         public DbSet<ExportDealerParameter> ExportDealerParameters { get; set; }
         public DbSet<ExportDealer> ExportDealers { get; set; }
@@ -123,11 +121,6 @@ namespace VehicleExport.App.DAL
                     v => JsonConvert.DeserializeObject<List<AllowedToken>>(v)
                 );
 
-            // ==============================================================
-            /* Database Fields */
-
-            modelBuilder.Entity<DatabaseField>()
-                .ToTable("DatabaseFields");
 
             // ==============================================================
             /* Destinations */
@@ -228,8 +221,6 @@ namespace VehicleExport.App.DAL
             modelBuilder.Entity<LayoutField>()
                 .ToTable("LayoutFields");
 
-            modelBuilder.Entity<LayoutField>()
-                .HasIndex(x => x.DatabaseFieldId);
 
             modelBuilder.Entity<LayoutField>()
                 .HasOne(x => x.LayoutFieldType) 

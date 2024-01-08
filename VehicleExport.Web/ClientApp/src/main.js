@@ -76,6 +76,10 @@ import LayoutAdd from './components/Layout/Add.vue'
 import LayoutEdit from './components/Layout/Edit.vue'
 import JobList from './components/Job/List.vue'
 
+import LayoutFieldList from './components/LayoutField/List.vue'
+import LayoutFieldFields from './components/LayoutField/Fields.vue'
+import LayoutFieldAdd from './components/LayoutField/Add.vue'
+
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
@@ -120,6 +124,7 @@ Vue.component('content-block-fields', ContentBlockFields);
 Vue.component('dealer-fields', DealerFields);
 Vue.component('destination-fields', DestinationFields);
 Vue.component('layout-fields', LayoutFields);
+Vue.component('layout-field-fields', LayoutFieldFields);
 
 
 Vue.config.productionTip = false;
@@ -142,6 +147,9 @@ const routes = [
   { path: '/layout', component: LayoutList },
   { path: '/layout/add', component: LayoutAdd },
   { path: '/layout/:id', component: LayoutEdit, props: route => ({ id: route.params.id })},
+
+  { path: '/layoutField', component: LayoutFieldList },
+  { path: '/layoutField/add', component: LayoutFieldAdd },
 
   { path: '/destination', component: DestinationList },
   { path: '/destination/add', component: DestinationAdd },

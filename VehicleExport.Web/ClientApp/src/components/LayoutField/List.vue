@@ -40,6 +40,15 @@ export default {
             sortable: true,
             type: 'text'
           },
+          {
+            key: 'contributerApplicationUserId',
+            name: 'Salesperson',
+            visible: true,
+            sortable: true,
+            type: 'select',
+            selectOptions: [],
+            selectOptionsSource: { storeModule: 'cachedData', storeAction: 'loadApplicationUsers', storeGetter: 'applicationUsers' }
+          },
         ],
         getDefaultFilter: function () {
           return '';

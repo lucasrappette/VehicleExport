@@ -91,7 +91,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Data\DatabaseFields\" />
     <Folder Include="Controllers\Data\ExportDealerParameters\" />
     <Folder Include="Controllers\Data\ExportDealers\" />
     <Folder Include="Controllers\Data\ExportTracking\" />

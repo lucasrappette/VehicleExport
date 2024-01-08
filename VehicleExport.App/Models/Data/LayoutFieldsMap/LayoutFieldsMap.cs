@@ -19,7 +19,7 @@ namespace VehicleExport.App.Models.Data.LayoutFieldsMap
         public int? LayoutFieldId { get; set; }
 
         [MaxLength(25)]
-        public string PlaceholderLabel { get; set; }
+        public string HeaderLabel { get; set; }
 
         public short FieldOrder { get; set; }
 

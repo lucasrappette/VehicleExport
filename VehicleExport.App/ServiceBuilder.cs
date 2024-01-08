@@ -27,8 +27,6 @@ using VehicleExport.App.Models.Data.Destinations;
 using VehicleExport.App.Models.Data.Exports.Validators;
 using VehicleExport.App.Models.Data.Layouts.Validators;
 using VehicleExport.App.Models.Data.Destinations.Validators;
-using VehicleExport.App.Models.Data.DatabaseFields.Validators;
-using VehicleExport.App.Models.Data.DatabaseFields;
 using VehicleExport.App.Models.Data.ExportDealerParameters;
 using VehicleExport.App.Models.Data.ExportDealerParameters.Validators;
 using VehicleExport.App.Models.Data.ExportDealers;
@@ -37,7 +35,6 @@ using VehicleExport.App.Models.Data.LayoutFields;
 using VehicleExport.App.Models.Data.LayoutFields.Validators;
 using VehicleExport.App.Models.Data.LayoutFieldsMap;
 using VehicleExport.App.Models.Data.LayoutFieldsMap.Validators;
-using VehicleExport.App.Services.Data.DatabaseFields;
 using VehicleExport.App.Services.Data.LayoutFields;
 using VehicleExport.App.Models.Data.MinorEntity;
 using VehicleExport.App.Services.Data.MinorEntity;
@@ -125,7 +122,6 @@ namespace VehicleExport.App
             services.AddTransientListReadWriteService<Job, Guid, JobService>();
             services.AddTransientListReadWriteService<JobItem, Guid, JobItemService>();
 
-            services.AddTransientListReadWriteService<DatabaseField, int, DatabaseFieldService>();
             services.AddTransientListReadWriteService<Destination, int, DestinationService>();
             //services.AddTransientListReadWriteService<ExportDealerParameter, int, ExportDealerParameterService>();
             services.AddTransientListReadWriteService<Export, int, ExportService>();
@@ -150,7 +146,6 @@ namespace VehicleExport.App
             services.AddSingleton<IValidator<Job>, JobValidator>();
             services.AddSingleton<IValidator<JobItem>, JobItemValidator>();
 
-            services.AddSingleton<IValidator<DatabaseField>, DatabaseFieldsValidator>();
             services.AddSingleton<IValidator<Destination>, DestinationValidator>();
             services.AddSingleton<IValidator<ExportDealerParameter>, ExportDealerParametersValidator>();
             services.AddSingleton<IValidator<ExportDealer>, ExportDealersValidator>();

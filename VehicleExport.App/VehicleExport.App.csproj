@@ -69,7 +69,6 @@
     <Folder Include="Models\Data\ExportTrackingDealer\" />
     <Folder Include="Models\Data\OutputFormatType\" />
     <Folder Include="Models\Data\ProtocolType\Validators\" />
-    <Folder Include="Services\Data\DatabaseFields\" />
     <Folder Include="Services\Data\ExportDealers\" />
     <Folder Include="Services\Data\ExportTrackingDealer\" />
     <Folder Include="Services\Data\LayoutFields\" />
