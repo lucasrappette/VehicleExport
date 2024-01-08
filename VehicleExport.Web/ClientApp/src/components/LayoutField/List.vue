@@ -1,5 +1,5 @@
 <template>
-  <list-page-template page-title="Layouts">
+  <list-page-template page-title="Layout Fields">
     <filtered-table :settings="tableSettings" @rowClicked="onRowClicked" @newClicked="onNewClicked">
     </filtered-table>
   </list-page-template>
@@ -9,13 +9,13 @@
 import axios from "axios";
 
 export default {
-  name: "LayoutList",
+  name: "LayoutFieldList",
   props: {},
   data() {
     let base = this;
     return {
       tableSettings: {
-        endpoint: '/api/layout',
+        endpoint: '/api/layoutFields',
         showNewButton: true,
         defaultLimit: 100,
         columns: [
@@ -49,10 +49,10 @@ export default {
   },
   methods: {
     onRowClicked: function (item, context) {
-      this.$router.push('/layout/' + item.layoutId);
+      this.$router.push('/layoutField/' + item.layoutFieldId);
     },
     onNewClicked: function (filters) {
-      this.$router.push('/layout/add');
+      this.$router.push('/layoutField/add');
     }
   },
   computed: {

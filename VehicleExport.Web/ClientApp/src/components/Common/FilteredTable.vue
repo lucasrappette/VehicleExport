@@ -74,6 +74,9 @@
               </b-dropdown-group>
             </b-dropdown>
           </b-button-group>
+          <b-button-group class="ml-2" v-if="!settings.sortable">
+            
+          </b-button-group>
           <b-button-group class="ml-2" v-if="settings.manuallyApplyFilters">
             <b-button :disabled="!manuallyApplyFiltersReady" @click="applyFilters">Apply Filters</b-button>
           </b-button-group>

@@ -192,6 +192,11 @@ namespace VehicleExport.App.DAL
             modelBuilder.Entity<ExportDealerParameter>()
                 .ToTable("ExportDealerParameters");
 
+            modelBuilder.Entity<ExportDealerParameter>()
+                .HasOne(x => x.ExportDealer)
+                .WithMany(x => x.ExportDealerParameters)
+                .HasForeignKey(x => x.ExportDealerId);
+
 
             // ==============================================================
             // ExportTrackingDealer

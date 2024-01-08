@@ -39,9 +39,9 @@ export default {
     };
   },
   computed: {
-    ...mapState('cachedData', ['layoutDataSourceTypes','stateSelectOptions']),
-    nonNullLayoutDataSourceTypeSelectOptions: function () {
-      return this.layoutDataSourceTypes.selectOptions.filter(x => x.value != null);
+    ...mapState('cachedData', ['layoutFieldTypes']),
+    nonNullLayoutFieldTypeSelectOptions: function () {
+      return this.layoutFieldTypes.selectOptions.filter(x => x.value != null);
     },
     nonNullStateSelectOptions: function () {
       return this.stateSelectOptions;

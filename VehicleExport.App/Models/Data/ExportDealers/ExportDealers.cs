@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VehicleExport.App.Models.Data.Exports;
 using VehicleExport.App.Models.Data.Generics;
+using VehicleExport.App.Models.Data.ExportDealerParameters;
 
 namespace VehicleExport.App.Models.Data.ExportDealers
 {
@@ -42,5 +43,6 @@ namespace VehicleExport.App.Models.Data.ExportDealers
         public bool IsActive { get; set; }
 
         // External References. Use "Virtual" to enable lazy loading
+        public virtual List<ExportDealerParameter> ExportDealerParameters { get; set; }
     }
 }

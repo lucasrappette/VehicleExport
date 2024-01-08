@@ -19,10 +19,7 @@ namespace VehicleExport.App.Models.Data.ExportDealerParameters
         public int ExportDealerParameterId { get; set; }
 
         [Required]
-        public int ExportId { get; set; }
-
-        [Required]
-        public int DealerId { get; set; }
+        public int ExportDealerId { get; set; }
 
         [Required]
         public int LayoutFieldId { get; set; }
@@ -46,6 +43,6 @@ namespace VehicleExport.App.Models.Data.ExportDealerParameters
 
         // External References. Use "Virtual" to enable lazy loading
         public virtual LayoutField LayoutField { get; set; }
-        //public virtual ExportDealer ExportDealer { get; set; }
+        public virtual ExportDealer ExportDealer { get; set; }
     }
 }

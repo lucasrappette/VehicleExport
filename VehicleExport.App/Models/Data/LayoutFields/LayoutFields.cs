@@ -18,7 +18,7 @@ namespace VehicleExport.App.Models.Data.LayoutFields
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int LayoutFieldId { get; set; }
 
-        [NotMapped]
+        [NotMapped] 
         public string LoggableName { get { return LayoutFieldId.ToString(); } }
 
         [MaxLength(50)]
@@ -49,7 +49,7 @@ namespace VehicleExport.App.Models.Data.LayoutFields
 
         // External References. Use "Virtual" to enable lazy loading
         public virtual DatabaseField DatabaseField { get; set; }
-        public LayoutFieldType LayoutFieldType { get; set; }
+        public virtual LayoutFieldType LayoutFieldType { get; set; }
     }
 }
 

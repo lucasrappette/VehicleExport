@@ -14,6 +14,14 @@
           <b-nav-item to="/">Home</b-nav-item>
           <b-nav-item v-if="isSuperAdmin" to="/dealer">Dealers</b-nav-item>
           <b-nav-item v-if="isSuperAdmin" to="/export">Exports</b-nav-item>
+          <b-nav-item-dropdown v-if="isSuperAdmin">
+            <template slot="button-content">
+              Layout Info
+            </template>
+            <b-dropdown-item v-if="isSuperAdmin" to="/layout">Layouts</b-dropdown-item>
+            <b-dropdown-item v-if="isSuperAdmin" to="/layoutField">Layout Fields</b-dropdown-item>
+            <b-dropdown-item-divider/>
+          </b-nav-item-dropdown>
           <b-nav-item v-if="isSuperAdmin" to="/layout">Layouts</b-nav-item>
           <b-nav-item v-if="isSuperAdmin" to="/destination">Destinations</b-nav-item>
           <b-nav-item v-if="isSuperAdmin" to="/applicationUser">User Management</b-nav-item>
