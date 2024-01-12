@@ -79,6 +79,13 @@ import JobList from './components/Job/List.vue'
 import LayoutFieldList from './components/LayoutField/List.vue'
 import LayoutFieldFields from './components/LayoutField/Fields.vue'
 import LayoutFieldAdd from './components/LayoutField/Add.vue'
+import LayoutFieldEdit from './components/LayoutField/Edit.vue'
+
+import LayoutFieldMapList from './components/LayoutFieldMap/List.vue'
+import LayoutFieldMapFields from './components/LayoutFieldMap/Fields.vue'
+import LayoutFieldMapAdd from './components/LayoutFieldMap/Add.vue'
+import LayoutFieldMapEdit from './components/LayoutFieldMap/Edit.vue'
+
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -125,6 +132,9 @@ Vue.component('dealer-fields', DealerFields);
 Vue.component('destination-fields', DestinationFields);
 Vue.component('layout-fields', LayoutFields);
 Vue.component('layout-field-fields', LayoutFieldFields);
+Vue.component('layout-field-map-fields', LayoutFieldMapFields);
+Vue.component('layout-field-map-edit', LayoutFieldMapEdit);
+Vue.component('layout-field-map-add', LayoutFieldMapAdd);
 
 
 Vue.config.productionTip = false;
@@ -150,6 +160,11 @@ const routes = [
 
   { path: '/layoutField', component: LayoutFieldList },
   { path: '/layoutField/add', component: LayoutFieldAdd },
+  { path: '/layoutField/:id', component: LayoutFieldEdit, props: route => ({ id: route.params.id })},
+
+  { path: '/layout/:layoutId/layoutFieldMap', component: LayoutFieldMapList, props: route => ({ layoutId: route.params.layoutId })},
+  //{ path: '/layout/:layoutId/layoutSalesContribution/add', component: layoutSalesCsontributionAdd, props: route => ({ layoutId: route.params.layoutId })},
+  //{ path: '/layout/:layoutId/layoutSalesContribution/:id', component: layoutSalesContributionEdit, props: route => ({ layoutId: route.params.layoutId, id: route.params.id })},
 
   { path: '/destination', component: DestinationList },
   { path: '/destination/add', component: DestinationAdd },

@@ -28,7 +28,6 @@ namespace VehicleExport.App.Models.Data.LayoutFields
         public Int16 LayoutFieldTypeId { get; set; }
 
         [MaxLength(75)]
-        [Required]
         public string DatabaseFieldLabel { get; set; }
 
         public string DatabaseFieldSqlText { get; set; }

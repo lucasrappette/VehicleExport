@@ -6,20 +6,20 @@
         <b-col xs="12" sm="6" lg="3">
           <h4>Basic</h4>
           <hr />
-          <text-control label="Layout Name" required v-model="item.name" :concurrency-check="item.concurrencyCheck"></text-control>
-          <text-control label="Description" required v-model="item.description" :concurrency-check="item.concurrencyCheck"></text-control>
-          <select-list-control label="Data Source Type Id" required v-model="item.layoutDataSourceTypeId" :options="nonNullLayoutDataSourceTypeSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
-          <text-control v-if="item.layoutDataSourceTypeId == 2" label="Stored Procedure Name" v-model="item.storedProcedureName" :concurrency-check="item.concurrencyCheck"></text-control>
+          <text-control label="Layout Field Name" required v-model="item.name" :concurrency-check="item.concurrencyCheck"></text-control>
+          <text-control label="Notes" v-model="item.notes" :concurrency-check="item.concurrencyCheck"></text-control>
+          <select-list-control label="Layout Field Type" required v-model="item.layoutFieldTypeId" :options="nonNullLayoutFieldTypeSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
         </b-col>
-        <b-col xs="12" sm="6" lg="3">
-          <h4>Filters</h4>
+        <b-col v-if="item.layoutFieldTypeId == 1" xs="12" sm="6" lg="3">
+          <h4>Database Layout Field Options</h4>
           <hr />
-          <multi-select-list-control label="Makes" required v-model="item.makesList" :options="nonNullStateSelectOptions" :concurrency-check="item.concurrencyCheck"></multi-select-list-control>
-          <checkbox-control label="Certified Only?" v-model="item.certifiedOnly" :concurrency-check="item.concurrencyCheck"></checkbox-control>
-          <checkbox-control label="New Vehicles?" v-model="item.newVehicles" :concurrency-check="item.concurrencyCheck"></checkbox-control>
-          <checkbox-control label="Used Vehicles?" v-model="item.usedVehicles" :concurrency-check="item.concurrencyCheck"></checkbox-control>
-          <multi-select-list-control label="Warranties" required v-model="item.warrantiesList" :options="nonNullStateSelectOptions" :concurrency-check="item.concurrencyCheck"></multi-select-list-control>
-          <multi-select-list-control label="Products" required v-model="item.productsList" :options="nonNullStateSelectOptions" :concurrency-check="item.concurrencyCheck"></multi-select-list-control>
+          <text-control label="Database Field Label" v-model="item.databaseFieldLabel" :concurrency-check="item.concurrencyCheck"></text-control>
+          <textarea-control label="Database Field Sql Text" v-model="item.databaseFieldSqlText" :concurrency-check="item.concurrencyCheck"></textarea-control>
+        </b-col>
+        <b-col v-if="item.layoutFieldTypeId == 2" xs="12" sm="6" lg="3">
+          <h4>Parameter Layout Field Options</h4>
+          <hr />
+          <text-control label="Parameter Name" v-model="item.parameter" :concurrency-check="item.concurrencyCheck"></text-control>
         </b-col>
       </b-row>
     </template>
@@ -30,7 +30,7 @@
 import { mapState, mapGetters } from 'vuex'
 
 export default {
-  name: "LayoutFields",
+  name: "LayoutFieldFields",
   props: [
     'item'
   ],
@@ -43,9 +43,6 @@ export default {
     nonNullLayoutFieldTypeSelectOptions: function () {
       return this.layoutFieldTypes.selectOptions.filter(x => x.value != null);
     },
-    nonNullStateSelectOptions: function () {
-      return this.stateSelectOptions;
-    }
   },
   methods: {
     onCancel(evt) {

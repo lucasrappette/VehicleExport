@@ -11,6 +11,7 @@ namespace VehicleExport.App.Models.Data.LayoutFieldsMap
         public int GetId() => LayoutFieldsMapId;
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int LayoutFieldsMapId { get; set; }
 
         [Required]

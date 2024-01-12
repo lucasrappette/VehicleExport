@@ -29,37 +29,38 @@ export default {
         return null;
     },
     pageTitle: function () {
-      return 'New Layout' + (this.itemTitle && this.itemTitle.length > 0 ? ': ' + this.itemTitle : '');
+      return 'New Layout Field' + (this.itemTitle && this.itemTitle.length > 0 ? ': ' + this.itemTitle : '');
     }
   },
   methods: {
     load: function () {
       axios
-        .get('/api/layout/new')
+        .get('/api/layoutFields/new')
         .then(response => {
           this.item = response.data;
         })
         .catch(error => {
-          this.processAddErrorResponse(error, 'layout');
+          this.processAddErrorResponse(error, 'layout field');
         });
     },
     onCancel(evt) {
-      this.$router.push('/layout');
+      this.$router.push('/layoutField');
     },
     onSubmit(evt) {
-      let url = '/api/layout?context=WebApiElevated';
+      let url = '/api/layoutFields?context=WebApiElevated';
 
       axios
         .post(url, this.item)
         .then(response => {
           this.item = response.data;
 
-          this.processAddSuccessResponse(response, 'layout');
+          this.processAddSuccessResponse(response, 'layout field');
           //Dispatch here
-          this.$router.push('layout');
+          this.$store.dispatch('cachedData/reloadLayoutFields');
+          this.$router.push('/layoutField');
         })
         .catch(error => {
-          this.processAddErrorResponse(error, 'layout');
+          this.processAddErrorResponse(error, 'layout field');
         });
     }    
   },

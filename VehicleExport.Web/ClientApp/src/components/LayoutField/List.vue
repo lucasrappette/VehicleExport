@@ -27,28 +27,29 @@ export default {
             type: 'text'
           },
           {
-            key: 'description',
-            name: 'Description',
-            visible: true,
-            sortable: true,
-            type: 'text'
-          },
-          {
-            key: 'storedProcedureName',
-            name: 'Stored Procedure Name',
-            visible: true,
-            sortable: true,
-            type: 'text'
-          },
-          {
-            key: 'contributerApplicationUserId',
-            name: 'Salesperson',
+            key: 'layoutFieldTypeId',
+            name: 'Layout Field Type',
             visible: true,
             sortable: true,
             type: 'select',
             selectOptions: [],
-            selectOptionsSource: { storeModule: 'cachedData', storeAction: 'loadApplicationUsers', storeGetter: 'applicationUsers' }
+            selectOptionsSource: { storeModule: 'cachedData', storeAction: 'loadLayoutFieldTypes', storeGetter: 'layoutFieldTypes' }
           },
+          {
+            key: 'parameter',
+            name: 'Parameter',
+            visible: true,
+            sortable: true,
+            type: 'text'
+          },
+          {
+            key: 'databaseFieldLabel',
+            name: 'Database Field Label',
+            visible: true,
+            sortable: true,
+            type: 'text'
+          },
+          
         ],
         getDefaultFilter: function () {
           return '';

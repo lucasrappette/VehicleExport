@@ -13,35 +13,39 @@ namespace VehicleExport.App.Migrations
     {
         public static void BuildInitialViews(this MigrationBuilder migrationBuilder)
         {
-            BuildClientStatsView(migrationBuilder);
+            BuildLayoutFieldMapList(migrationBuilder);
             //BuildProjectStatsView(migrationBuilder);
             //BuildInvoiceSummaryView(migrationBuilder);
 			//BuildTimeEntryStatsStoredProc(migrationBuilder);
         }
 
-        private static void BuildClientStatsView(MigrationBuilder migrationBuilder)
+        private static void BuildLayoutFieldMapList(MigrationBuilder migrationBuilder)
         {
-			/*
+            
             migrationBuilder.Sql(@"
-            if object_id('ClientStats','v') is not null
-                drop view ClientStats;
+            if object_id('LayoutFieldMapList','v') is not null
+                drop view LayoutFieldMapList;
             ");
 
             migrationBuilder.Sql(@"
-            create view ClientStats
+            create view LayoutFieldMapList
             as
-	            select
-		            c.Id as ClientId,
-		            count(*) as NumberOfProjects,
-                    concat(ap.FirstName, ' ', ap.LastName) AS SalesRepName
-	            from Clients c
-		            join Projects p on p.ClientId = c.Id
-                    join AspNetUsers ap ON ap.Id = c.SalesRepApplicationUserId
-	            group by c.Id, ap.FirstName, ap.LastName
+	            SELECT 
+				   lfm.[LayoutFieldsMapId]
+				  ,lfm.[LayoutId]
+				  ,lfm.[LayoutFieldId]
+				  ,lfm.[HeaderLabel]
+				  ,lfm.[FieldOrder]
+				  ,lfm.[ConcurrencyTimestamp]
+				  ,lf.[Name]
+			  FROM [TWD_VehicleExport].[dbo].[LayoutFieldsMap] lfm
+			  LEFT JOIN TWD_VehicleExport..LayoutFields lf
+			  ON
+			  lf.LayoutFieldId = lfm.LayoutFieldId
             ");
-			*/
+			
         }
-		/*
+        /*
         private static void BuildTimeEntryStatsStoredProc(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"

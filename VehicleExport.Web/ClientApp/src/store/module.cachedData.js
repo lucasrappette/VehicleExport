@@ -17,6 +17,8 @@ export default {
 
       { path: '/dealer', name: 'Dealers' },
       { path: '/layout', name: 'Layouts' },
+      { path: '/layoutField', name: 'Layout Fields' },
+      { path: '/layoutFieldMap', name: 'Layout Field Map'},
       { path: '/destination', name: 'Destinations' },
       { path: '/applicationUser', name: 'Users' },
       { path: '/contentBlock', name: 'Content Blocks' },
@@ -153,6 +155,13 @@ export default {
       pendingResolves: [],
       pendingRejects: []
     },
+    layoutFields: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
     layoutDataSourceTypes: {
       loadState: STATE_UNLOADED,
       values: [],
@@ -278,6 +287,16 @@ export default {
       state.layoutFieldTypes.selectOptions = values.map(x => ({
         text: x.description,
         value: x.layoutFieldTypeId
+      }));
+
+      state.layoutFieldTypes.loadState = STATE_LOADED;
+    },
+    LOAD_LAYOUT_FIELDS(state, values) {
+      state.layoutFields.values = values;
+
+      state.layoutFields.selectOptions = values.map(x => ({
+        text: x.name,
+        value: x.layoutFieldId
       }));
 
       state.layoutFieldTypes.loadState = STATE_LOADED;
@@ -450,7 +469,22 @@ export default {
         type: 'layoutFieldTypes',
         loadState: STATE_UNLOADED
       });
-      dispatch('loadOutputFormatTypes');
+      dispatch('loadLayoutFieldTypes');
+    },
+    loadLayoutFields({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'layoutFields', 
+        commitType: 'LAYOUT_FIELDS', 
+        url: '/api/layoutFields',
+        order: 'layoutFieldId'
+      });
+    },
+    reloadLayoutFields({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'layoutFields',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadLayoutFields');
     },
     loadLayoutDataSourceTypes({ commit, dispatch }) {
       return dispatch('loadValues', { 
@@ -488,6 +522,7 @@ export default {
       dispatch('loadEncryptionTypes');
       dispatch('loadOutputFormatTypes');
       dispatch('loadLayoutFieldTypes');
+      dispatch('loadLayoutFields');
       dispatch('loadTransferModeTypes');
       dispatch('loadLayoutDataSourceTypes');
     },
@@ -498,6 +533,7 @@ export default {
       dispatch('reloadEncryptionTypes');
       dispatch('reloadOutputFormatTypes');
       dispatch('reloadLayoutFieldTypes');
+      dispatch('reloadLayoutFields');
       dispatch('loadTransferModeTypes');
       dispatch('reloadLayoutDataSourceTypes');
     }
