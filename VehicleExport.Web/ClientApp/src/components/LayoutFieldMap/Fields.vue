@@ -1,5 +1,6 @@
 <template>
-  <form-template @submit="onSubmit" :hide-submit="true" :hide-cancel="true">
+  <form-template @submit="onSubmit" @cancel="onCancel">
+    <template v-slot:save><slot name="save"></slot></template>
     <template>
       <b-row class="mt-3">
         <b-col xs="12" sm="12" lg="12">
@@ -29,7 +30,7 @@ export default {
   computed: {
     ...mapState('cachedData', ['layoutFields']),
     nonNullLayoutFieldSelectOptions: function () {
-      return this.layoutFields.selectOptions.filter(x => x.value != null && x.active == true);
+      return this.layoutFields.selectOptions.filter(x => x.value != null);
     },
   },
   methods: {
@@ -37,7 +38,10 @@ export default {
     },
     onSubmit(evt) {
       this.$emit('submit');
-    }
+    },
+    onCancel(evt) {
+      this.$emit('cancel');
+    },
   },
   mounted() {
     this.load();

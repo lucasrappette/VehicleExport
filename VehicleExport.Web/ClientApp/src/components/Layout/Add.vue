@@ -56,7 +56,7 @@ export default {
 
           this.processAddSuccessResponse(response, 'layout');
           //Dispatch here
-          this.$router.push('layout');
+          this.$router.push('/layout');
         })
         .catch(error => {
           this.processAddErrorResponse(error, 'layout');

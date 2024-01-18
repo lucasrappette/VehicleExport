@@ -2,14 +2,20 @@
   <div>
     <list-page-template page-title="Layout Field Map">
       <!--<filtered-table :settings="tableSettings" @rowClicked="onRowClicked" @newClicked="onNewClicked">-->
-      <filtered-table :settings="tableSettings" @rowClicked="onRowClicked" @newClicked="onNewClicked">
+      <filtered-table :key="reRenderCount" :settings="tableSettings" @rowClicked="onRowClicked" @newClicked="onNewClicked">
       </filtered-table>
     </list-page-template>
     <b-modal id="layoutFieldMappingAdd" size="l" title="Add Mapping">
-      <layout-field-map-add :layoutId="this.layoutId" @onClosed="$bvModal.hide('layoutFieldMappingAdd')" />
+      <layout-field-map-add @success="onAddSuccess" @cancel="onAddCancel" :layoutId="this.layoutId" @onClosed="$bvModal.hide('layoutFieldMappingAdd')" />
+      <template slot="modal-footer">
+        <div />
+      </template>
     </b-modal>
     <b-modal id="layoutFieldMappingEdit" size="l" title="Edit Mapping">
-      <layout-field-map-edit :layoutFieldMapId="this.selectedLayoutFieldMapId" @onClosed="$bvModal.hide('layoutFieldMappingEdit')" />
+      <layout-field-map-edit @success="onEditSuccess" @cancel="onEditCancel" :layoutFieldMapId="this.selectedLayoutFieldMapId" @onClosed="$bvModal.hide('layoutFieldMappingEdit')" />
+      <template slot="modal-footer">
+        <div />
+      </template>
     </b-modal>
   </div>
 </template>
@@ -22,11 +28,13 @@ export default {
   props: ['layoutId'],
   data() {
     return {
+      reRenderCount: 0,
       selectedLayoutFieldMapId: null,
       tableSettings: {
         endpoint: '/api/layoutFieldsMap',
         showNewButton: true,
         defaultLimit: 100,
+        defaultSortColumn: 'fieldOrder',
         columns: [
           {
             key: 'fieldOrder',
@@ -78,6 +86,21 @@ export default {
     onNewClicked: function (filters) {
       this.$bvModal.show('layoutFieldMappingAdd');
     },
+    onAddCancel: function (evt) {
+      this.$bvModal.hide('layoutFieldMappingAdd');
+    },
+    onEditCancel: function (evt) {
+      this.$bvModal.hide('layoutFieldMappingEdit');
+    },
+    onAddSuccess: function (evt) {
+      this.reRenderCount += 1;
+      this.$bvModal.hide('layoutFieldMappingAdd');
+    },
+    onEditSuccess: function (evt) {
+      this.reRenderCount += 1;
+      this.$bvModal.hide('layoutFieldMappingEdit');
+    },
+
   },
   computed: {
   },

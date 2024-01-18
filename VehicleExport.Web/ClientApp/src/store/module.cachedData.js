@@ -299,7 +299,7 @@ export default {
         value: x.layoutFieldId
       }));
 
-      state.layoutFieldTypes.loadState = STATE_LOADED;
+      state.layoutFields.loadState = STATE_LOADED;
     },
     LOAD_LAYOUT_DATA_SOURCE_TYPES(state, values) {
       state.layoutDataSourceTypes.values = values;

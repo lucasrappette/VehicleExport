@@ -1,5 +1,6 @@
 <template>
-    <layout-field-map-fields :item="item">
+    <layout-field-map-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
+      <template v-slot:save>Save Layout Field Mapping</template>
     </layout-field-map-fields>
 </template>
 
@@ -14,7 +15,7 @@ export default {
   props: ['layoutFieldMapId'],
   data() {
     return {
-      item: null
+      item: {}
     };
   },
   computed: {
@@ -42,12 +43,15 @@ export default {
           this.item = response.data;
 
           this.processEditSuccessResponse(response, 'Layout Field Map');
-
+          this.$emit('success');
         })
         .catch(error => {
           this.processEditErrorResponse(error, 'Layout Field Map');
         });
-    }    
+    },
+    onCancel(evt) {
+      this.$emit('cancel');
+    },    
   },
   mounted () {
     this.load();
