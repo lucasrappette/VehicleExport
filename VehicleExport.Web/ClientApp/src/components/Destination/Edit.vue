@@ -66,7 +66,7 @@ export default {
         .then(response => {
           this.item = response.data;
           this.processEditSuccessResponse(response, 'destination');
-            this.$store.dispatch('cachedData/reloadDestinations');
+          this.$store.dispatch('cachedData/reloadDestinations');
           this.goToParentPage();
         })
         .catch(error => {

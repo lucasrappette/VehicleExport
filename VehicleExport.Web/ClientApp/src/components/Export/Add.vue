@@ -1,8 +1,8 @@
 <template>
   <form-page-template :page-title="pageTitle" :item="item">
-    <layout-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
-      <template v-slot:save>Add Layout</template>
-    </layout-fields>
+    <export-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
+      <template v-slot:save>Add Export</template>
+    </export-fields>
   </form-page-template>
 </template>
 
@@ -11,7 +11,7 @@ import axios from "axios";
 import FormMixin from '../Mixins/FormMixin.vue';
 
 export default {
-  name: "LayoutAdd",
+  name: "ExportAdd",
   mixins: [FormMixin],
   props: [],
   data() {
@@ -29,37 +29,36 @@ export default {
         return null;
     },
     pageTitle: function () {
-      return 'New Layout' + (this.itemTitle && this.itemTitle.length > 0 ? ': ' + this.itemTitle : '');
+      return 'New Export' + (this.itemTitle && this.itemTitle.length > 0 ? ': ' + this.itemTitle : '');
     }
   },
   methods: {
     load: function () {
       axios
-        .get('/api/layout/new')
+        .get('/api/export/new')
         .then(response => {
           this.item = response.data;
         })
         .catch(error => {
-          this.processAddErrorResponse(error, 'layout');
+          this.processAddErrorResponse(error, 'Export');
         });
     },
     onCancel(evt) {
-      this.$router.push('/layout');
+      this.$router.push('/export');
     },
     onSubmit(evt) {
-      let url = '/api/layout?context=WebApiElevated';
+      let url = '/api/export?context=WebApiElevated';
 
       axios
         .post(url, this.item)
         .then(response => {
           this.item = response.data;
 
-          this.processAddSuccessResponse(response, 'layout');
-          //Dispatch here
-          this.$router.push('/layout');
+          this.processAddSuccessResponse(response, 'Export');
+          this.$router.push('/export');
         })
         .catch(error => {
-          this.processAddErrorResponse(error, 'layout');
+          this.processAddErrorResponse(error, 'Export');
         });
     }    
   },

@@ -1,12 +1,12 @@
 <template>
   <form-page-template :page-title="pageTitle" :item="item">
-    <b-nav pills v-if="item && item.layoutId && item.layoutDataSourceTypeId == 1">
-      <b-nav-item :to="{ path: this.$route.path + '/layoutFieldMap' }">Layout Field Mapping</b-nav-item>
+    <b-nav pills v-if="item && item.exportId">
+      <b-nav-item :to="{ path: this.$route.path + '/exportDealer' }">Enrolled Dealers</b-nav-item>
     </b-nav>
     <hr />
-    <layout-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
-      <template v-slot:save>Save Layout</template>
-    </layout-fields>
+    <export-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
+      <template v-slot:save>Save Export</template>
+    </export-fields>
   </form-page-template>
 </template>
 
@@ -16,7 +16,7 @@ import FormMixin from '../Mixins/FormMixin.vue';
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
-  name: "LayoutEdit",
+  name: "ExportEdit",
   mixins: [FormMixin],
   props: ['id'],
   data() {
@@ -31,13 +31,13 @@ export default {
       return this.item.name;
     },
     pageTitle: function () {
-      return 'Layout: ' + this.itemTitle;
+      return 'Export: ' + this.itemTitle;
     }
   },
   methods: {
     ...mapActions('cachedData', ['setKnownPageName']),
     load: function () {
-      let url = '/api/layout/' + this.id + '?context=WebApiElevated';
+      let url = '/api/export/' + this.id + '?context=WebApiElevated';
 
       axios
         .get(url)
@@ -54,19 +54,18 @@ export default {
       this.goToParentPage();
     },
     onSubmit(evt) {
-      let url = '/api/layout/' + this.id + '?context=WebApiElevated';
+      let url = '/api/export/' + this.id + '?context=WebApiElevated';
 
       axios
         .put(url, this.item)
         .then(response => {
           this.item = response.data;
-          //this.$store.dispatch('cachedData/reloadLayouts');
-          this.processEditSuccessResponse(response, 'layout');
+          this.processEditSuccessResponse(response, 'Export');
 
           this.goToParentPage();
         })
         .catch(error => {
-          this.processEditErrorResponse(error, 'layout');
+          this.processEditErrorResponse(error, 'Export');
         });
     }
   },

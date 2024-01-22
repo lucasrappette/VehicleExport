@@ -163,6 +163,10 @@ namespace VehicleExport.App.Utilities.Serialization
                     {
                         dstProperty.SetValue(dst, DateTime.Parse(srcDict[dstPropertyName].ToString()));
                     }
+                    else if (dstPropertyType == typeof(TimeSpan))
+                    {
+                        dstProperty.SetValue(dst, TimeSpan.Parse(srcDict[dstPropertyName].ToString()));
+                    }
                     //else if (dstPropertyType == typeof(DateTime?))
                     //{
                     //    dstProperty.SetValue(dst, srcDict[dstPropertyName] == null ? null : DateTime.Parse(srcDict[dstPropertyName].ToString()));

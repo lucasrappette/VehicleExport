@@ -12,11 +12,11 @@ using VehicleExport.App.Models.Data.ExportDealers;
 
 namespace VehicleExport.Web.Controllers.Data.ExportDealers
 {
-    //[Authorize]
-    //public class ExportDealersController : EntityWriteController<ExportDealer, IEntityWriteService<ExportDealer, int>, int>
-    //{
-    //    public ExportDealersController(IConfiguration configuration, IEntityWriteService<ExportDealer, int> service) : base(configuration, service)
-    //    {
-    //    }
-    //}
+    [Authorize]
+    public class ExportDealersController : EntityWriteController<ExportDealer, IEntityWriteService<ExportDealer, int>, int>
+    {
+        public ExportDealersController(IConfiguration configuration, IEntityWriteService<ExportDealer, int> service) : base(configuration, service)
+        {
+        }
+    }
 }

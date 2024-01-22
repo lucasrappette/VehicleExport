@@ -25,6 +25,24 @@ export default {
             visible: true,
             sortable: true,
             type: 'text'
+          },
+          {
+            key: 'layoutId',
+            name: 'Layout',
+            visible: true,
+            sortable: true,
+            type: 'select',
+            selectOptions: [],
+            selectOptionsSource: { storeModule: 'cachedData', storeAction: 'loadLayouts', storeGetter: 'layouts' }
+          },
+          {
+            key: 'destinationId',
+            name: 'Destination',
+            visible: true,
+            sortable: true,
+            type: 'select',
+            selectOptions: [],
+            selectOptionsSource: { storeModule: 'cachedData', storeAction: 'loadDestinations', storeGetter: 'destinations' }
           }
         ],
         getDefaultFilter: function () {
@@ -35,7 +53,7 @@ export default {
   },
   methods: {
     onRowClicked: function (item, context) {
-      this.$router.push('/export/' + item.ExportId);
+      this.$router.push('/export/' + item.exportId);
     },
     onNewClicked: function (filters) {
       this.$router.push('/export/add');

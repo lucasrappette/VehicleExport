@@ -40,6 +40,8 @@ using VehicleExport.App.Models.Data.MinorEntity;
 using VehicleExport.App.Services.Data.MinorEntity;
 using VehicleExport.App.Models.Data.MinorEntity.Validators;
 using VehicleExport.App.Services.Data.LayoutFieldsMap;
+using VehicleExport.App.Services.Data.ExportDealers;
+using VehicleExport.App.Services.Data.ExportDealerParameters;
 
 namespace VehicleExport.App
 {
@@ -124,7 +126,8 @@ namespace VehicleExport.App
             services.AddTransientListReadWriteService<JobItem, Guid, JobItemService>();
 
             services.AddTransientListReadWriteService<Destination, int, DestinationService>();
-            //services.AddTransientListReadWriteService<ExportDealerParameter, int, ExportDealerParameterService>();
+            services.AddTransientListReadWriteService<ExportDealer, int, ExportDealerService>();
+            services.AddTransientListReadWriteService<ExportDealerParameter, int, ExportDealerParameterService>();
             services.AddTransientListReadWriteService<Export, int, ExportService>();
             services.AddTransientListReadWriteService<ExportTracking, int, ExportTrackingService>();
             services.AddTransientListReadWriteService<LayoutField, int, LayoutFieldsService>();

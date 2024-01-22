@@ -539,7 +539,7 @@ export default {
       return dispatch('loadValues', { 
         type: 'layouts', 
         commitType: 'LAYOUTS', 
-        url: '/api/layouts',
+        url: '/api/layout',
         order: 'layoutId'
       });
     },

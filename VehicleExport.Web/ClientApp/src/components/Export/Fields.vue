@@ -6,20 +6,15 @@
         <b-col xs="12" sm="6" lg="3">
           <h4>Basic</h4>
           <hr />
-          <text-control label="Layout Name" required v-model="item.name" :concurrency-check="item.concurrencyCheck"></text-control>
-          <text-control label="Description" required v-model="item.description" :concurrency-check="item.concurrencyCheck"></text-control>
-          <select-list-control label="Data Source Type Id" required v-model="item.layoutDataSourceTypeId" :options="nonNullLayoutDataSourceTypeSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
-          <text-control v-if="item.layoutDataSourceTypeId == 2" label="Stored Procedure Name" v-model="item.storedProcedureName" :concurrency-check="item.concurrencyCheck"></text-control>
+          <text-control label="Export Name" required v-model="item.name" :concurrency-check="item.concurrencyCheck"></text-control>
+          <select-list-control label="Layout" required v-model="item.layoutId" :options="nonNullLayoutSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
+          <select-list-control label="Destination" required v-model="item.destinationId" :options="nonNullDestinationSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
         </b-col>
         <b-col xs="12" sm="6" lg="3">
-          <h4>Filters</h4>
+          <h4>Run Times</h4>
           <hr />
-          <multi-select-list-control label="Makes" required v-model="item.makesList" :options="nonNullStateSelectOptions" :concurrency-check="item.concurrencyCheck"></multi-select-list-control>
-          <checkbox-control label="Certified Only?" v-model="item.certifiedOnly" :concurrency-check="item.concurrencyCheck"></checkbox-control>
-          <checkbox-control label="New Vehicles?" v-model="item.newVehicles" :concurrency-check="item.concurrencyCheck"></checkbox-control>
-          <checkbox-control label="Used Vehicles?" v-model="item.usedVehicles" :concurrency-check="item.concurrencyCheck"></checkbox-control>
-          <multi-select-list-control label="Warranties" required v-model="item.warrantiesList" :options="nonNullStateSelectOptions" :concurrency-check="item.concurrencyCheck"></multi-select-list-control>
-          <multi-select-list-control label="Products" required v-model="item.productsList" :options="nonNullStateSelectOptions" :concurrency-check="item.concurrencyCheck"></multi-select-list-control>
+          <time-picker-control topDescription="Run Time 1" required v-model="item.runTimeOne" :concurrency-check="item.concurrencyCheck"></time-picker-control>
+          <time-picker-control topDescription="Run Time 2" v-model="item.runTimeTwo" :concurrency-check="item.concurrencyCheck"></time-picker-control>
         </b-col>
       </b-row>
     </template>
@@ -28,8 +23,10 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import TimePickerControl from '../Controls/TimePickerControl.vue';
 
 export default {
+  components: { TimePickerControl },
   name: "LayoutFields",
   props: [
     'item'
@@ -39,12 +36,12 @@ export default {
     };
   },
   computed: {
-    ...mapState('cachedData', ['layoutDataSourceTypes','stateSelectOptions']),
-    nonNullLayoutDataSourceTypeSelectOptions: function () {
-      return this.layoutDataSourceTypes.selectOptions.filter(x => x.value != null);
+    ...mapState('cachedData', ['layouts','destinations']),
+    nonNullLayoutSelectOptions: function () {
+      return this.layouts.selectOptions.filter(x => x.value != null);
     },
-    nonNullStateSelectOptions: function () {
-      return this.stateSelectOptions;
+    nonNullDestinationSelectOptions: function () {
+      return this.destinations.selectOptions.filter(x => x.value != null);
     }
   },
   methods: {

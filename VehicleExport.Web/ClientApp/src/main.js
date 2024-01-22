@@ -88,7 +88,14 @@ import LayoutFieldMapAdd from './components/LayoutFieldMap/Add.vue'
 import LayoutFieldMapEdit from './components/LayoutFieldMap/Edit.vue'
 
 import ExportList from './components/Export/List.vue'
+import ExportAdd from './components/Export/Add.vue'
+import ExportEdit from './components/Export/Edit.vue'
+import ExportFields from './components/Export/Fields.vue'
 
+import ExportDealerList from './components/ExportDealer/List.vue'
+import ExportDealerAdd from './components/ExportDealer/Add.vue'
+import ExportDealerEdit from './components/ExportDealer/Edit.vue'
+import ExportDealerFields from './components/ExportDealer/Fields.vue'
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -139,6 +146,10 @@ Vue.component('layout-field-fields', LayoutFieldFields);
 Vue.component('layout-field-map-fields', LayoutFieldMapFields);
 Vue.component('layout-field-map-edit', LayoutFieldMapEdit);
 Vue.component('layout-field-map-add', LayoutFieldMapAdd);
+Vue.component('export-fields', ExportFields);
+Vue.component('export-dealer-fields', ExportDealerFields);
+Vue.component('export-dealer-edit', ExportDealerEdit);
+Vue.component('export-dealer-add', ExportDealerAdd);
 
 
 Vue.config.productionTip = false;
@@ -159,6 +170,8 @@ const routes = [
   { path: '/dealer/:id', component: DealerEdit, props: route => ({ id: route.params.id })},
 
   { path: '/export', component: ExportList },
+  { path: '/export/add', component: ExportAdd },
+  { path: '/export/:id', component: ExportEdit, props: route => ({ id: route.params.id })},
 
   { path: '/layout', component: LayoutList },
   { path: '/layout/add', component: LayoutAdd },
@@ -169,7 +182,7 @@ const routes = [
   { path: '/layoutField/:id', component: LayoutFieldEdit, props: route => ({ id: route.params.id })},
 
   { path: '/layout/:layoutId/layoutFieldMap', component: LayoutFieldMapList, props: route => ({ layoutId: route.params.layoutId })},
-
+  { path: '/export/:exportId/exportDealer', component: ExportDealerList, props: route => ({ exportId: route.params.exportId })},
   { path: '/destination', component: DestinationList },
   { path: '/destination/add', component: DestinationAdd },
   { path: '/destination/:id', component: DestinationEdit, props: route => ({ id: route.params.id })},

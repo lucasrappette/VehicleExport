@@ -2,7 +2,7 @@
   <b-form-group :label="label" :description="description" :invalid-feedback="validationError" class="form-floating-label-group">
     <!-- <b-form-group :label="label" :description="description" :invalid-feedback="validationError" label-cols="4" content-cols="8"> -->
     <small v-if="topDescription" class="text-muted">{{topDescription}}</small>
-    <b-form-timepicker v-model="content" @input="updateContent()" :state="state" :locale="en" :placeholder="placeholder" class="floating-label"></b-form-timepicker>
+    <b-form-timepicker v-model="content" @input="updateContent()" :state="state" :placeholder="placeholder" class="floating-label"></b-form-timepicker>
   </b-form-group>
 </template>
 

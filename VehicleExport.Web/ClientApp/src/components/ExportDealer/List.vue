@@ -1,18 +1,17 @@
 <template>
   <div>
-    <list-page-template page-title="Layout Field Map">
-      <!--<filtered-table :settings="tableSettings" @rowClicked="onRowClicked" @newClicked="onNewClicked">-->
+    <list-page-template page-title="Enrolled Dealers">
       <filtered-table :key="reRenderCount" :settings="tableSettings" @rowClicked="onRowClicked" @newClicked="onNewClicked">
       </filtered-table>
     </list-page-template>
-    <b-modal id="layoutFieldMappingAdd" size="l" title="Add Mapping">
-      <layout-field-map-add @success="onAddSuccess" @cancel="onAddCancel" :layoutId="this.layoutId" @onClosed="$bvModal.hide('layoutFieldMappingAdd')" />
+    <b-modal id="exportDealerAdd" size="l" title="Add Dealer">
+      <layout-field-map-add @success="onAddSuccess" @cancel="onAddCancel" :layoutId="this.exportId" @onClosed="$bvModal.hide('exportDealerAdd')" />
       <template slot="modal-footer">
         <div />
       </template>
     </b-modal>
-    <b-modal id="layoutFieldMappingEdit" size="l" title="Edit Mapping">
-      <layout-field-map-edit @success="onEditSuccess" @cancel="onEditCancel" :layoutFieldMapId="this.selectedLayoutFieldMapId" @onClosed="$bvModal.hide('layoutFieldMappingEdit')" />
+    <b-modal id="exportDealerEdit" size="l" title="Edit Dealer">
+      <layout-field-map-edit @success="onEditSuccess" @cancel="onEditCancel" :exportDealerId="this.selectedExportDealerId" @onClosed="$bvModal.hide('exportDealerEdit')" />
       <template slot="modal-footer">
         <div />
       </template>
@@ -24,81 +23,58 @@
 import axios from "axios";
 
 export default {
-  name: "LayoutFieldMapList",
-  props: ['layoutId'],
+  name: "ExportDealerList",
+  props: ['exportId'],
   data() {
     return {
       reRenderCount: 0,
-      selectedLayoutFieldMapId: null,
+      selectedExportDealerId: null,
       tableSettings: {
-        endpoint: '/api/layoutFieldsMap',
+        endpoint: '/api/exportDealer',
         showNewButton: true,
         defaultLimit: 100,
-        defaultSortColumn: 'fieldOrder',
+        defaultSortColumn: 'exportDealerId',
         columns: [
           {
-            key: 'fieldOrder',
-            name: 'Order',
-            visible: true,
-            sortable: true,
-            type: 'number'
-          },
-          {
-            key: 'layoutField.name',
-            name: 'Layout Field Name',
+            key: 'dealerId',
+            name: 'Enrolled Dealer Id',
             visible: true,
             sortable: true,
             type: 'text'
-          },
-          {
-            key: 'layoutField.layoutFieldTypeId',
-            name: 'Layout Field Type',
-            visible: true,
-            sortable: true,
-            type: 'select',
-            selectOptions: [],
-            selectOptionsSource: { storeModule: 'cachedData', storeAction: 'loadLayoutFieldTypes', storeGetter: 'layoutFieldTypes' }
-          },
-          {
-            key: 'headerLabel',
-            name: 'Header Label',
-            visible: true,
-            sortable: true,
-            type: 'text'
-          },
+          }
         ],
         getDefaultFilter: () => {
-          if (this.layoutId)
-            return 'layoutId="' + this.layoutId + '"';
+          if (this.exportId)
+            return 'exportId="' + this.exportId + '"';
 
           return '';
         },
-        includes: ['layoutField'],
-        viewStorageName: '/layout:layoutFieldMap'
+        includes: [],
+        viewStorageName: '/export:exportDealer'
       }
     }
   },
   methods: {
     onRowClicked: function (item, context) {
       this.selectedLayoutFieldMapId = item.layoutFieldsMapId;
-      this.$bvModal.show('layoutFieldMappingEdit');
+      this.$bvModal.show('exportDealerEdit');
     },
     onNewClicked: function (filters) {
-      this.$bvModal.show('layoutFieldMappingAdd');
+      this.$bvModal.show('exportDealerAdd');
     },
     onAddCancel: function (evt) {
-      this.$bvModal.hide('layoutFieldMappingAdd');
+      this.$bvModal.hide('exportDealerAdd');
     },
     onEditCancel: function (evt) {
-      this.$bvModal.hide('layoutFieldMappingEdit');
+      this.$bvModal.hide('exportDealerEdit');
     },
     onAddSuccess: function (evt) {
       this.reRenderCount += 1;
-      this.$bvModal.hide('layoutFieldMappingAdd');
+      this.$bvModal.hide('exportDealerAdd');
     },
     onEditSuccess: function (evt) {
       this.reRenderCount += 1;
-      this.$bvModal.hide('layoutFieldMappingEdit');
+      this.$bvModal.hide('exportDealerEdit');
     },
 
   },

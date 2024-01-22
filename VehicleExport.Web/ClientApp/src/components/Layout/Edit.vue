@@ -60,7 +60,6 @@ export default {
         .put(url, this.item)
         .then(response => {
           this.item = response.data;
-          //this.$store.dispatch('cachedData/reloadLayouts');
           this.processEditSuccessResponse(response, 'layout');
           this.$store.dispatch('cachedData/reloadLayouts');
           this.goToParentPage();
