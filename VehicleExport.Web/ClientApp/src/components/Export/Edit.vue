@@ -1,9 +1,12 @@
 <template>
   <form-page-template :page-title="pageTitle" :item="item">
+    <b-nav pills v-if="item && item.layoutId && item.layoutDataSourceTypeId == 1">
+      <b-nav-item :to="{ path: this.$route.path + '/layoutFieldMap' }">Layout Field Mapping</b-nav-item>
+    </b-nav>
     <hr />
-    <destination-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
-      <template v-slot:save>Save Destination</template>
-    </destination-fields>
+    <layout-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
+      <template v-slot:save>Save Layout</template>
+    </layout-fields>
   </form-page-template>
 </template>
 
@@ -13,7 +16,7 @@ import FormMixin from '../Mixins/FormMixin.vue';
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
-  name: "DestinationEdit",
+  name: "LayoutEdit",
   mixins: [FormMixin],
   props: ['id'],
   data() {
@@ -28,13 +31,13 @@ export default {
       return this.item.name;
     },
     pageTitle: function () {
-      return 'Destination: ' + this.itemTitle;
+      return 'Layout: ' + this.itemTitle;
     }
   },
   methods: {
     ...mapActions('cachedData', ['setKnownPageName']),
     load: function () {
-      let url = '/api/destination/' + this.id + '?context=WebApiElevated';
+      let url = '/api/layout/' + this.id + '?context=WebApiElevated';
 
       axios
         .get(url)
@@ -51,26 +54,19 @@ export default {
       this.goToParentPage();
     },
     onSubmit(evt) {
-      let url = '/api/destination/';
-      var config = {
-      headers: {
-        "Content-Type": "multipart/form-data"
-        }
-      };
-      var myFormData = new FormData();
-      for (const [key, value] of Object.entries(this.item)) {
-          myFormData.append(key.toString(), value);
-      };
+      let url = '/api/layout/' + this.id + '?context=WebApiElevated';
+
       axios
-        .put(url, myFormData, config)
+        .put(url, this.item)
         .then(response => {
           this.item = response.data;
-          this.processEditSuccessResponse(response, 'destination');
-            this.$store.dispatch('cachedData/reloadDestinations');
+          //this.$store.dispatch('cachedData/reloadLayouts');
+          this.processEditSuccessResponse(response, 'layout');
+
           this.goToParentPage();
         })
         .catch(error => {
-          this.processEditErrorResponse(error, 'destination');
+          this.processEditErrorResponse(error, 'layout');
         });
     }
   },

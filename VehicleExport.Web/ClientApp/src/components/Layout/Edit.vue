@@ -62,7 +62,7 @@ export default {
           this.item = response.data;
           //this.$store.dispatch('cachedData/reloadLayouts');
           this.processEditSuccessResponse(response, 'layout');
-
+          this.$store.dispatch('cachedData/reloadLayouts');
           this.goToParentPage();
         })
         .catch(error => {

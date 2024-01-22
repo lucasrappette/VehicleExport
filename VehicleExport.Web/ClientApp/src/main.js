@@ -22,6 +22,7 @@ import FormattingMixin from './components/Mixins/FormattingMixin.vue'
 // Form Controls
 import TextControl from './components/Controls/TextControl.vue'
 import TextareaControl from './components/Controls/TextareaControl.vue'
+import TimePickerControl from './components/Controls/TimePickerControl.vue'
 import SelectListControl from './components/Controls/SelectListControl.vue'
 import MultiSelectListControl from './components/Controls/MultiSelectListControl.vue'
 import CheckboxControl from './components/Controls/CheckboxControl.vue'
@@ -86,6 +87,8 @@ import LayoutFieldMapFields from './components/LayoutFieldMap/Fields.vue'
 import LayoutFieldMapAdd from './components/LayoutFieldMap/Add.vue'
 import LayoutFieldMapEdit from './components/LayoutFieldMap/Edit.vue'
 
+import ExportList from './components/Export/List.vue'
+
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -117,6 +120,7 @@ Vue.component('auth-form', AuthForm);
 
 Vue.component('text-control', TextControl);
 Vue.component('textarea-control', TextareaControl);
+Vue.component('time-picker-control', TimePickerControl)
 Vue.component('select-list-control', SelectListControl);
 Vue.component('multi-select-list-control', MultiSelectListControl);
 Vue.component('checkbox-control', CheckboxControl);
@@ -154,6 +158,8 @@ const routes = [
   { path: '/dealer/add', component: DealerAdd },
   { path: '/dealer/:id', component: DealerEdit, props: route => ({ id: route.params.id })},
 
+  { path: '/export', component: ExportList },
+
   { path: '/layout', component: LayoutList },
   { path: '/layout/add', component: LayoutAdd },
   { path: '/layout/:id', component: LayoutEdit, props: route => ({ id: route.params.id })},
@@ -163,8 +169,6 @@ const routes = [
   { path: '/layoutField/:id', component: LayoutFieldEdit, props: route => ({ id: route.params.id })},
 
   { path: '/layout/:layoutId/layoutFieldMap', component: LayoutFieldMapList, props: route => ({ layoutId: route.params.layoutId })},
-  //{ path: '/layout/:layoutId/layoutSalesContribution/add', component: layoutSalesCsontributionAdd, props: route => ({ layoutId: route.params.layoutId })},
-  //{ path: '/layout/:layoutId/layoutSalesContribution/:id', component: layoutSalesContributionEdit, props: route => ({ layoutId: route.params.layoutId, id: route.params.id })},
 
   { path: '/destination', component: DestinationList },
   { path: '/destination/add', component: DestinationAdd },

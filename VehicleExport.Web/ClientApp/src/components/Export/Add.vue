@@ -9,7 +9,6 @@
 <script>
 import axios from "axios";
 import FormMixin from '../Mixins/FormMixin.vue';
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: "LayoutAdd",
@@ -57,7 +56,6 @@ export default {
 
           this.processAddSuccessResponse(response, 'layout');
           //Dispatch here
-          this.$store.dispatch('cachedData/reloadLayouts');
           this.$router.push('/layout');
         })
         .catch(error => {

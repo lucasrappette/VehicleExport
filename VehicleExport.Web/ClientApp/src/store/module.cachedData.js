@@ -14,7 +14,7 @@ export default {
       { path: '/add', name: 'Add New' },
       { path: '/content', name: 'Content' },
       { path: '/summary', name: 'Summary' },
-
+      { path: '/export', name: 'Exports'},
       { path: '/dealer', name: 'Dealers' },
       { path: '/layout', name: 'Layouts' },
       { path: '/layoutField', name: 'Layout Fields' },
@@ -120,6 +120,13 @@ export default {
       pendingResolves: [],
       pendingRejects: []
     },
+    destinations: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
     protocolTypes: {
       loadState: STATE_UNLOADED,
       values: [],
@@ -156,6 +163,13 @@ export default {
       pendingRejects: []
     },
     layoutFields: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
+    layouts: {
       loadState: STATE_UNLOADED,
       values: [],
       selectOptions: [],
@@ -261,6 +275,16 @@ export default {
 
       state.transferModeTypes.loadState = STATE_LOADED;
     },
+    LOAD_DESTINATIONS(state, values) {
+      state.destinations.values = values;
+
+      state.destinations.selectOptions = values.map(x => ({
+        text: x.name,
+        value: x.destinationId
+      }));
+
+      state.destinations.loadState = STATE_LOADED;
+    },
     LOAD_ENCRYPTION_TYPES(state, values) {
       state.encryptionTypes.values = values;
 
@@ -300,6 +324,16 @@ export default {
       }));
 
       state.layoutFields.loadState = STATE_LOADED;
+    },
+    LOAD_LAYOUTS(state, values) {
+      state.layouts.values = values;
+
+      state.layouts.selectOptions = values.map(x => ({
+        text: x.name,
+        value: x.layoutId
+      }));
+
+      state.layouts.loadState = STATE_LOADED;
     },
     LOAD_LAYOUT_DATA_SOURCE_TYPES(state, values) {
       state.layoutDataSourceTypes.values = values;
@@ -441,6 +475,21 @@ export default {
       });
       dispatch('loadTransferModeTypes');
     },
+    loadDestinations({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'destinations', 
+        commitType: 'DESTINATIONS', 
+        url: '/api/destination',
+        order: 'destinationId'
+      });
+    },
+    reloadDestinations({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'destinations',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadDestinations');
+    },
     loadOutputFormatTypes({ commit, dispatch }) {
       return dispatch('loadValues', { 
         type: 'outputFormatTypes', 
@@ -486,6 +535,21 @@ export default {
       });
       dispatch('loadLayoutFields');
     },
+    loadLayouts({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'layouts', 
+        commitType: 'LAYOUTS', 
+        url: '/api/layouts',
+        order: 'layoutId'
+      });
+    },
+    reloadLayouts({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'layouts',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadLayouts');
+    },
     loadLayoutDataSourceTypes({ commit, dispatch }) {
       return dispatch('loadValues', { 
         type: 'layoutDataSourceTypes', 
@@ -523,8 +587,10 @@ export default {
       dispatch('loadOutputFormatTypes');
       dispatch('loadLayoutFieldTypes');
       dispatch('loadLayoutFields');
+      dispatch('loadLayouts');
       dispatch('loadTransferModeTypes');
       dispatch('loadLayoutDataSourceTypes');
+      dispatch('loadDestinations');
     },
     reloadCachedData({ commit, dispatch }) {
       dispatch('reloadApplicationRoles');
@@ -534,8 +600,10 @@ export default {
       dispatch('reloadOutputFormatTypes');
       dispatch('reloadLayoutFieldTypes');
       dispatch('reloadLayoutFields');
+      dispatch('reloadLayouts');
       dispatch('loadTransferModeTypes');
       dispatch('reloadLayoutDataSourceTypes');
+      dispatch('reloadDestinations');
     }
   },
   getters: {

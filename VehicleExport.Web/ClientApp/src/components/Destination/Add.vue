@@ -63,7 +63,7 @@ export default {
           this.item = response.data;
 
           this.processAddSuccessResponse(response, 'destination');
-
+          this.$store.dispatch('cachedData/reloadDestinations');
 
           this.$router.push('/destination');
         })
