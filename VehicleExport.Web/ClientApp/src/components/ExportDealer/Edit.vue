@@ -1,7 +1,7 @@
 <template>
-    <layout-field-map-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
-      <template v-slot:save>Save Layout Field Mapping</template>
-    </layout-field-map-fields>
+    <export-dealer-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
+      <template v-slot:save>Save Enrolled Dealer</template>
+    </export-dealer-fields>
 </template>
 
 <script>
@@ -10,9 +10,9 @@ import FormMixin from '../Mixins/FormMixin.vue';
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
-  name: "LayoutFieldMapEdit",
+  name: "ExportDealerEdit",
   mixins: [FormMixin],
-  props: ['layoutFieldMapId'],
+  props: ['exportDealerId'],
   data() {
     return {
       item: {}
@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     load: function () {
-      let url = '/api/layoutFieldsMap/' + this.layoutFieldMapId;
+      let url = '/api/exportDealers/' + this.exportDealerId;
 
       axios
         .get(url)
@@ -35,18 +35,18 @@ export default {
         });
     },
     onSubmit(evt) {
-      let url = '/api/layoutFieldsMap/' + this.layoutFieldMapId;
+      let url = '/api/exportDealers/' + this.exportDealerId;
 
       axios
         .put(url, this.item)
         .then(response => {
           this.item = response.data;
 
-          this.processEditSuccessResponse(response, 'Layout Field Map');
+          this.processEditSuccessResponse(response, 'Enrolled Dealer');
           this.$emit('success');
         })
         .catch(error => {
-          this.processEditErrorResponse(error, 'Layout Field Map');
+          this.processEditErrorResponse(error, 'Enrolled Dealer');
         });
     },
     onCancel(evt) {

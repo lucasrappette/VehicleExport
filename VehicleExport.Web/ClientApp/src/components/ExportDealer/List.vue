@@ -40,7 +40,10 @@ export default {
             name: 'Enrolled Dealer Id',
             visible: true,
             sortable: true,
-            type: 'text'
+            type: 'select',
+            type: 'select',
+            selectOptions: [],
+            selectOptionsSource: { storeModule: 'cachedData', storeAction: 'loadDealers', storeGetter: 'dealers' }
           }
         ],
         getDefaultFilter: () => {

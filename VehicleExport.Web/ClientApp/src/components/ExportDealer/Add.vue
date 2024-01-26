@@ -1,7 +1,7 @@
 <template>
-    <layout-field-map-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
-      <template v-slot:save>Save Layout Field Mapping</template>
-    </layout-field-map-fields>
+    <export-dealer-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
+      <template v-slot:save>Save Enrolled Dealer</template>
+    </export-dealer-fields>
 </template>
 
 <script>
@@ -9,9 +9,9 @@ import axios from "axios";
 import FormMixin from '../Mixins/FormMixin.vue';
 
 export default {
-  name: "LayoutFieldMapAdd",
+  name: "ExportDealerAdd",
   mixins: [FormMixin],
-  props: ['layoutId'],
+  props: ['exportId'],
   data() {
     return {
       item: {}
@@ -22,30 +22,30 @@ export default {
   methods: {
     load: function () {
       axios
-        .get('/api/layoutFieldsMap/new')
+        .get('/api/exportDealers/new')
         .then(response => {
           this.item = response.data;
 
-          if (this.layoutId)
-            this.item.layoutId = this.layoutId;
+          if (this.exportId)
+            this.item.exportId = this.exportId;
         })
         .catch(error => {
-          this.processAddErrorResponse(error, 'Layout Field Mapping');
+          this.processAddErrorResponse(error, 'Enrolled Dealer');
         });
     },
     onSubmit(evt) {
-      let url = '/api/layoutFieldsMap';
+      let url = '/api/exportDealers';
 
       axios
         .post(url, this.item)
         .then(response => {
           this.item = response.data;
 
-          this.processAddSuccessResponse(response, 'Layout Field Mapping');
+          this.processAddSuccessResponse(response, 'Enrolled Dealer');
           this.$emit('success');
         })
         .catch(error => {
-          this.processAddErrorResponse(error, 'Layout Field Mapping');
+          this.processAddErrorResponse(error, 'Enrolled Dealer');
         });
     },
     onCancel(evt) {

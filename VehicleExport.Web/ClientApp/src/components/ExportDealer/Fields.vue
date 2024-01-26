@@ -4,11 +4,9 @@
     <template>
       <b-row class="mt-3">
         <b-col xs="12" sm="12" lg="12">
-          <h4>Layout Field Mapping</h4>
+          <h4>Enrolled Dealer</h4>
             <hr />
-            <select-list-control label="Layout Field" required v-model="item.layoutFieldId" :options="nonNullLayoutFieldSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
-            <text-control label="Header Label" v-model="item.headerLabel" :concurrency-check="item.concurrencyCheck" description="This is for overriding a default header for the layout field"></text-control>
-            <text-control label="Field Order" :readonly="true" v-model="item.fieldOrder" :concurrency-check="item.concurrencyCheck"></text-control>
+            <select-list-control label="Dealer" required v-model="item.dealerId" :options="nonNullDealerSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
         </b-col>
       </b-row>
     </template>
@@ -19,7 +17,7 @@
 import { mapState, mapGetters } from 'vuex'
 
 export default {
-  name: "LayoutFieldMapFields",
+  name: "ExportDealerFields",
   props: [
     'item'
   ],
@@ -28,9 +26,9 @@ export default {
     };
   },
   computed: {
-    ...mapState('cachedData', ['layoutFields']),
-    nonNullLayoutFieldSelectOptions: function () {
-      return this.layoutFields.selectOptions.filter(x => x.value != null);
+    ...mapState('cachedData', ['dealers']),
+    nonNullDealerSelectOptions: function () {
+      return this.dealers.selectOptions.filter(x => x.value != null);
     },
   },
   methods: {
