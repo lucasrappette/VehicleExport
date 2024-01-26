@@ -32,7 +32,6 @@ namespace VehicleExport.Web.Controllers.Data.Destinations
         /// <summary>
         /// Creates a new item
         /// </summary>
-        /// <param name="dtoModel">The item to create</param>
         /// <returns></returns>
         /// <response code="400">Item validation failed</response>
         /// <response code="403">User does not have permission to create item</response>
@@ -65,7 +64,6 @@ namespace VehicleExport.Web.Controllers.Data.Destinations
         /// <summary>
         /// Updates an item
         /// </summary>
-        /// <param name="dtoModel">The new value for the item</param>
         /// <returns>Returns the item (with an updated timestamp)</returns>
         /// <response code="400">Item validation failed</response>
         /// <response code="403">User does not have permission to update item</response>

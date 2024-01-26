@@ -183,6 +183,7 @@ const routes = [
 
   { path: '/layout/:layoutId/layoutFieldMap', component: LayoutFieldMapList, props: route => ({ layoutId: route.params.layoutId })},
   { path: '/export/:exportId/exportDealer', component: ExportDealerList, props: route => ({ exportId: route.params.exportId })},
+  
   { path: '/destination', component: DestinationList },
   { path: '/destination/add', component: DestinationAdd },
   { path: '/destination/:id', component: DestinationEdit, props: route => ({ id: route.params.id })},

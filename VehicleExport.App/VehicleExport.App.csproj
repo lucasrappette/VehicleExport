@@ -15,21 +15,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\Data\Dealers\**" />
     <Compile Remove="Models\Data\Layout_X_LayoutFields\**" />
     <Compile Remove="Services\Agents\**" />
     <Compile Remove="Services\BackgroundServices\**" />
-    <Compile Remove="Services\Data\Dealers\**" />
-    <EmbeddedResource Remove="Models\Data\Dealers\**" />
     <EmbeddedResource Remove="Models\Data\Layout_X_LayoutFields\**" />
     <EmbeddedResource Remove="Services\Agents\**" />
     <EmbeddedResource Remove="Services\BackgroundServices\**" />
-    <EmbeddedResource Remove="Services\Data\Dealers\**" />
-    <None Remove="Models\Data\Dealers\**" />
     <None Remove="Models\Data\Layout_X_LayoutFields\**" />
     <None Remove="Services\Agents\**" />
     <None Remove="Services\BackgroundServices\**" />
-    <None Remove="Services\Data\Dealers\**" />
   </ItemGroup>
 
   <ItemGroup>

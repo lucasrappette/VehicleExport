@@ -42,6 +42,7 @@ using VehicleExport.App.Models.Data.MinorEntity.Validators;
 using VehicleExport.App.Services.Data.LayoutFieldsMap;
 using VehicleExport.App.Services.Data.ExportDealers;
 using VehicleExport.App.Services.Data.ExportDealerParameters;
+using VehicleExport.Core.Models;
 
 namespace VehicleExport.App
 {
@@ -140,6 +141,7 @@ namespace VehicleExport.App
             services.AddTransientListReadService<TransferModeType, short, TransferModeTypeService>();
             services.AddTransientListReadService<EncryptionType, short, EncryptionTypeService>();
             services.AddTransientListReadService<LayoutDataSourceType, short, LayoutDataSourceTypeService>();
+            services.AddTransientListReadService<Dealers, int, DealersService>();
         }
 
         public static void AddEntityValidators(this IServiceCollection services)

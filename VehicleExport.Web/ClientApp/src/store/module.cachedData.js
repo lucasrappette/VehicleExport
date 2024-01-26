@@ -244,8 +244,8 @@ export default {
       state.dealers.values = values;
 
       state.dealers.selectOptions = values.map(x => ({
-        text: x.name,
-        value: x.id
+        text: x.dealerName,
+        value: x.dealerId
       }));
 
       state.dealers.selectOptions.unshift({
@@ -579,6 +579,20 @@ export default {
       });
       dispatch('loadApplicationUsers');
     },
+    loadDealers({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'dealers', 
+        commitType: 'DEALERS', 
+        url: '/api/dealers'
+      });
+    },
+    reloadDealers({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'dealers',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadDealers');
+    },
     loadCachedData({ commit, dispatch }) {
       dispatch('loadApplicationRoles');
       dispatch('loadApplicationUsers');
@@ -591,6 +605,7 @@ export default {
       dispatch('loadTransferModeTypes');
       dispatch('loadLayoutDataSourceTypes');
       dispatch('loadDestinations');
+      dispatch('loadDealers');
     },
     reloadCachedData({ commit, dispatch }) {
       dispatch('reloadApplicationRoles');
@@ -604,6 +619,7 @@ export default {
       dispatch('loadTransferModeTypes');
       dispatch('reloadLayoutDataSourceTypes');
       dispatch('reloadDestinations');
+      dispatch('reloadDealers');
     }
   },
   getters: {

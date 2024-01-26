@@ -5,13 +5,13 @@
       </filtered-table>
     </list-page-template>
     <b-modal id="exportDealerAdd" size="l" title="Add Dealer">
-      <layout-field-map-add @success="onAddSuccess" @cancel="onAddCancel" :layoutId="this.exportId" @onClosed="$bvModal.hide('exportDealerAdd')" />
+      <export-dealer-add @success="onAddSuccess" @cancel="onAddCancel" :exportId="this.exportId" @onClosed="$bvModal.hide('exportDealerAdd')" />
       <template slot="modal-footer">
         <div />
       </template>
     </b-modal>
     <b-modal id="exportDealerEdit" size="l" title="Edit Dealer">
-      <layout-field-map-edit @success="onEditSuccess" @cancel="onEditCancel" :exportDealerId="this.selectedExportDealerId" @onClosed="$bvModal.hide('exportDealerEdit')" />
+      <export-dealer-edit @success="onEditSuccess" @cancel="onEditCancel" :exportDealerId="this.selectedExportDealerId" @onClosed="$bvModal.hide('exportDealerEdit')" />
       <template slot="modal-footer">
         <div />
       </template>
@@ -30,7 +30,7 @@ export default {
       reRenderCount: 0,
       selectedExportDealerId: null,
       tableSettings: {
-        endpoint: '/api/exportDealer',
+        endpoint: '/api/exportDealers',
         showNewButton: true,
         defaultLimit: 100,
         defaultSortColumn: 'exportDealerId',
@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     onRowClicked: function (item, context) {
-      this.selectedLayoutFieldMapId = item.layoutFieldsMapId;
+      this.selectedExportDealerId = item.exportDealerId;
       this.$bvModal.show('exportDealerEdit');
     },
     onNewClicked: function (filters) {

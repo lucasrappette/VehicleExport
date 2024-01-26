@@ -14,6 +14,7 @@ namespace VehicleExport.App.Migrations
         public static void BuildInitialViews(this MigrationBuilder migrationBuilder)
         {
             BuildLayoutFieldMapList(migrationBuilder);
+			BuildDealerList(migrationBuilder); 
             //BuildProjectStatsView(migrationBuilder);
             //BuildInvoiceSummaryView(migrationBuilder);
 			//BuildTimeEntryStatsStoredProc(migrationBuilder);
@@ -44,6 +45,24 @@ namespace VehicleExport.App.Migrations
 			  lf.LayoutFieldId = lfm.LayoutFieldId
             ");
 			
+        }
+        private static void BuildDealerList(MigrationBuilder migrationBuilder)
+        {
+
+            migrationBuilder.Sql(@"
+            if object_id('Dealers','v') is not null
+                drop view Dealers;
+            ");
+
+            migrationBuilder.Sql(@"
+            create view Dealers
+            as
+	           SELECT
+				DealerId,
+				Name AS DealerName
+				FROM TWD_Stickers.dbo.Dealers
+            ");
+
         }
         /*
         private static void BuildTimeEntryStatsStoredProc(MigrationBuilder migrationBuilder)

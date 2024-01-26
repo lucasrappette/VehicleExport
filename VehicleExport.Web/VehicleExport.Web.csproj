@@ -57,7 +57,6 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Compile Remove="Controllers\Data\Dealers\**" />
     <Compile Remove="Data\**" />
     <Compile Remove="Exceptions\**" />
     <Compile Remove="Jobs\**" />
@@ -65,14 +64,12 @@
     <Compile Remove="Models\**" />
     <Compile Remove="Services\**" />
     <Content Remove="$(SpaRoot)**" />
-    <Content Remove="Controllers\Data\Dealers\**" />
     <Content Remove="Data\**" />
     <Content Remove="Exceptions\**" />
     <Content Remove="Jobs\**" />
     <Content Remove="Migrations\**" />
     <Content Remove="Models\**" />
     <Content Remove="Services\**" />
-    <EmbeddedResource Remove="Controllers\Data\Dealers\**" />
     <EmbeddedResource Remove="Data\**" />
     <EmbeddedResource Remove="Exceptions\**" />
     <EmbeddedResource Remove="Jobs\**" />
@@ -80,7 +77,6 @@
     <EmbeddedResource Remove="Models\**" />
     <EmbeddedResource Remove="Services\**" />
     <None Remove="$(SpaRoot)**" />
-    <None Remove="Controllers\Data\Dealers\**" />
     <None Remove="Data\**" />
     <None Remove="Exceptions\**" />
     <None Remove="Jobs\**" />

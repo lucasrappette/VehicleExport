@@ -1,6 +1,6 @@
 <template>
   <list-page-template page-title="Dealers">
-    <filtered-table :settings="tableSettings" @rowClicked="onRowClicked" @newClicked="onNewClicked">
+    <filtered-table :settings="tableSettings">
     </filtered-table>
   </list-page-template>
 </template>
@@ -15,48 +15,35 @@ export default {
     let base = this;
     return {
       tableSettings: {
-        endpoint: '/api/dealer',
-        showNewButton: true,
+        endpoint: '/api/dealers',
+        showNewButton: false,
         defaultLimit: 100,
         columns: [
           {
-            key: 'id',
+            key: 'dealerId',
             name: 'ID',
             visible: false,
-            sortable: true,
-            type: 'guid'
-          },
-          {
-            key: 'name',
-            name: 'Name',
-            visible: true,
             sortable: true,
             type: 'text'
           },
           {
-            key: 'lastModification',
-            name: 'Last Modification',
-            visible: false,
+            key: 'dealerName',
+            name: 'Name',
+            visible: true,
             sortable: true,
-            type: 'date'
+            type: 'text'
           }
         ],
         getDefaultFilter: function () {
           return '';
         },
         includes: [
-          'dealerStats'
+          
         ]
       }
     }
   },
   methods: {
-    onRowClicked: function (item, context) {
-      this.$router.push('/dealer/' + item.id);
-    },
-    onNewClicked: function (filters) {
-      this.$router.push('/dealer/add');
-    }
   },
   computed: {
   },
