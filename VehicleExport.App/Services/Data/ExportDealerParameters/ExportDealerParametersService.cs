@@ -29,6 +29,11 @@ namespace VehicleExport.App.Services.Data.ExportDealerParameters
             return queryable.Where(x => x.ExportDealerParameterId == id);
         }
 
+        protected override async Task OnCreating(ClaimsPrincipal user, ExportDealerParameter dataModel, Dictionary<string, object> extraData)
+        {
+            dataModel.dtmCreated = DateTime.Now;
+        }
+
         protected override List<string> ReadRoles => new List<string> { ApplicationRoleNames.SuperAdmin, ApplicationRoleNames.ProjectManager, ApplicationRoleNames.ProjectViewer };
         protected override List<string> WriteRoles => new List<string> { ApplicationRoleNames.SuperAdmin, ApplicationRoleNames.ProjectManager };
     }

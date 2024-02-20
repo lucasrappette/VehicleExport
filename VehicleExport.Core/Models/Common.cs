@@ -56,4 +56,11 @@ namespace VehicleExport.Core.Models
         public const string DealerApi = "DealerApi";
         public const string Reporting = "Reporting";
     }
+
+    public enum LayoutFieldTypeIds
+    {
+        DatabaseField = 1,
+        Parameter = 2
+
+    }
 }

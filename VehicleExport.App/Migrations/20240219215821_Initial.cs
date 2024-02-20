@@ -487,7 +487,7 @@ namespace VehicleExport.App.Migrations
                     LayoutFieldsMapId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LayoutId = table.Column<int>(type: "int", nullable: false),
-                    LayoutFieldId = table.Column<int>(type: "int", nullable: true),
+                    LayoutFieldId = table.Column<int>(type: "int", nullable: false),
                     HeaderLabel = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
                     FieldOrder = table.Column<short>(type: "smallint", nullable: false),
                     ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
@@ -499,7 +499,8 @@ namespace VehicleExport.App.Migrations
                         name: "FK_LayoutFieldsMap_LayoutFields_LayoutFieldId",
                         column: x => x.LayoutFieldId,
                         principalTable: "LayoutFields",
-                        principalColumn: "LayoutFieldId");
+                        principalColumn: "LayoutFieldId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_LayoutFieldsMap_Layouts_LayoutId",
                         column: x => x.LayoutId,
@@ -605,7 +606,7 @@ namespace VehicleExport.App.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ExportDealerId = table.Column<int>(type: "int", nullable: false),
                     LayoutFieldId = table.Column<int>(type: "int", nullable: false),
-                    ParameterValue = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ParameterValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     dtmCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ConcurrencyTimestamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
@@ -654,27 +655,27 @@ namespace VehicleExport.App.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"), "4b6ae097-b5a4-4bbe-86c1-453458312f9b", "ContentManager", "ContentManager" },
-                    { new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"), "b3f1b4e7-8e2c-4532-b334-610e00392883", "ProjectManager", "ProjectManager" },
-                    { new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"), "89d33d80-9b45-4357-b0a5-5f436027fe12", "SuperAdmin", "SuperAdmin" },
-                    { new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"), "9f9ce5a8-95db-4c7e-bf23-2c57aa072b8f", "ProjectViewer", "ProjectViewer" }
+                    { new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"), "b4a74363-ff91-4294-bddf-697075f9235b", "ContentManager", "ContentManager" },
+                    { new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"), "fc6b0990-b6d8-4854-acd5-6f10b145bb15", "ProjectManager", "ProjectManager" },
+                    { new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"), "39c1c8d2-1d7c-4855-b55b-e1bedf8e9752", "SuperAdmin", "SuperAdmin" },
+                    { new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"), "3710e9ee-8092-419c-b96a-bb26459f6b66", "ProjectViewer", "ProjectViewer" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), 0, "b51cd5be-596b-4dba-9216-275b763b3cfd", "admin@test.com", true, "Admin", "Admin", false, null, "ADMIN@TEST.COM", "ADMIN", "AQAAAAEAACcQAAAAEONs/76THmlDfJwRqpEgeN5ZN0yFjCbJTjb564kBKa6zZY6IntQHK0Goh+GDBwkGYA==", null, false, "", false, "admin" });
+                values: new object[] { new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), 0, "ca5d3245-3675-48b9-95db-44556b19a105", "admin@test.com", true, "Admin", "Admin", false, null, "ADMIN@TEST.COM", "ADMIN", "AQAAAAEAACcQAAAAELOrEpUQ4JA4TBunJ2/6EUL0CgieO/1ovPUme4vSG/v8egNG8XhlK6MryaTe49Ue6Q==", null, false, "", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "ContentBlocks",
                 columns: new[] { "Id", "AllowedTokens", "Description", "IsPage", "Slug", "Title", "Value" },
                 values: new object[,]
                 {
-                    { new Guid("0e2c307b-0642-418d-9905-a0fd021d933a"), null, "Content that appears on the Home/Dashboard page", false, "dashboard", "Hello", "Hello, world. Or whoever else is here. This content is editable within the app." },
-                    { new Guid("15b180f6-a01f-41b6-a5d8-0bdfa4141c7a"), null, "The help page that appears in the top nav", true, "help", "Help!", "Need help? Don't we all." },
-                    { new Guid("450a812b-ff02-4914-ad6e-90a1b6676e93"), "[{\"Token\":\"passwordResetUrl\",\"Description\":\"The URL for the user to reset their password\"}]", "The text that appears in a password reset message", false, "password-reset-email", "Reset Your Password", "To reset your account, follow this link: %passwordResetUrl%" },
-                    { new Guid("6bcac1a9-0d77-4144-8793-cd75873ac4b4"), null, "The text that appears on the About page", true, "about", "About Us", "About us..." },
-                    { new Guid("74b2d555-e6f3-4ee1-b229-b8d5f55f2a46"), null, "", true, "placeholder", "Placeholder", "This is a placeholder page. The underlying functionality has not yet been implemented." }
+                    { new Guid("28c664fe-4212-4515-b858-e6af29e9c543"), null, "The help page that appears in the top nav", true, "help", "Help!", "Need help? Don't we all." },
+                    { new Guid("2d825918-5a1b-426e-a020-9370cc65becf"), null, "The text that appears on the About page", true, "about", "About Us", "About us..." },
+                    { new Guid("47ae11c0-d4bc-41f5-8af1-c2fd4da33179"), "[{\"Token\":\"passwordResetUrl\",\"Description\":\"The URL for the user to reset their password\"}]", "The text that appears in a password reset message", false, "password-reset-email", "Reset Your Password", "To reset your account, follow this link: %passwordResetUrl%" },
+                    { new Guid("4d74b33d-dbdb-436c-981a-af7d94f5ebeb"), null, "", true, "placeholder", "Placeholder", "This is a placeholder page. The underlying functionality has not yet been implemented." },
+                    { new Guid("c7ea41f4-96a0-4128-912e-a3ab45bf6585"), null, "Content that appears on the Home/Dashboard page", false, "dashboard", "Hello", "Hello, world. Or whoever else is here. This content is editable within the app." }
                 });
 
             migrationBuilder.InsertData(
@@ -737,26 +738,26 @@ namespace VehicleExport.App.Migrations
                 columns: new[] { "RoleId", "UserId", "Id" },
                 values: new object[,]
                 {
-                    { new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("d6b84479-81cf-4e39-b6a5-15b07195f91b") },
-                    { new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("5c4c3893-44c2-4ae9-8a8a-638dd5ccabc1") },
-                    { new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("0dd73a1b-068a-47c1-a04a-6f8911134af4") },
-                    { new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("6664c3c3-a112-4251-9fec-e0a8bc3739f0") }
+                    { new Guid("18b6e930-29db-4c03-88e9-840adf59f2f7"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("73fdaf3a-512c-4ddb-b707-28d3bcf7912f") },
+                    { new Guid("558669b9-49a9-4520-90b8-51ba5b12c33e"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("d547fb9e-7ab4-4f2f-8242-994869184467") },
+                    { new Guid("9770d744-5c62-4d76-a4ef-163f94b33dad"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("df949305-241c-4735-af88-d289e1d9b25f") },
+                    { new Guid("b67f4c23-5886-41ee-bbbb-6ae377f8f2ad"), new Guid("c9db7b0d-5889-4a71-b1a9-cf59ef2fa4be"), new Guid("bd3473b1-e37c-4183-863a-3df6589b9c7a") }
                 });
 
             migrationBuilder.InsertData(
                 table: "Destinations",
                 columns: new[] { "DestinationId", "EncryptionTypeId", "FtpHost", "FtpPassword", "FtpRemoteDir", "FtpUsername", "IncludeHeaders", "Name", "OneFilePerDealer", "OutputFileName", "OutputFormatTypeId", "ProtocolTypeId", "SSHKeyFileName", "SendPhotosInZip", "SshFilePassword", "SshKeyFileChecksum", "TransferModeTypeId", "UseQuotedFields", "ZipOutputFile", "dtmCreated", "dtmLastChanged" },
-                values: new object[] { 1, (short)1, "vendor.windowstickers.biz", "somepassword", "/", "someuser", true, "Test Destination 1", false, "Vehicledata.txt", (short)2, (short)1, null, false, null, null, (short)1, true, false, new DateTime(2024, 1, 25, 18, 49, 41, 723, DateTimeKind.Local).AddTicks(1303), new DateTime(2024, 1, 25, 18, 49, 41, 723, DateTimeKind.Local).AddTicks(1339) });
+                values: new object[] { 1, (short)1, "vendor.windowstickers.biz", "somepassword", "/", "someuser", true, "Test Destination 1", false, "Vehicledata.txt", (short)2, (short)1, null, false, null, null, (short)1, true, false, new DateTime(2024, 2, 19, 15, 58, 20, 669, DateTimeKind.Local).AddTicks(6467), new DateTime(2024, 2, 19, 15, 58, 20, 669, DateTimeKind.Local).AddTicks(6497) });
 
             migrationBuilder.InsertData(
                 table: "Layouts",
                 columns: new[] { "LayoutId", "CertifiedOnly", "Description", "LayoutDataSourceTypeId", "MakesList", "Name", "NewVehicles", "ProductsList", "StoredProcedureName", "UsedVehicles", "WarrantiesList", "dtmCreated" },
-                values: new object[] { 1, null, null, (short)1, null, "Sample Layout 1", null, null, null, null, null, new DateTime(2024, 1, 25, 18, 49, 41, 723, DateTimeKind.Local).AddTicks(1352) });
+                values: new object[] { 1, null, null, (short)1, null, "Sample Layout 1", null, null, null, null, null, new DateTime(2024, 2, 19, 15, 58, 20, 669, DateTimeKind.Local).AddTicks(6511) });
 
             migrationBuilder.InsertData(
                 table: "Exports",
                 columns: new[] { "ExportId", "DestinationId", "LayoutId", "Name", "RunTimeOne", "RunTimeTwo", "dtmCreated", "dtmLastChanged" },
-                values: new object[] { 1, 1, 1, "Sample Export 1", new TimeSpan(0, 0, 0, 0, 0), null, new DateTime(2024, 1, 25, 18, 49, 41, 723, DateTimeKind.Local).AddTicks(1390), new DateTime(2024, 1, 25, 18, 49, 41, 723, DateTimeKind.Local).AddTicks(1392) });
+                values: new object[] { 1, 1, 1, "Sample Export 1", new TimeSpan(0, 0, 0, 0, 0), null, new DateTime(2024, 2, 19, 15, 58, 20, 669, DateTimeKind.Local).AddTicks(6527), new DateTime(2024, 2, 19, 15, 58, 20, 669, DateTimeKind.Local).AddTicks(6529) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

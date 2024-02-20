@@ -66,7 +66,7 @@ export default {
       this.processSuccessResponse(response, entityType, 'created', 'Created');
     },
     processSuccessResponse: function (response, entityType, verb1, verb2) {
-      this.processSuccessResponseRaw(response, entityType + ' ' + verb2, 'Your changes to "' + this.itemTitle + '" were ' + verb1 + ' successfully.');
+      this.processSuccessResponseRaw(response, entityType + ' ' + verb2, 'Your changes to ' + this.itemTitle + ' were ' + verb1 + ' successfully.');
     },
     processSuccessResponseRaw: function (response, title, message) {
       this.showSuccessMessage(title, message);

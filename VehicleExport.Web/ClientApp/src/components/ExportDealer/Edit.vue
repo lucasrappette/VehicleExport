@@ -15,27 +15,46 @@ export default {
   props: ['exportDealerId'],
   data() {
     return {
-      item: {}
+      item: {},
+      itemTitle: 'to the enrolled dealer'
     };
   },
   computed: {
   },
   methods: {
     load: function () {
-      let url = '/api/exportDealers/' + this.exportDealerId;
+      let url = '/api/exportDealers/' + this.exportDealerId
+      + '?includes=' + 'exportDealerParameters,exportDealerParameters.layoutField,export,export.layout,export.layout.layoutFieldMappings,export.layout.layoutFieldMappings.layoutField';
 
       axios
         .get(url)
         .then(response => {
           this.item = response.data;
-
+          var layoutFieldMappings = response.data.export.layout.layoutFieldMappings;
+          var layoutFieldParameters = layoutFieldMappings.filter(x => x.layoutField.layoutFieldTypeId == 2);
+          layoutFieldParameters.forEach((element, index) =>
+          {
+            if(!this.item.exportDealerParameters.find(x => x.layoutFieldId == element.layoutFieldId))
+            {
+              this.item.exportDealerParameters.push({ 
+                concurrencyCheck: null,
+                dtmCreated: new Date(),
+                exportDealerId: this.exportDealerId,
+                exportDealerParameterId: 0,
+                layoutFieldId: element.layoutFieldId,
+                parameterValue: null,
+                layoutField: element.layoutField
+              });
+            }
+          });
         })
         .catch(error => {
           console.log(error);
         });
     },
     onSubmit(evt) {
-      let url = '/api/exportDealers/' + this.exportDealerId;
+      let parameterUrl = '/api'
+      let url = '/api/exportDealers/saveExportDealerAndParameters';
 
       axios
         .put(url, this.item)

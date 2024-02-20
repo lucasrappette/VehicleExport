@@ -24,8 +24,7 @@ namespace VehicleExport.App.Models.Data.ExportDealerParameters
         [Required]
         public int LayoutFieldId { get; set; }
 
-        [Required]
-        public string ParameterValue { get; set; }
+        public string? ParameterValue { get; set; }
 
         [Required]
         public DateTime dtmCreated { get; set; }

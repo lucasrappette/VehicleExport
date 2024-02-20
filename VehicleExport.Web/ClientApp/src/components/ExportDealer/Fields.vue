@@ -7,6 +7,11 @@
           <h4>Enrolled Dealer</h4>
             <hr />
             <select-list-control label="Dealer" required v-model="item.dealerId" :options="nonNullDealerSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
+            <hr />
+          <h5 v-if="item.exportDealerParameters && item.exportDealerParameters.length != 0">Parameters</h5>
+            <div v-for="parameter in item.exportDealerParameters" v-bind:key="parameter.layoutFieldId">
+              <text-control :label="parameter.layoutField.name" v-model="parameter.parameterValue" :concurrencyCheck="item.concurrencyCheck"></text-control>
+            </div>
         </b-col>
       </b-row>
     </template>
@@ -15,8 +20,10 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import TextControl from '../Controls/TextControl.vue';
 
 export default {
+  components: { TextControl },
   name: "ExportDealerFields",
   props: [
     'item'

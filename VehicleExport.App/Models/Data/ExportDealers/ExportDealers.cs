@@ -44,5 +44,6 @@ namespace VehicleExport.App.Models.Data.ExportDealers
 
         // External References. Use "Virtual" to enable lazy loading
         public virtual List<ExportDealerParameter> ExportDealerParameters { get; set; }
+        public virtual Export Export {  get; set; }
     }
 }
