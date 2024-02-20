@@ -60,7 +60,7 @@ namespace VehicleExport.App.Migrations
 	           SELECT
 				DealerId,
 				Name AS DealerName
-				FROM TWD_Stickers.dbo.Dealers
+				FROM [TWD_VehicleStickers].[dbo].[VS_Dealer]
             ");
 
         }
