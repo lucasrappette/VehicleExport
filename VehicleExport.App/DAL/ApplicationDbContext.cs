@@ -175,6 +175,11 @@ namespace VehicleExport.App.DAL
             modelBuilder.Entity<ExportDealer>()
                 .HasIndex(x => x.ExportId);
 
+            modelBuilder.Entity<ExportDealer>()
+                .HasOne(x => x.Export)
+                .WithMany(x => x.ExportDealer)
+                .HasForeignKey(x => x.ExportId);
+
             // For selects by EXPORT and VSO Dealer
             modelBuilder.Entity<ExportDealer>()
                 .HasIndex(x => new { x.ExportId, x.DealerId });
@@ -195,6 +200,11 @@ namespace VehicleExport.App.DAL
                 .HasOne(x => x.ExportDealer)
                 .WithMany(x => x.ExportDealerParameters)
                 .HasForeignKey(x => x.ExportDealerId);
+
+            modelBuilder.Entity<ExportDealerParameter>()
+                .HasOne(x => x.LayoutField)
+                .WithMany(x => x.ExportDealerParameters)
+                .HasForeignKey(x => x.LayoutFieldId);
 
 
             // ==============================================================
@@ -238,6 +248,16 @@ namespace VehicleExport.App.DAL
 
             modelBuilder.Entity<LayoutFieldMap>()
                 .ToTable("LayoutFieldsMap");
+
+            modelBuilder.Entity<LayoutFieldMap>()
+                .HasOne(x => x.Layout)
+                .WithMany(x => x.LayoutFieldMappings)
+                .HasForeignKey(x => x.LayoutId);
+
+            modelBuilder.Entity<LayoutFieldMap>()
+                .HasOne(x => x.LayoutField)
+                .WithMany(x => x.LayoutFieldMappings)
+                .HasForeignKey(x => x.LayoutFieldId);
 
             // ==============================================================
             //Minor Entity Tables

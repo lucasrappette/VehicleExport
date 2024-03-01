@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using VehicleExport.App.Models.Data.Exports;
 using VehicleExport.App.Models.Data.Layouts;
 using VehicleExport.App.Models.Data.MinorEntity;
+using VehicleExport.App.Models.Data.LayoutFieldsMap;
+using VehicleExport.App.Models.Data.ExportDealerParameters;
 
 namespace VehicleExport.App.Models.Data.LayoutFields
 {
@@ -54,6 +56,8 @@ namespace VehicleExport.App.Models.Data.LayoutFields
 
         // External References. Use "Virtual" to enable lazy loading
         public virtual LayoutFieldType LayoutFieldType { get; set; }
+        public List<LayoutFieldMap> LayoutFieldMappings { get; set; }
+        public List<ExportDealerParameter> ExportDealerParameters { get; set; }
     }
 }
 

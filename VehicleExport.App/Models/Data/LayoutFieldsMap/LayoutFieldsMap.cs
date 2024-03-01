@@ -17,7 +17,7 @@ namespace VehicleExport.App.Models.Data.LayoutFieldsMap
         [Required]
         public int LayoutId { get; set; }
 
-        public int? LayoutFieldId { get; set; }
+        public int LayoutFieldId { get; set; }
 
         [MaxLength(25)]
         public string HeaderLabel { get; set; }

@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Data;
 using VehicleExport.App.Models.Data.MinorEntity;
+using VehicleExport.App.Models.Data.LayoutFieldsMap;
 
 namespace VehicleExport.App.Models.Data.Layouts
 {
@@ -67,5 +68,6 @@ namespace VehicleExport.App.Models.Data.Layouts
         public List<Export> Exports { get; set; }
 
         public virtual LayoutDataSourceType LayoutDataSourceType { get; set; }
+        public virtual List<LayoutFieldMap> LayoutFieldMappings { get; set; }
     }
 }
