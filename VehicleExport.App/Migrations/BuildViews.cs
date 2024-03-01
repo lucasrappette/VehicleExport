@@ -14,10 +14,13 @@ namespace VehicleExport.App.Migrations
         public static void BuildInitialViews(this MigrationBuilder migrationBuilder)
         {
             BuildLayoutFieldMapList(migrationBuilder);
-			BuildDealerList(migrationBuilder); 
+			BuildDealerList(migrationBuilder);
+            BuildWarrantiesList(migrationBuilder);
+            BuildProductsList(migrationBuilder);
+            BuildMakesList(migrationBuilder);
             //BuildProjectStatsView(migrationBuilder);
             //BuildInvoiceSummaryView(migrationBuilder);
-			//BuildTimeEntryStatsStoredProc(migrationBuilder);
+            //BuildTimeEntryStatsStoredProc(migrationBuilder);
         }
 
         private static void BuildLayoutFieldMapList(MigrationBuilder migrationBuilder)
@@ -55,15 +58,68 @@ namespace VehicleExport.App.Migrations
             ");
 
             migrationBuilder.Sql(@"
-            create view Dealers
+            CREATE OR ALTER VIEW Dealers
             as
-	           SELECT
-				DealerId,
-				Name AS DealerName
-				FROM TWD_Stickers.dbo.Dealers
+			SELECT DealerId
+				,Name AS DealerName
+			FROM TWD_VehicleStickers.dbo.VS_Dealer
+			WHERE Enabled = 1
+				AND name NOT LIKE '#%'
             ");
 
         }
+
+        private static void BuildWarrantiesList(MigrationBuilder migrationBuilder)
+        {
+
+            migrationBuilder.Sql(@"
+            if object_id('vw_ve_Warranties','v') is not null
+                drop view [vw_ve_Warranties];
+            ");
+
+            migrationBuilder.Sql(@"
+				CREATE OR ALTER VIEW [vw_ve_Warranties] AS
+					SELECT WarrantyId
+						,WarrantyName
+					FROM TWD_VehicleStickers.dbo.VS_Warranty
+            ");
+
+        }
+
+        private static void BuildProductsList(MigrationBuilder migrationBuilder)
+        {
+
+            migrationBuilder.Sql(@"
+            if object_id('[vw_ve_Products]','v') is not null
+                drop view [[vw_ve_Products]];
+            ");
+
+            migrationBuilder.Sql(@"
+				CREATE OR ALTER VIEW [vw_ve_Products] AS
+					SELECT ProductId
+						,Description AS ProductName
+					FROM TWD_VehicleStickers.dbo.VS_Products
+					WHERE ProductId > 0
+            ");
+
+        }
+
+        private static void BuildMakesList(MigrationBuilder migrationBuilder)
+        {
+
+            migrationBuilder.Sql(@"
+            if object_id('[[vw_ve_Makes]]','v') is not null
+                drop view [[[vw_ve_Makes]]];
+            ");
+
+            migrationBuilder.Sql(@"
+				CREATE OR ALTER VIEW [vw_ve_Makes] AS
+					SELECT DISTINCT MK as [Make]
+					FROM IDI_RDATA.dbo.selling
+            ");
+
+        }
+
         /*
         private static void BuildTimeEntryStatsStoredProc(MigrationBuilder migrationBuilder)
         {
