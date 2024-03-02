@@ -13,6 +13,11 @@
             <b-button-group class="mx-2" v-if="!hideCancel" :disabled="isSubmitting">
               <b-button type="button" @click="onCancel">Cancel</b-button>
             </b-button-group>
+            <b-button-group v-if="showClone">
+              <b-button type="button" @click="onClone" variant="warning" :disabled="isSubmitting || isCloning">
+                <b-spinner small type="grow" v-if="isSubmitting || isCloning"></b-spinner> Clone
+              </b-button>
+            </b-button-group>
           </b-button-toolbar>
         </b-col>
       </b-row>
@@ -31,11 +36,16 @@ export default {
     'hideButtons',
     'hideSubmit',
     'hideCancel',
-    'isSubmitting'
+    'isSubmitting',
+    'showClone',
+    'isCloning'
   ],
   methods: {
     onCancel(evt) {
       this.$emit('cancel');
+    },
+    onClone(evt) {
+      this.$emit('clone');
     },
     onSubmit(evt) {
       if (this.isFormValid())

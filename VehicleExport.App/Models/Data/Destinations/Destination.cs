@@ -43,8 +43,7 @@ namespace VehicleExport.App.Models.Data.Destinations
 
         [Required]
         public short ProtocolTypeId { get; set; }
-        [Required]
-        public short EncryptionTypeId { get; set; }
+        public short? EncryptionTypeId { get; set; }
         [Required]
         public short TransferModeTypeId { get; set; }
 

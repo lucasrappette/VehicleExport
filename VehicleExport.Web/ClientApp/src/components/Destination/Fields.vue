@@ -12,8 +12,8 @@
           <text-control label="Ftp Password" required v-model="item.ftpPassword" :concurrency-check="item.concurrencyCheck"></text-control>
           <text-control label="Ftp Remote Directory" v-model="item.ftpRemoteDir" :concurrency-check="item.concurrencyCheck"></text-control>
           <select-list-control label="Protocol" required v-model="item.protocolTypeId" :options="nonNullProtocolTypeSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
+          <select-list-control :disabled="encryptionDisabled" label="Encryption Type" v-model="item.encryptionTypeId" :options="nonNullEncryptionTypeSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
           <select-list-control label="Transfer Mode Type" required v-model="item.transferModeTypeId" :options="nonNulltransferModeTypeSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
-          <select-list-control label="Encryption Type" required v-model="item.encryptionTypeId" :options="nonNullEncryptionTypeSelectOptions" :concurrency-check="item.concurrencyCheck"></select-list-control>
         </b-col>
          <b-col xs="12" sm="6" lg="3">
           <h4>File Options</h4>
@@ -62,6 +62,7 @@ export default {
   ],
   data() {
     return {
+      encryptionDisabled: false
     };
   },
   computed: {
@@ -93,6 +94,19 @@ export default {
     download(sshKeyFileName)
     {
       window.open("/api/destination/downloadFile/" + sshKeyFileName);
+    }
+  },
+  watch: {
+    'item.protocolTypeId': function(newValue, oldValue) {
+      if(newValue == 2)
+      {
+        this.encryptionDisabled = true;
+        this.item.encryptionTypeId = null;
+      }
+      else {
+        this.encryptionDisabled = false;
+        this.item.encryptionTypeId = 1;
+      }
     }
   }
 };

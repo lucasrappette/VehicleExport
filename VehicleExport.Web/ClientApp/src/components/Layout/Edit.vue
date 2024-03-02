@@ -4,7 +4,7 @@
       <b-nav-item :to="{ path: this.$route.path + '/layoutFieldMap' }">Layout Field Mapping</b-nav-item>
     </b-nav>
     <hr />
-    <layout-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
+    <layout-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel" v-on:clone="onClone">
       <template v-slot:save>Save Layout</template>
     </layout-fields>
   </form-page-template>
@@ -52,6 +52,19 @@ export default {
     },
     onCancel(evt) {
       this.goToParentPage();
+    },
+    onClone(evt) {
+      let url = '/api/layout/cloneLayout';
+
+      axios
+        .post(url, this.item)
+        .then(response => {
+          this.$store.dispatch('cachedData/reloadLayouts');
+          this.goToParentPage();
+        })
+        .catch(error => {
+          this.processEditErrorResponse(error, 'layout');
+        });
     },
     onSubmit(evt) {
       let url = '/api/layout/' + this.id + '?context=WebApiElevated';
