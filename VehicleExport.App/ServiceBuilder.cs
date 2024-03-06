@@ -142,6 +142,9 @@ namespace VehicleExport.App
             services.AddTransientListReadService<EncryptionType, short, EncryptionTypeService>();
             services.AddTransientListReadService<LayoutDataSourceType, short, LayoutDataSourceTypeService>();
             services.AddTransientListReadService<Dealers, int, DealersService>();
+            services.AddTransientListReadService<Warranties, int, WarrantiesService>();
+            services.AddTransientListReadService<Products, int, ProductsService>();
+            services.AddTransientListReadService<Makes, string, MakesService>();
         }
 
         public static void AddEntityValidators(this IServiceCollection services)

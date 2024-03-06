@@ -17,16 +17,16 @@
           <hr />
           <b-row>
             <b-col xs="12" sm="6" lg="4">
-              <multi-select-list-control label="Makes" required v-model="item.makesList" :options="nonNullStateSelectOptions" :concurrency-check="item.concurrencyCheck"></multi-select-list-control>
+              <multi-select-list-control label="Makes" required v-model="item.makesList" :options="nonNullMakesSelectOptions" :concurrency-check="item.concurrencyCheck"></multi-select-list-control>
               <checkbox-control label="Certified Only?" v-model="item.certifiedOnly" :concurrency-check="item.concurrencyCheck"></checkbox-control>
               <checkbox-control label="New Vehicles?" v-model="item.newVehicles" :concurrency-check="item.concurrencyCheck"></checkbox-control>
               <checkbox-control label="Used Vehicles?" v-model="item.usedVehicles" :concurrency-check="item.concurrencyCheck"></checkbox-control>
             </b-col>
             <b-col xs="12" sm="6" lg="4">
-              <multi-select-list-control label="Warranties" required v-model="item.warrantiesList" :options="nonNullStateSelectOptions" :concurrency-check="item.concurrencyCheck"></multi-select-list-control>
+              <multi-select-list-control label="Warranties" required v-model="item.warrantiesList" :options="nonNullProductsSelectOptions" :concurrency-check="item.concurrencyCheck"></multi-select-list-control>
             </b-col>
             <b-col xs="12" sm="6" lg="4">
-              <multi-select-list-control label="Products" required v-model="item.productsList" :options="nonNullStateSelectOptions" :concurrency-check="item.concurrencyCheck"></multi-select-list-control>
+              <multi-select-list-control label="Products" required v-model="item.productsList" :options="nonNullWarrantiesSelectOptions" :concurrency-check="item.concurrencyCheck"></multi-select-list-control>
             </b-col>
           </b-row>
         </b-col>
@@ -48,13 +48,19 @@ export default {
     };
   },
   computed: {
-    ...mapState('cachedData', ['layoutDataSourceTypes','stateSelectOptions']),
+    ...mapState('cachedData', ['layoutDataSourceTypes','makes', 'products', 'warranties']),
     nonNullLayoutDataSourceTypeSelectOptions: function () {
       return this.layoutDataSourceTypes.selectOptions.filter(x => x.value != null);
     },
-    nonNullStateSelectOptions: function () {
-      return this.stateSelectOptions;
-    }
+    nonNullMakesSelectOptions: function () {
+      return this.makes.selectOptions.filter(x => x.value != null);
+    },
+    nonNullProductsSelectOptions: function () {
+      return this.products.selectOptions.filter(x => x.value != null);
+    },
+    nonNullWarrantiesSelectOptions: function () {
+      return this.warranties.selectOptions.filter(x => x.value != null);
+    },
   },
   methods: {
     onCancel(evt) {

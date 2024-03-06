@@ -24,81 +24,6 @@ export default {
       { path: '/contentBlock', name: 'Content Blocks' },
       { path: '/job', name: 'Background Jobs' },
     ],
-    stateSelectOptions: [
-      { text: "", value: null },
-      { text: "Alabama", value: "AL" },
-      { text: "Alaska", value: "AK" },
-      { text: "Alberta", value: "AB" },
-      { text: "American Samoa", value: "AS" },
-      { text: "Arizona", value: "AZ" },
-      { text: "Arkansas", value: "AR" },
-      { text: "British Columbia", value: "BC" },
-      { text: "California", value: "CA" },
-      { text: "Colorado", value: "CO" },
-      { text: "Connecticut", value: "CT" },
-      { text: "Delaware", value: "DE" },
-      { text: "District Of Columbia", value: "DC" },
-      { text: "Federated States Of Micronesia", value: "FM" },
-      { text: "Florida", value: "FL" },
-      { text: "Georgia", value: "GA" },
-      { text: "Guam", value: "GU" },
-      { text: "Hawaii", value: "HI" },
-      { text: "Idaho", value: "ID" },
-      { text: "Illinois", value: "IL" },
-      { text: "Indiana", value: "IN" },
-      { text: "Iowa", value: "IA" },
-      { text: "Kansas", value: "KS" },
-      { text: "Kentucky", value: "KY" },
-      { text: "Louisiana", value: "LA" },
-      { text: "Maine", value: "ME" },
-      { text: "Manitoba", value: "MB" },
-      { text: "Marshall Islands", value: "MH" },
-      { text: "Maryland", value: "MD" },
-      { text: "Massachusetts", value: "MA" },
-      { text: "Michigan", value: "MI" },
-      { text: "Minnesota", value: "MN" },
-      { text: "Mississippi", value: "MS" },
-      { text: "Missouri", value: "MO" },
-      { text: "Montana", value: "MT" },
-      { text: "Nebraska", value: "NE" },
-      { text: "Nevada", value: "NV" },
-      { text: "New Brunswick", value: "NB" },
-      { text: "New Hampshire", value: "NH" },
-      { text: "New Jersey", value: "NJ" },
-      { text: "New Mexico", value: "NM" },
-      { text: "New York", value: "NY" },
-      { text: "Newfoundland and Labrador", value: "NL" },
-      { text: "North Carolina", value: "NC" },
-      { text: "North Dakota", value: "ND" },
-      { text: "Northern Mariana Islands", value: "MP" },
-      { text: "Northwest Territories", value: "NT" },
-      { text: "Nova Scotia", value: "NS" },
-      { text: "Nunavut", value: "NU" },
-      { text: "Ohio", value: "OH" },
-      { text: "Oklahoma", value: "OK" },
-      { text: "Ontario", value: "ON" },
-      { text: "Oregon", value: "OR" },
-      { text: "Palau", value: "PW" },
-      { text: "Pennsylvania", value: "PA" },
-      { text: "Prince Edward Island", value: "PE" },
-      { text: "Puerto Rico", value: "PR" },
-      { text: "Quebec", value: "QC" },
-      { text: "Rhode Island", value: "RI" },
-      { text: "Saskatchewan", value: "SK" },
-      { text: "South Carolina", value: "SC" },
-      { text: "South Dakota", value: "SD" },
-      { text: "Tennessee", value: "TN" },
-      { text: "Texas", value: "TX" },
-      { text: "Utah", value: "UT" },
-      { text: "Vermont", value: "VT" },
-      { text: "Virgin Islands", value: "VI" },
-      { text: "Virginia", value: "VA" },
-      { text: "Washington", value: "WA" },
-      { text: "West Virginia", value: "WV" },
-      { text: "Wisconsin", value: "WI" },
-      { text: "Wyoming", value: "WY" },
-      { text: "Yukon", value: "YT" },
-    ],
     applicationRoles: {
       loadState: STATE_UNLOADED,
       values: [],
@@ -183,6 +108,27 @@ export default {
       pendingResolves: [],
       pendingRejects: []
     },
+    makes: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
+    products: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
+    warranties: {
+      loadState: STATE_UNLOADED,
+      values: [],
+      selectOptions: [],
+      pendingResolves: [],
+      pendingRejects: []
+    },
   }),
   mutations: {
     SET_KNOWN_PAGE_NAME(state, item) {
@@ -254,6 +200,51 @@ export default {
       });
 
       state.dealers.loadState = STATE_LOADED;
+    },
+    LOAD_PRODUCTS(state, values) {
+      state.products.values = values;
+
+      state.products.selectOptions = values.map(x => ({
+        text: x.productName,
+        value: x.productId
+      }));
+
+      state.products.selectOptions.unshift({
+        text: '',
+        value: null
+      });
+
+      state.products.loadState = STATE_LOADED;
+    },
+    LOAD_MAKES(state, values) {
+      state.makes.values = values;
+
+      state.makes.selectOptions = values.map(x => ({
+        text: x.make,
+        value: x.make
+      }));
+
+      state.makes.selectOptions.unshift({
+        text: '',
+        value: null
+      });
+
+      state.makes.loadState = STATE_LOADED;
+    },
+    LOAD_WARRANTIES(state, values) {
+      state.warranties.values = values;
+
+      state.warranties.selectOptions = values.map(x => ({
+        text: x.warrantyName,
+        value: x.warrantyId
+      }));
+
+      state.warranties.selectOptions.unshift({
+        text: '',
+        value: null
+      });
+
+      state.warranties.loadState = STATE_LOADED;
     },
     LOAD_PROTOCOL_TYPES(state, values) {
       state.protocolTypes.values = values;
@@ -593,6 +584,48 @@ export default {
       });
       dispatch('loadDealers');
     },
+    loadMakes({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'makes', 
+        commitType: 'MAKES', 
+        url: '/api/makes'
+      });
+    },
+    reloadMakes({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'makes',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadMakes');
+    },
+    loadProducts({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'products', 
+        commitType: 'PRODUCTS', 
+        url: '/api/products'
+      });
+    },
+    reloadProducts({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'products',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadProducts');
+    },
+    loadWarranties({ commit, dispatch }) {
+      return dispatch('loadValues', { 
+        type: 'warranties', 
+        commitType: 'WARRANTIES', 
+        url: '/api/warranties'
+      });
+    },
+    reloadWarranties({ commit, dispatch }) {
+      commit('SET_LOAD_STATE', {
+        type: 'warranties',
+        loadState: STATE_UNLOADED
+      });
+      dispatch('loadWarranties');
+    },
     loadCachedData({ commit, dispatch }) {
       dispatch('loadApplicationRoles');
       dispatch('loadApplicationUsers');
@@ -606,6 +639,9 @@ export default {
       dispatch('loadLayoutDataSourceTypes');
       dispatch('loadDestinations');
       dispatch('loadDealers');
+      dispatch('loadMakes');
+      dispatch('loadProducts');
+      dispatch('loadWarranties');
     },
     reloadCachedData({ commit, dispatch }) {
       dispatch('reloadApplicationRoles');
@@ -620,6 +656,9 @@ export default {
       dispatch('reloadLayoutDataSourceTypes');
       dispatch('reloadDestinations');
       dispatch('reloadDealers');
+      dispatch('reloadMakes');
+      dispatch('reloadWarranties');
+      dispatch('reloadProducts');
     }
   },
   getters: {
