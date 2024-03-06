@@ -42,6 +42,9 @@ namespace VehicleExport.App.DAL
         public DbSet<ContentBlock> ContentBlocks { get; set; }
 
         public DbSet<Dealers> Dealers { get; set; }
+        public DbSet<Products> Products { get; set; }
+        public DbSet<Makes> Makes { get; set; }
+        public DbSet<Warranties> Warranties { get; set; }
         public DbSet<Destination> Destinations { get; set; }
         public DbSet<ExportDealerParameter> ExportDealerParameters { get; set; }
         public DbSet<ExportDealer> ExportDealers { get; set; }
@@ -122,10 +125,22 @@ namespace VehicleExport.App.DAL
                 );
 
             // =============================================================
-            /* Dealers */
+            /* Views */
             modelBuilder.Entity<Dealers>()
                  .ToView("Dealers")
                  .HasKey(x => x.DealerId);
+
+            modelBuilder.Entity<Warranties>()
+                 .ToView("Warranties")
+                 .HasKey(x => x.WarrantyId);
+
+            modelBuilder.Entity<Products>()
+                 .ToView("Products")
+                 .HasKey(x => x.ProductId);
+
+            modelBuilder.Entity<Makes>()
+                 .ToView("Makes")
+                 .HasKey(x => x.Make);
 
 
             // ==============================================================

@@ -73,12 +73,12 @@ namespace VehicleExport.App.Migrations
         {
 
             migrationBuilder.Sql(@"
-            if object_id('vw_ve_Warranties','v') is not null
-                drop view [vw_ve_Warranties];
+            if object_id('Warranties','v') is not null
+                drop view [Warranties];
             ");
 
             migrationBuilder.Sql(@"
-				CREATE OR ALTER VIEW [vw_ve_Warranties] AS
+				CREATE OR ALTER VIEW [Warranties] AS
 					SELECT WarrantyId
 						,WarrantyName
 					FROM TWD_VehicleStickers.dbo.VS_Warranty
@@ -90,12 +90,12 @@ namespace VehicleExport.App.Migrations
         {
 
             migrationBuilder.Sql(@"
-            if object_id('[vw_ve_Products]','v') is not null
-                drop view [[vw_ve_Products]];
+            if object_id('Products','v') is not null
+                drop view [Products];
             ");
 
             migrationBuilder.Sql(@"
-				CREATE OR ALTER VIEW [vw_ve_Products] AS
+				CREATE OR ALTER VIEW [Products] AS
 					SELECT ProductId
 						,Description AS ProductName
 					FROM TWD_VehicleStickers.dbo.VS_Products
@@ -108,12 +108,12 @@ namespace VehicleExport.App.Migrations
         {
 
             migrationBuilder.Sql(@"
-            if object_id('[[vw_ve_Makes]]','v') is not null
-                drop view [[[vw_ve_Makes]]];
+            if object_id('Makes','v') is not null
+                drop view [Makes];
             ");
 
             migrationBuilder.Sql(@"
-				CREATE OR ALTER VIEW [vw_ve_Makes] AS
+				CREATE OR ALTER VIEW [Makes] AS
 					SELECT DISTINCT MK as [Make]
 					FROM IDI_RDATA.dbo.selling
             ");
