@@ -6,9 +6,10 @@ using VehicleExport.App.Models.Data.LayoutFields;
 
 namespace VehicleExport.App.Models.Data.LayoutFieldsMap
 {
-    public class LayoutFieldMap : IEntity, IHasId<int>, ILoggableName
+    public class LayoutFieldMap : IEntity, IHasId<int>, ILoggableName, IEquatable<LayoutFieldMap>
     {
         public int GetId() => LayoutFieldsMapId;
+
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -35,11 +36,27 @@ namespace VehicleExport.App.Models.Data.LayoutFieldsMap
             set { ConcurrencyTimestamp = value == null ? null : Convert.FromBase64String(value); }
         }
         [NotMapped]
+        public string ReplacementOption { get; set; }
+        [NotMapped]
+        public short? NewFieldOrder { get; set; }
+        [NotMapped]
         public string LoggableName { get { return LayoutFieldsMapId.ToString(); } }
 
         // External References. Use "Virtual" to enable lazy loading
         public virtual Layout Layout { get; set; }
         public virtual LayoutField LayoutField { get; set; }
+
+        public bool Equals(LayoutFieldMap other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            if (GetType() != other.GetType()) return false;
+            return other.FieldOrder == this.FieldOrder &&
+                other.HeaderLabel == this.HeaderLabel &&
+                other.LayoutFieldsMapId == this.LayoutFieldsMapId &&
+                other.LayoutFieldId == this.LayoutFieldId &&
+                other.LayoutId == this.LayoutId;
+        }
     }
 }
 

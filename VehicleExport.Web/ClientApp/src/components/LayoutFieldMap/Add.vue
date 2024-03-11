@@ -1,5 +1,5 @@
 <template>
-    <layout-field-map-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
+    <layout-field-map-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel" :showFieldOrder="false">
       <template v-slot:save>Save Layout Field Mapping</template>
     </layout-field-map-fields>
 </template>

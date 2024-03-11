@@ -1,21 +1,27 @@
 <template>
-    <layout-field-map-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel">
+  <div>
+    <layout-field-map-fields :item="item" v-on:submit="onSubmit" v-on:cancel="onCancel" :showFieldOrder="true">
       <template v-slot:save>Save Layout Field Mapping</template>
     </layout-field-map-fields>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
 import FormMixin from '../Mixins/FormMixin.vue';
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import TextControl from '../Controls/TextControl.vue';
 
 export default {
+  components: { TextControl },
   name: "LayoutFieldMapEdit",
   mixins: [FormMixin],
   props: ['layoutFieldMapId'],
   data() {
     return {
-      item: {}
+      item: {},
+      replacementOption: null,
+      newFieldOrder: null
     };
   },
   computed: {
@@ -35,7 +41,7 @@ export default {
         });
     },
     onSubmit(evt) {
-      let url = '/api/layoutFieldsMap/' + this.layoutFieldMapId;
+      let url = '/api/layoutFieldsMap/saveLayoutFieldMap/' + this.layoutFieldMapId;
 
       axios
         .put(url, this.item)
